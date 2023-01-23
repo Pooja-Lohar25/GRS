@@ -1,0 +1,85 @@
+/* Navbar */
+
+.my-navbar{
+    background-color: #2e3f42;
+    padding: 10px 5%;
+    font-size: 1.25rem;
+   
+}
+
+.nav-item{
+    margin: 0 10px;
+    
+}
+.nav-link{
+    color: aliceblue;
+}
+.dropdown-menu{
+    background-color: black;
+}
+.dropdown-item{
+    color: aliceblue;
+}
+
+/* Home */
+
+body{
+    background-color: #b4b4b4;
+}
+.home{
+    text-align: center;
+    padding: 5% 15%;
+   
+
+}
+.container-fluid.home{
+    padding: 5% 12%;
+}
+
+.home p{
+ margin: 0;
+
+}
+.home-text br{
+    margin: 0;
+}
+.home-text-div{
+    margin-right: 50px;
+    width: 350px;
+}
+
+.home-text{
+    text-align: center;
+    font-size: 5rem;
+}
+
+.form-control{
+
+    background-color: #b4b4b4;
+    
+   
+}
+.sign-in{
+
+    background-color: white;
+   width: 500PX;
+    border-radius: 3%;
+    padding: 2%;
+    margin-left: 250px;
+    
+   
+   
+}
+
+/* Login file */
+
+.login-html{
+    text-align: center;
+}
+
+.login-form{
+    margin-top: 10%;
+    background-color: white;
+    width: 500px;
+    padding: 20px;
+}
