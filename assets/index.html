@@ -74,17 +74,13 @@
 
         <div class="sign-in col-6">
           <div class=" row g-3">
-          
-            <input type="text" class="form-control" id="nameOfStudent" placeholder="name">
-            <input type="number" class="form-control" id="enrollmentOfStudent" placeholder="Enrollment No.">
-            <input type="text" class="form-control" id="branchOfStudent" placeholder="Branch">
-            <input type="email" class="form-control" id="emailOfStudent" placeholder="E-mail">
-            <input type="number" class="form-control" id="contactOfStudent" placeholder="Phone-Number">
-            <input type="text" class="form-control" id="skillsOfStudent" placeholder="Skills">
-            <input type="number" class="form-control" id="semesterOfStudent" placeholder="Semester">
+          <form action="log" method="post">
+            <input type="text" class="form-control" id="nameOfStudent" placeholder="name" name = "nameofstu">
+            <input type="number" class="form-control" id="enrollmentOfStudent" placeholder="Enrollment No." name = "enroll">
+            
 
   
-            <button class="btn btn-primary">
+            <button type ="submit" class="btn btn-primary">
                 Sign Up
             </button>
   
@@ -92,7 +88,7 @@
               <a style="color: aliceblue; text-decoration: none;" href="login.html"> Log In</a>
                 
             </button>
-  
+            </form>
           </div>
         </div>
         
