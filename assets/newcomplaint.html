@@ -17,51 +17,83 @@
     <title>New Complaint</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm my-navbar">
-        <div class="container-fluid">
-          <span class="navbar-brand"> GRS</span>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-  
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="index.html">Home</a>
-              </li>
-  
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Complaint
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a class="dropdown-item" href="newcomplaint.html"> Raise new Problem</a>
-                  </li>
-                  <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+        
+      <img src="SISTec_Logo.png" style="width: 50px;" alt="">
+          
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="index.html">Home</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Complaints
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="newcomplaint.html">Raise New Complaint</a></li>
+              <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
             </ul>
-          </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Faculty</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
+          
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+      <div class="center">
+        <div
+          class="forms newcomp-form"
+          style="border-radius: 5px; background-color: white; width: 350px; margin-left: 200px; margin-top: 100px;"
+        >
+          <form class="form" style="margin-top: 20px;">
+            <div class="input-block">
+              <input
+                type="date"
+                class="form-control"
+                id="nameOfStudent"
+                placeholder="Date"
+              />
+            </div>
+            <div class="input-block">
+              <input list="field" placeholder="Field" />
+              <datalist id="field">
+                <option value="CSE"></option>
+                <option value="MBA"></option>
+                <option value="Library"></option>
+              </datalist>
+            </div>
+            <div class="input-block">
+              <input
+                type="Text"
+                class="form-control"
+                id="nameOfStudent"
+                placeholder="Subject"
+              />
+            </div>
+            <div class="input-block">
+              <input
+                type="Text"
+                class="form-control"
+                id="nameOfStudent"
+                placeholder="Description"
+              />
+            </div>
+  
+            <button type="submit" class="btn-submit-comp" style="opacity: 100; ">Submit</button>
+          </form>
         </div>
-      </nav>
-    I am new complaint
+      </div>
 </body>
 </html>
