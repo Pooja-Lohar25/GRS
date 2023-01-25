@@ -66,11 +66,11 @@
                 <legend>Please, enter your email and password for login.</legend>
                 <div class="input-block">
                   <label for="login-email">E-mail</label>
-                  <input id="login-email" type="email" required>
+                  <input name="loginEmail" id="login-email" type="email" required>
                 </div>
                 <div class="input-block">
                   <label for="login-password">Password</label>
-                  <input id="login-password" type="password" required>
+                  <input name="loginPassword" id="login-password" type="password" required>
                 </div>
               </fieldset>
               <button type="submit" class="btn-login">Login</button>
@@ -85,25 +85,45 @@
               <fieldset>
                 <legend>Please, enter your email, password and password confirmation for sign up.</legend>
                 <div class="input-block">
-                    <input type="text" class="form-control" id="nameOfStudent" placeholder="name">
+                    <input type="text" class="form-control" name="nameOfStudent" placeholder="name">
                 </div>
                 <div class="input-block">
-                    <input type="number" class="form-control" id="enrollmentOfStudent" placeholder="Enrollment No.">
+                    <input type="number" class="form-control" name="enrollmentOfStudent" placeholder="Enrollment No.">
                 </div>
                 <div class="input-block">
-                    <input type="text" class="form-control" id="branchOfStudent" placeholder="Branch">
+                    <input type="text" list="branch" class="form-control" name="branchOfStudent" placeholder="Branch">
+                    <datalist id="branch">
+                      <option value="Computer Science Engineering"></option>
+                      <option value="Mechanical Engineering"></option>
+                      <option value="Electrical Engineering"></option>
+                      <option value="Electrical and Communication Engineering"></option>
+                      <option value="Civil Engineering"></option>
+                      <option value="MBA"></option>
+                      <option value="B.Pharma"></option>
+            
+                    </datalist>
                 </div>
                 <div class="input-block">
-                    <input type="email" class="form-control" id="emailOfStudent" placeholder="E-mail">
+                    <input type="email" class="form-control" name="emailOfStudent" placeholder="E-mail">
                 </div>
                 <div class="input-block">
-                    <input type="number" class="form-control" id="contactOfStudent" placeholder="Phone-Number">
+                    <input type="number" class="form-control" name="contactOfStudent" placeholder="Phone-Number">
                 </div>
                 <div class="input-block">
-                    <input type="number" class="form-control" id="semesterOfStudent" placeholder="Semester">
+                    <input type="text" list="semester" class="form-control" name="semesterOfStudent" placeholder="Semester">
+                    <datalist id="semester">
+                      <option value="First"></option>
+                      <option value="Second"></option>
+                      <option value="Third"></option>
+                      <option value="Fourth"></option>
+                      <option value="Fifth"></option>
+                      <option value="Sixth"></option>
+                      <option value="Seventh"></option>
+                      <option value="Eighth"></option>
+                    </datalist>
                 </div>
                 <div class="intput-block">
-                    <input type="password" class="form-control" id="password" placeholder="Password">
+                    <input type="password" class="form-control" name="password" placeholder="Password">
                 </div>
 
               </fieldset>
