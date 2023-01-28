@@ -1,7 +1,8 @@
 const mysql = require('mysql');
 const dotenv = require('dotenv')
 dotenv.config()
-
+//import createTable from crud
+const funcs = require('./crud')
 
 const myhost= process.env.HOST
 const mysqlUser = process.env.USER
@@ -19,6 +20,7 @@ var con = mysql.createConnection({
 con.connect(function(err) {
   if (err) throw err;
   console.log("db Connected!");
+  //create tables
+  funcs.createTable(con)
 });
 
-console.log(mysqlUser,myhost,dbname,pass)
