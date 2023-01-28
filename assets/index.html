@@ -66,14 +66,14 @@
                 <legend>Please, enter your email and password for login.</legend>
                 <div class="input-block">
                   <label for="login-email">E-mail</label>
-                  <input name="loginEmail" id="login-email" onclick="ValidateEmail(document.loginForm.loginEmail)" type="email" required>
+                  <input name="loginEmail" id="login-email" type="email" required>
                 </div>
                 <div class="input-block">
                   <label for="login-password">Password</label>
                   <input name="loginPassword" id="login-password" type="password" required>
                 </div>
               </fieldset>
-              <button type="submit" id="btnLogin" class="btn-login">Login</button>
+              <button type="submit"  onclick="ValidateEmail(document.loginForm.loginEmail)" id="btnLogin" class="btn-login">Login</button>
             </form>
           </div>
           <div class="form-wrapper">
