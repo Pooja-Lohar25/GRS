@@ -7,3 +7,18 @@ switchers.forEach(item => {
 	})
 })
 
+var flag = false;
+$("#br").prop("disabled",true);
+
+$(document).click(function(){
+	if($("#bTech").prop("checked"))
+		$("#br").prop("disabled",false);
+	else{
+		$("#br").prop("disabled",true);
+	}
+
+})
+
+
+
+
