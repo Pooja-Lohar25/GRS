@@ -17,6 +17,10 @@ app.post('/log',(req,res)=>{
     res.send(req.body)
 })
 
+app.post('/signup',(req,res)=>{
+    console.log(req.body)
+    res.send(req.body)
+})
 app.listen(4000,()=>{
     console.log("server listening on port 4000")
 })
