@@ -1,14 +1,24 @@
-var mysql = require('mysql');
+const mysql = require('mysql');
+const dotenv = require('dotenv')
+dotenv.config()
+
+
+const myhost= process.env.HOST
+const mysqlUser = process.env.USER
+const pass = process.env.PASSWORD
+const dbname = process.env.DATABASE
+
 
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database:"abs",
-  port :3306,
-  password: "root"
+  host: myhost, // "localhost",
+  user: mysqlUser, //"root",
+  password: pass, //'root',
+  database: dbname, //'db'
 });
 
 con.connect(function(err) {
   if (err) throw err;
-  console.log("Connected!");
+  console.log("db Connected!");
 });
+
+console.log(mysqlUser,myhost,dbname,pass)
