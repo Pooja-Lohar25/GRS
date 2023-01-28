@@ -294,6 +294,25 @@ body {
   border-radius: 2px;
 }
 
+.input-block select{
+	display: block;
+	width: 100%;
+	margin-top: 8px;
+	padding-right: 15px;
+	padding-left: 15px;
+	font-size: 16px;
+	line-height: 30px;
+	color: #3b4465;
+  background: #eef9fe;
+  border: 1px solid #cddbef;
+  border-radius: 2px;
+}
+
+option{
+	background-color: #3b4465;
+	color: #fff;
+}
+
 .form [type='submit'] {
 	opacity: 0;
 	display: block;
