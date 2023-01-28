@@ -11,15 +11,14 @@ app.use(express.static(path.resolve(__dirname,'../assets')) )
 // })
 
 
-
 app.post('/log',(req,res)=>{
-    console.log(req.body)
-    res.send(req.body)
+    login(req)
+    res.send(`${req.body.username} is logged in`)
 })
 
 app.post('/signup',(req,res)=>{
-    console.log(req.body)
-    res.send(req.body)
+    signup(req)
+    res.send(`${req.body.username} is now registered`)
 })
 app.listen(4000,()=>{
     console.log("server listening on port 4000")

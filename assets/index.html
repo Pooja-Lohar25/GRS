@@ -65,7 +65,7 @@
               <fieldset>
                 <legend>Please, enter your email and password for login.</legend>
                 <div class="input-block">
-                  <label for="login-email">E-mail</label>
+                  <label for="login-email">Username(E-mail)</label>
                   <input name="loginEmail" id="login-email" type="email" required>
                 </div>
                 <div class="input-block">
@@ -90,21 +90,28 @@
                 <div class="input-block">
                     <input type="number" class="form-control" name="enrollmentOfStudent" placeholder="Enrollment No.">
                 </div>
-                <div class="input-block">
-                    <input type="text" list="branch" class="form-control" name="branchOfStudent" placeholder="Branch">
-                    <datalist id="branch">
-                      <option value="Computer Science Engineering"></option>
-                      <option value="Mechanical Engineering"></option>
-                      <option value="Electrical Engineering"></option>
-                      <option value="Electrical and Communication Engineering"></option>
-                      <option value="Civil Engineering"></option>
-                      <option value="MBA"></option>
-                      <option value="B.Pharma"></option>
+
+                <input type="radio" id = "b.tech" name="courseOfStudent">
+                <label value="B.Tech">B.Tech</label>
             
-                    </datalist>
-                </div>
+                <input type="radio" id = "mba" name="courseOfStudent">
+                <label value="MBA">MBA</label>
+
+                <input type="radio" id="b.pharma" name="courseOfStudent">
+                <label value="B.Pharma">B.Pharma</label>
+
                 <div class="input-block">
-                    <input type="email" class="form-control" name="emailOfStudent" placeholder="E-mail">
+                  <input type="text" id = "br" list="branch" class="form-control" name="branchOfStudent" placeholder="Branch" >
+                  <datalist id="branch">
+                    <option value="CSE"></option>
+                    <option value="ME"></option>
+                    <option value="EX"></option>
+                    <option value="EC"></option>
+                    <option value="CE"></option>
+                  </datalist>
+              </div>
+                <div class="input-block">
+                    <input type="email" class="form-control" name="emailOfStudent" placeholder="Username(E-mail)">
                 </div>
                 <div class="input-block">
                     <input type="number" class="form-control" name="contactOfStudent" placeholder="Phone-Number">

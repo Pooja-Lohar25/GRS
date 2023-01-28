@@ -25,7 +25,7 @@ students
 -   branch
 -   course
 -   semester
--   username
+-   username(email)
 -   password
 
 complaints
