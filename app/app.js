@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+const crud = require('../database/crud')
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
@@ -11,13 +12,16 @@ app.use(express.static(path.resolve(__dirname,'../assets')) )
 // })
 
 
-app.post('/log',(req,res)=>{
-    login(req)
-    res.send(`${req.body.username} is logged in`)
+ app.post('/log',async (req,res)=>{
+    logged = await crud.login(req)
+    if(logged)
+        res.send(`${req.body.loginEmail} is logged in`)
+    else
+        res.send(`${req.body.loginEmail} is unauthorised`)
 })
 
 app.post('/signup',(req,res)=>{
-    signup(req)
+    crud.signup(req)
     res.send(`${req.body.username} is now registered`)
 })
 app.listen(4000,()=>{
