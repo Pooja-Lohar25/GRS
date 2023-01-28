@@ -61,19 +61,19 @@
               Login
               <span class="underline"></span>
             </button>
-            <form action = 'log' method = 'post' class="form form-login" style="background-color: black;" >
+            <form class="form form-login" name="loginForm" style="background-color: black;" >
               <fieldset>
                 <legend>Please, enter your email and password for login.</legend>
                 <div class="input-block">
-                  <label for="login-email">Username(E-mail)</label>
-                  <input name="loginEmail" id="login-email" type="email" required>
+                  <label for="login-email">E-mail</label>
+                  <input name="loginEmail" id="login-email" onclick="ValidateEmail(document.loginForm.loginEmail)" type="email" required>
                 </div>
                 <div class="input-block">
                   <label for="login-password">Password</label>
                   <input name="loginPassword" id="login-password" type="password" required>
                 </div>
               </fieldset>
-              <button type="submit" class="btn-login">Login</button>
+              <button type="submit" id="btnLogin" class="btn-login">Login</button>
             </form>
           </div>
           <div class="form-wrapper">
@@ -81,18 +81,25 @@
               Sign Up
               <span class="underline"></span>
             </button>
-            <form action = 'signup' method = 'post' class="form form-signup" style="background-color: black;">
+            <form class="form form-signup" onsubmit="validateSignUp()" name="signupForm" style="background-color: black;">
               <fieldset>
                 <legend>Please, enter your email, password and password confirmation for sign up.</legend>
                 <div class="input-block">
-                    <input type="text" class="form-control" name="nameOfStudent" placeholder="Name">
+                    <input type="text" class="form-control" name="nameOfStudent" id="nameOfStudent" placeholder="name" required>
                 </div>
                 <div class="input-block">
-                    <input type="number" class="form-control" name="enrollmentOfStudent" placeholder="Enrollment No.">
+                    <input type="text" class="form-control" name="enrollmentOfStudent" placeholder="Enrollment No.">
                 </div>
-
-                <input type="radio" id = "b.tech" name="courseOfStudent">
-                <label value="B.Tech">B.Tech</label>
+                <div class="input-block">
+                    <input type="text" list="branch"  class="form-control" name="branchOfStudent" placeholder="Branch">
+                    <datalist id="branch">
+                      <option value="Computer Science Engineering"></option>
+                      <option value="Mechanical Engineering"></option>
+                      <option value="Electrical Engineering"></option>
+                      <option value="Electrical and Communication Engineering"></option>
+                      <option value="Civil Engineering"></option>
+                      <option value="MBA"></option>
+                      <option value="B.Pharma"></option>
             
                 <input type="radio" id = "mba" name="courseOfStudent">
                 <label value="MBA">MBA</label>
@@ -101,20 +108,10 @@
                 <label value="B.Pharma">B.Pharma</label>
 
                 <div class="input-block">
-                  <input type="text" id = "br" list="branch" class="form-control" name="branchOfStudent" placeholder="Branch" >
-                  <datalist id="branch">
-                    <option value="CSE"></option>
-                    <option value="ME"></option>
-                    <option value="EX"></option>
-                    <option value="EC"></option>
-                    <option value="CE"></option>
-                  </datalist>
-              </div>
-                <div class="input-block">
-                    <input type="email" class="form-control" name="emailOfStudent" placeholder="Username(E-mail)">
+                    <input type="email" id="emailSignUp" class="form-control" name="emailOfStudent" placeholder="E-mail">
                 </div>
                 <div class="input-block">
-                    <input type="number" class="form-control" name="contactOfStudent" placeholder="Phone-Number">
+                    <input type="number" id="numberSignUp" class="form-control" name="contactOfStudent" placeholder="Phone-Number">
                 </div>
                 <div class="input-block">
                     <input type="text" list="semester" class="form-control" name="semesterOfStudent" placeholder="Semester">
@@ -129,9 +126,9 @@
                       <option value="Eighth"></option>
                     </datalist>
                 </div>
-                <div class="intput-block">
-                    <input type="password" class="form-control" name="password" placeholder="Password">
-                </div>
+                <div class="input-block">
+                  <input type="password" id="passwordSignUp" class="form-control" name="passwordOfStudent" placeholder="Password">
+              </div>
 
               </fieldset>
               <button type="submit" class="btn-login">Submit</button>
@@ -139,7 +136,7 @@
           </div>
         </div>
       </section>
-    
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
       <script src="index.js"></script>
 </body>
 </html>
