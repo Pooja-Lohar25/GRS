@@ -5,13 +5,13 @@ const {con}  = require('./dbconnect')
 
  login = (req)=>{
     
-    qry = `SELECT username FROM students WHERE username = '${req.body.loginEmail}' and password = '${req.body.loginPassword}';`
+    qry = `SELECT password FROM students WHERE username = '${req.body.loginEmail}';`
     logged = con.query(qry, (err, res) => {
          if (err)
             //throw err
             console.log("something went wrong")
-         if (res[0].username)
-             return true
+         if (res[0].password)
+             return res[0].password
          else
              return false
      })
