@@ -12,17 +12,21 @@ app.use(express.static(path.resolve(__dirname,'../assets')) )
 // })
 
 
- app.post('/log',async (req,res)=>{
-    logged = await crud.login(req)
+ app.post('/log', (req,res)=>{
+    logged =  crud.login(req)
     if(logged)
         res.send(`${req.body.loginEmail} is logged in`)
     else
         res.send(`${req.body.loginEmail} is unauthorised`)
 })
 
-app.post('/signup',(req,res)=>{
-    crud.signup(req)
-    res.send(`${req.body.username} is now registered`)
+app.post('/signup',async (req,res)=>{
+    result = await crud.signup(req)
+    console.log(result)
+    if(result) 
+    res.send('user is registered')
+    else 
+    res.send('sorry something went wrong')
 })
 app.listen(4000,()=>{
     console.log("server listening on port 4000")
