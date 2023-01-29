@@ -3,19 +3,21 @@ const bcrypt = require('bcrypt')
 const saltrounds = 10
 const {con}  = require('./dbconnect')
 
- login = (req)=>{
+ login = async  (req,res)=>{
     
-    qry = `SELECT password FROM students WHERE username = '${req.body.loginEmail}';`
-    logged = con.query(qry, (err, res) => {
-         if (err)
+    qry = `SELECT password FROM students WHERE username = '${req.body.loginEmail}' ;`
+    con.query(qry, (err, result) => {
+        if (err)
             //throw err
             console.log("something went wrong")
-         if (res[0].password)
-             return res[0].password
-         else
-             return false
+        
+        if(result[0] && result[0].password){
+            console.log(result[0].password)
+            res.send(`user logged in`)
+        }
+        else res.send('unauthorised')
      })
-     return logged
+     
 }
 
  signup = async (req)=>{
