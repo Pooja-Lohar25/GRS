@@ -12,13 +12,9 @@ app.use(express.static(path.resolve(__dirname,'../assets')) )
 // })
 
 
- app.post('/log', (req,res)=>{
-    logged =  crud.login(req)
-    if(logged)
-        res.send(`${req.body.loginEmail} is logged in`)
-    else
-        res.send(`${req.body.loginEmail} is unauthorised`)
-})
+ app.post('/log', async (req,res)=>{
+    crud.login(req,res)
+ })
 
 app.post('/signup',async (req,res)=>{
     result = await crud.signup(req)
