@@ -2,7 +2,7 @@
 const bcrypt = require('bcrypt')
 const saltrounds = 10
 const {con}  = require('./dbconnect')
-
+const path = require('path')
  login = async  (req,res)=>{
     
     qry = `SELECT password FROM students WHERE username = '${req.body.loginEmail}' ;`
@@ -11,13 +11,15 @@ const {con}  = require('./dbconnect')
             //throw err
             res.send('something went wrong')
         }
-        if(rows.length == 0) res.send('unauthorised')
+        if(rows.length == 0) res.sendFile(path.resolve(__dirname,'../assets','error.html'))
         else { 
             bcrypt.compare(req.body.loginPassword,rows[0].password,(err,result)=>{ 
                 if(err) console.log(err)
                 if(result)
-                res.send('usr logged in')
-                else res.send('unauthorised')
+                    res.sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
+                else {
+                    res.sendFile(path.resolve(__dirname,'../assets','error.html'))
+                }
             })
         }
      })
