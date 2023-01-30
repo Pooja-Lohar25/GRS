@@ -6,16 +6,20 @@ const {con}  = require('./dbconnect')
  login = async  (req,res)=>{
     
     qry = `SELECT password FROM students WHERE username = '${req.body.loginEmail}' ;`
-    con.query(qry, (err, result) => {
-        if (err)
+    con.query(qry, (err, rows) => {
+        if (err){
             //throw err
-            console.log("something went wrong")
-        
-        if(result[0] && result[0].password){
-            console.log(result[0].password)
-            res.send(`user logged in`)
+            res.send('something went wrong')
         }
-        else res.send('unauthorised')
+        if(rows.length == 0) res.send('unauthorised')
+        else { 
+            bcrypt.compare(req.body.loginPassword,rows[0].password,(err,result)=>{ 
+                if(err) console.log(err)
+                if(result)
+                res.send('usr logged in')
+                else res.send('unauthorised')
+            })
+        }
      })
      
 }
