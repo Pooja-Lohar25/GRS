@@ -1,7 +1,9 @@
+
 const mysql = require('mysql');
 const dotenv = require('dotenv')
 dotenv.config()
 
+//fetching environment variables from .env file (local to system)
 const myhost= process.env.HOST
 const mysqlUser = process.env.USER
 const pass = process.env.PASSWORD
