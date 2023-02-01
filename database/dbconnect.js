@@ -9,10 +9,10 @@ const dbname = process.env.DATABASE
 
 
 const con = mysql.createConnection({
-  host: myhost, // "localhost",
-  user: mysqlUser, //"root",
-  password: pass, //'root',
-  database: dbname, //'db'
+  host: myhost, 
+  user: mysqlUser, 
+  password: pass, 
+  database: dbname,
 });
 
 con.connect(function(err) {
