@@ -367,3 +367,8 @@ option{
 	margin-top: 100px;
 }
 
+li{
+	max-width: 330px; font-size: 12px;
+	
+}
+

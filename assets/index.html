@@ -14,7 +14,7 @@
     crossorigin="anonymous"
   ></script>
   <link rel="stylesheet" href="styles.css">
-    <title>Document</title>
+    <title>GRS</title>
 </head>
 <body>
 
@@ -133,6 +133,12 @@
                     </select>
                 </div>
                 <div class="intput-block">
+                  <ul>
+                      <li>Must contain at least one number</li>
+                      <li>One uppercase letter</li>
+                      <li>One lowercase letter</li>
+                      <li>At least 8 or more characters</li>
+                  </ul>
 
                     <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control" name="password" placeholder="Password">
                 </div>
