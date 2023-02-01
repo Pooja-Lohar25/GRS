@@ -308,6 +308,20 @@ body {
   border-radius: 2px;
 }
 
+.input-block textarea{
+	display: block;
+	width: 100%;
+	margin-top: 8px;
+	padding-right: 15px;
+	padding-left: 15px;
+	font-size: 16px;
+	line-height: 30px;
+	color: #3b4465;
+  background: #eef9fe;
+  border: 1px solid #cddbef;
+  border-radius: 2px;
+}
+
 option{
 	background-color: #3b4465;
 	color: #fff;
@@ -351,5 +365,10 @@ option{
 	background-color: #fff;
 	border-radius: 5px;
 	margin-top: 100px;
+}
+
+li{
+	max-width: 330px; font-size: 12px;
+	
 }
 
