@@ -15,8 +15,8 @@ Systems's sole purpose is to make students' complaints heard by the authorities 
 Functional Requirements 
 - Login/Registration
 - Raise Complaint
-- Upvoting a complaint
-- Filling Feedbacks
+- Upvote a complaint
+- Fill Feedbacks
 
 ### Faculties
 Functional Requirements
