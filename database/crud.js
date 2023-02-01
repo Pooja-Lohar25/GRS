@@ -11,14 +11,14 @@ const path = require('path')
             //throw err
             res.send('something went wrong')
         }
-        if(rows.length == 0) res.sendFile(path.resolve(__dirname,'../assets','error.html'))
+        if(rows.length == 0) res.status(401).sendFile(path.resolve(__dirname,'../assets','error.html'))
         else { 
             bcrypt.compare(req.body.loginPassword,rows[0].password,(err,result)=>{ 
                 if(err) console.log(err)
                 if(result)
-                    res.sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
+                    res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
                 else {
-                    res.sendFile(path.resolve(__dirname,'../assets','error.html'))
+                    res.status(401).sendFile(path.resolve(__dirname,'../assets','error.html'))
                 }
             })
         }
