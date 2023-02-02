@@ -85,10 +85,11 @@
               <fieldset>
                 <legend>Please, enter your email, password and password confirmation for sign up.</legend>
                 <div class="input-block">
-                    <input type="text" class="form-control" name="nameOfStudent" placeholder="Name">
+                    <input type="text" class="form-control" name="nameOfStudent" placeholder="Name" autocomplete="off">
                 </div>
                 <div class="input-block">
-                    <input type="text" class="form-control" name="enrollmentOfStudent" placeholder="Enrollment No.">
+                    <input type="text" class="form-control" name="enrollmentOfStudent" placeholder="Enrollment No." 
+                     required autocomplete="off">
                 </div>
 
                 <input type="radio" id = "bTech" name="courseOfStudent"value="B.Tech">
@@ -113,10 +114,11 @@
                   </select>
               </div>
                 <div class="input-block">
-                    <input type="email" class="form-control"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="emailOfStudent" placeholder="Username(E-mail)">
+                    <input type="email" class="form-control"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="emailOfStudent" placeholder="Username(E-mail)" required autocomplete="off">
                 </div>
                 <div class="input-block">
-                    <input type="tel" maxlength="10" class="form-control" name="contactOfStudent" placeholder="Phone-Number">
+                    <input type="text" minlength="10" maxlength="10"  pattern="[6-9]{1}[0-9]{9}" 
+                    title="Phone number should contain only digits that starts with 6-9 and remaing 9 digit with 0-9" class="form-control" name="contactOfStudent" placeholder="Phone-Number" required autocomplete="off">
                 </div>
                 <div class="input-block">
                     <select type="text" list="semester" class="form-control" name="semesterOfStudent" placeholder="Semester">
