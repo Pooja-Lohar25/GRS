@@ -3,7 +3,7 @@ const app = express()
 const path = require('path')
 const crud = require('../database/crud')
 app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({extended:true})) //parsing form data to access it in routes
 
 app.use(express.static(path.resolve(__dirname,'../assets')) )
 // app.get('/',(req,res)=>{
