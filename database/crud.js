@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const saltrounds = 10
 const {con}  = require('./dbconnect')
 const path = require('path')
+
  login = async  (req,res)=>{
     
     qry = `SELECT password FROM students WHERE username = '${req.body.loginEmail}' ;`
@@ -11,7 +12,12 @@ const path = require('path')
             //throw err
             res.send('something went wrong')
         }
-        if(rows.length == 0) res.status(401).sendFile(path.resolve(__dirname,'../assets','error.html'))
+        if(rows.length == 0)
+        {
+            res.status(401).sendFile(path.resolve(__dirname,'../assets','error.html'))
+            // res.status(401)
+            // res.redirect('/')
+        } 
         else { 
             bcrypt.compare(req.body.loginPassword,rows[0].password,(err,result)=>{ 
                 if(err) console.log(err)
@@ -19,6 +25,8 @@ const path = require('path')
                     res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
                 else {
                     res.status(401).sendFile(path.resolve(__dirname,'../assets','error.html'))
+                    // res.status(401)
+                    // res.redirect('/')
                 }
             })
         }
@@ -45,8 +53,37 @@ const path = require('path')
     return sign
 }
 
+raiseComplaint = async (req,res)=>{
+    //TODO:take user details from session variables
+    
+    const domain = req.body.domainOfComplaint
+    const sub = req.body.subjectOfComplaint
+    const desc = req.body.descriptionOfComplaint
+    const issue = sub + ":" + desc
+    const dept = req.body.issuedToDept
+    qry = `
+    INSERT INTO complaints(domid,issue,status,deptid) VALUES(
+        '${domain}','${issue}','0','${dept}');
+    `
+    
+    con.query(qry,(err,result)=>{
+        if(err){
+            // throw err
+            res.status(500).send('something went wrong')
+        }
+        else{
+            console.log('issue raised successfully')
+            res.status(200).send('issue raised successfully')
+        }
+    })
+
+   
+
+}
+
 module.exports = {
     login,
-    signup
+    signup,
+    raiseComplaint
 }
 

@@ -12,7 +12,7 @@ app.use(express.static(path.resolve(__dirname,'../assets')) )
 // })
 
 
- app.post('/log', async (req,res)=>{
+ app.post('/login', async (req,res)=>{
     crud.login(req,res)
  })
 
@@ -24,6 +24,11 @@ app.post('/signup',async (req,res)=>{
     else 
     res.send('sorry something went wrong')
 })
+
+app.post('/raiseComplaint',async (req,res)=>{
+    crud.raiseComplaint(req,res)
+})
+
 app.listen(4000,()=>{
     console.log("server listening on port 4000")
 })

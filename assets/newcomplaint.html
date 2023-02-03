@@ -56,41 +56,40 @@
   <div class="newcomp-form center">
 
     
-    <form class="form" style="margin-top: 20px;">
+    <form class="form" action = "raiseComplaint" method = "post" style="margin-top: 20px;">
+        <div><p>Register your compaint to be adressed</p></div>
         <div class="input-block" style="margin-right:20px;">
-          <input
-          name="dateOfComplaint"
-            type="date"
-            class="form-control"
-            placeholder="Date"
-          />
-        </div>
-        <div class="input-block" style="margin-right:20px;">
-          <select name="domainOfComplaint" list="domain" class="form-control" placeholder="Domain of Complaint" />
-            <option value="Library">Library</option>
-            <option value="Maintenance">Maintenance</option>
-            <option value="Timetable Structure">Timetable Structure</option>
-            <option value="Academics">Academics</option>
-            <option value="Placement and Training">Placement and Training</option>
-            <option value="Misconduct">Misconduct</option>
-            <option value="Ragging">Ragging</option>
-            <option value="Other">Other</option>
+          <select name="domainOfComplaint" list="domain" class="form-control" placeholder="Domain of Complaint" required />
+            <option value="">Select Domain of Complaint</option>
+            <option value="LIB">Library</option>
+            <option value="MT">Maintenance</option>
+            <option value="TTS">Timetable Structure</option>
+            <option value="AC">Academics</option>
+            <option value="PNT">Placement and Training</option>
+            <option value="MSCON">Misconduct</option>
+            <option value="RAG">Ragging</option>
+            <option value="OTH">Other</option>
           </select>
         </div>
         <div class="input-block" style="margin-right:20px;">
-          <input
-          name="subjectOfComplaint"
-            type="Text"
-            class="form-control"
-            placeholder="Subject"
-          />
+          <select id = "dept" list="dept" class="form-control" name="issuedToDept" placeholder="Issue for Department">
+            <option value="">Department to allocate issue</option>
+            <option value="CSE">CSE</option>
+            <option value="ME">ME</option>
+            <option value="EX">EX</option>
+            <option value="EC">EC</option>
+            <option value="CE">CE</option>
+          </select>
+        </div>
+        <div class="input-block" style="margin-right:20px;">
+          <input name="subjectOfComplaint" type="Text" class="form-control" placeholder="Subject" required/>
         </div>
         <div class="input-block" style="margin-right:20px;">
           <textarea rows="3"
           name="descriptionOfComplaint"
             style="resize: none;"
             class="form-control"
-            placeholder="Description"
+            placeholder="Description" required
           ></textarea>
         </div>
 
