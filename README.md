@@ -25,8 +25,50 @@ Functional Requirements
 - Create Feedback form
 
 ### Admins
-All HODs and higher authorities(Principal,Vise Principal etc) of the university and college.<br>
+All HODs and higher authorities(Principal,Vice Principal etc) of the university and college.<br>
 Selection of Admin depends on the institute.
 - Login/Resgitration
 - View Performance of Faculties
 - Grant Scores
+
+
+## Database requirements
+Note : <u>Pre install MySQL database</u> <br>
+<b> Edit database.dbconnect with your database credentials </b>
+
+```node
+const myhost = 'localhost'
+const mysqlUser = 'root'
+const pass = 'rootPassword'
+const dbname = 'databaseName' //must be already created
+
+const con = mysql.createConnection({
+  host: myhost, 
+  user: mysqlUser, 
+  password: pass, 
+  database: dbname,
+});
+```
+
+#### Install and connect mysql in node
+  ```
+  > npm install mysql
+  ```
+  To connect and setup the database automatically, run database/dbsetup.js file in terminal <br>
+  ```
+  > node database/dbsetup
+  ```
+  
+  
+## Start the server
+  ```
+  > npm run dev
+  ```
+## Run the application
+  Type localhost:4000 in the browser
+  
+## Stop the server
+  ```
+  > press ctrl + c in terminal
+  > Terminate batch job (Y/N)? y
+  ```
