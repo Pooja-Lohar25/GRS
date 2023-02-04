@@ -50,7 +50,8 @@ const con = mysql.createConnection({
 });
 ```
 
-#### Install and connect mysql in node
+### Install and connect mysql in node
+  Type the following command in terminal
   ```
   > npm install mysql
   ```
