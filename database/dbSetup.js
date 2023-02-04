@@ -51,7 +51,8 @@ createstudents = (con)=>{
         course varchar(10),
         semester varchar(10),
         username varchar(50),
-        password varchar(80));`
+        password varchar(80),
+        phone varchar(10));`
 
     con.query(qry,(err,res,fields)=>{
         if(err) throw err

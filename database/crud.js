@@ -34,7 +34,7 @@ const path = require('path')
      
 }
 
- signup = async (req)=>{
+ signup = async (req,res)=>{
     const enroll = req.body.enrollmentOfStudent
     const name = req.body.nameOfStudent
     var branch = req.body.branchOfStudent
@@ -46,11 +46,23 @@ const path = require('path')
     if(!branch) branch = ""
     console.log(enroll,branch,name,course,sem,username,pass,contact);
     qry = `INSERT INTO students VALUES('${enroll}','${name}','${branch}','${course}','${sem}','${username}','${pass}','${contact}');`
-    sign = con.query(qry,(err,result)=>{
-        if(err) return false
-        return result
+    con.query(qry,(err,result)=>{
+        if(err){
+            console.log(err)
+            if(err.code == 'ER_DUP_ENTRY'){
+                console.log('user already exists')
+                res.send('user already exists')
+
+            }
+            else
+                res.send('something went wrong')
+        }
+        else{
+            console.log('user registered successfully')
+            res.status(201).sendFile(path.resolve(__dirname,'../assets','index.html'))
+        }
     })
-    return sign
+    
 }
 
 raiseComplaint = async (req,res)=>{

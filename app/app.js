@@ -17,12 +17,7 @@ app.use(express.static(path.resolve(__dirname,'../assets')) )
  })
 
 app.post('/signup',async (req,res)=>{
-    result = await crud.signup(req)
-    console.log(result)
-    if(result) 
-    res.send('user is registered')
-    else 
-    res.send('sorry something went wrong')
+    crud.signup(req,res)
 })
 
 app.post('/raiseComplaint',async (req,res)=>{
