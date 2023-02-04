@@ -33,7 +33,7 @@ Selection of Admin depends on the institute.
 
 
 ## Database requirements
-Note : <u>Pre install MySQL database</u> <br>
+Note : <u>Pre install MySQL and create a database</u> <br>
 <b> Edit database/dbconnect with your database credentials </b>
 
 ```node
