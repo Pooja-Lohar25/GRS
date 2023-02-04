@@ -34,7 +34,7 @@ Selection of Admin depends on the institute.
 
 ## Database requirements
 Note : <u>Pre install MySQL and create a database</u> <br>
-<b> Edit database/dbconnect with your database credentials </b>
+<b> Edit database/dbconnect.js with your database credentials </b>
 
 ```node
 const myhost = 'localhost'
