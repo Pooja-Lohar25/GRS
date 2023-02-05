@@ -16,22 +16,38 @@ app.use(express.static(path.resolve(__dirname,'../assets')) )
 
 
  app.post('/login', async (req,res)=>{
-    controllers.login(req,res)
+    result = await controllers.login(req)
+    if(result == true)
+    {
+        
+        res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
+    }
+    else{
+        res.status(401).sendFile(path.resolve(__dirname,'../assets','error.html'))
+    }
  })
 
 app.post('/signup',async (req,res)=>{
-    result = await controllers.signup(req,res)
+    result = await controllers.signup(req)
     if(result == true)
     {
-        res.send('student saved')
+        res.status(200).sendFile(path.resolve(__dirname,'../assets','index.html'))
     }
     else{
-        res.send(result)
+        console.log(result)
+        res.send("something went wrong")
     }
 })
 
 app.post('/raiseComplaint',async (req,res)=>{
-    controllers.raiseComplaint(req,res)
+    result = await controllers.raiseComplaint(req)
+    if(result == true)
+    {
+        res.send('issue raised successfully')
+    }
+    else{
+        res.send("something went wrong")
+    }
 })
 
 app.listen(4000,()=>{

@@ -14,41 +14,26 @@ const {
 } = require('./models')
 
 
- login = async  (req,res)=>{
+ login = async  (req)=>{
     
-    // qry = `SELECT password FROM students WHERE username = '${req.body.loginEmail}' ;`
-
-
-    con.query(qry, (err, rows) => {
-        if (err){
-            //throw err
-            res.send('something went wrong')
+    const stu = await students.findOne({
+        where:{
+            username:req.body.loginEmail
         }
-        if(rows.length == 0)
-        {
-            res.status(401).sendFile(path.resolve(__dirname,'../assets','error.html'))
-            // res.status(401)
-            // res.redirect('/')
-        } 
-        else { 
-            bcrypt.compare(req.body.loginPassword,rows[0].password,(err,result)=>{ 
-                if(err) console.log(err)
-                if(result)
-                    res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
-                else {
-                    res.status(401).sendFile(path.resolve(__dirname,'../assets','error.html'))
-                    // res.status(401)
-                    // res.redirect('/')
-                }
-            })
-        }
-     })
+    })
+    if(stu == null)
+    {
+        return false
+    }
+    else{
+        const result = await bcrypt.compare(req.body.loginPassword,stu.password)
+        return result
+    }
+    
      
 }
 
- signup = async (req,res)=>{
-    // var branch = req.body.branchOfStudent
-    // if(!req.body.branchOfStudent) branch = ''
+ signup = async (req)=>{
     const student = {
         enroll_no: req.body.enrollmentOfStudent,
         name: req.body.nameOfStudent,
@@ -68,36 +53,26 @@ const {
     }
     )
 
-
-    
 }
 
-raiseComplaint = async (req,res)=>{
+raiseComplaint = async (req)=>{
     //TODO:take user details from session variables
     
-    const domain = req.body.domainOfComplaint
-    const sub = req.body.subjectOfComplaint
-    const desc = req.body.descriptionOfComplaint
-    const issue = sub + ":" + desc
-    const dept = req.body.issuedToDept
-    qry = `
-    INSERT INTO complaints(domid,issue,status,deptid) VALUES(
-        '${domain}','${issue}','0','${dept}');
-    `
-    
-    con.query(qry,(err,result)=>{
-        if(err){
-            // throw err
-            res.status(500).send('something went wrong')
-        }
-        else{
-            console.log('issue raised successfully')
-            res.status(200).send('issue raised successfully')
-        }
+    const complaint = {
+        issue: req.body.subjectOfComplaint,
+        description: req.body.descriptionOfComplaint,
+        domId: req.body.domainOfComplaint,
+        status : 'unresolved',
+        dept_id: req.body.issuedToDept
+    }
+    const comp = complaints.build(complaint)
+    return comp.save().then(()=>{
+        return true
+    }).catch((err)=>{
+        console.log(err)
+        return false
     })
-
-   
-
+    
 }
 
 module.exports = {
