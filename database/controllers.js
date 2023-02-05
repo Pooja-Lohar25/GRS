@@ -3,10 +3,22 @@ const bcrypt = require('bcrypt')
 const saltrounds = 10
 const {con}  = require('./dbconnect')
 const path = require('path')
+const {
+    depts,
+    emp,
+    admins,
+    students,
+    compltDom,
+    complaints,
+    studentComplaints
+} = require('./models')
+
 
  login = async  (req,res)=>{
     
-    qry = `SELECT password FROM students WHERE username = '${req.body.loginEmail}' ;`
+    // qry = `SELECT password FROM students WHERE username = '${req.body.loginEmail}' ;`
+
+
     con.query(qry, (err, rows) => {
         if (err){
             //throw err
@@ -35,33 +47,28 @@ const path = require('path')
 }
 
  signup = async (req,res)=>{
-    const enroll = req.body.enrollmentOfStudent
-    const name = req.body.nameOfStudent
-    var branch = req.body.branchOfStudent
-    const course  = req.body.courseOfStudent
-    const sem = req.body.semesterOfStudent
-    const username = req.body.emailOfStudent
-    const pass =  await bcrypt.hash(req.body.password,saltrounds)
-    const contact = req.body.contactOfStudent
-    if(!branch) branch = ""
-    console.log(enroll,branch,name,course,sem,username,pass,contact);
-    qry = `INSERT INTO students VALUES('${enroll}','${name}','${branch}','${course}','${sem}','${username}','${pass}','${contact}');`
-    con.query(qry,(err,result)=>{
-        if(err){
-            console.log(err)
-            if(err.code == 'ER_DUP_ENTRY'){
-                console.log('user already exists')
-                res.send('user already exists')
+    // var branch = req.body.branchOfStudent
+    // if(!req.body.branchOfStudent) branch = ''
+    const student = {
+        enroll_no: req.body.enrollmentOfStudent,
+        name: req.body.nameOfStudent,
+        branch: req.body.branchOfStudent,
+        course: req.body.courseOfStudent,
+        semester: req.body.semesterOfStudent,
+        username: req.body.emailOfStudent,
+        password: await bcrypt.hash(req.body.password,saltrounds),
+        phone: req.body.contactOfStudent
+    }
+    const st = students.build(student)
+    return st.save().then(()=>{
+        console.log('student saved')
+        return true
+    }).catch((err)=>{
+        return err
+    }
+    )
 
-            }
-            else
-                res.send('something went wrong')
-        }
-        else{
-            console.log('user registered successfully')
-            res.status(201).sendFile(path.resolve(__dirname,'../assets','index.html'))
-        }
-    })
+
     
 }
 

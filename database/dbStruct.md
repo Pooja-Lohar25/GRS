@@ -11,6 +11,7 @@ Emp
 -   scores
 -   username
 -   password
+-   phone
 
 Admins
 -   empId (pk)
@@ -27,6 +28,13 @@ students
 -   semester
 -   username(email)
 -   password
+-   phone
+
+compltDom
+-   domId(pk)
+-   domain
+-   totIssues
+-   addressed
 
 complaints
 -   cmpId(pk)
@@ -39,8 +47,3 @@ studComp
 -   enroll(fk)
 -   cmpId(fk)
 
-compltDom
--   domId(pk)
--   domain
--   totIssues
--   addressed
