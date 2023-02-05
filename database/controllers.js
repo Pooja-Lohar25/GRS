@@ -15,6 +15,8 @@ const {
 
 
  login = async  (req)=>{
+    //TODO:session handling
+
     
     const stu = await students.findOne({
         where:{
@@ -57,7 +59,9 @@ const {
 
 raiseComplaint = async (req)=>{
     //TODO:take user details from session variables
-    
+        //insert data into student_complaints table
+        //update compltdom table
+
     const complaint = {
         issue: req.body.subjectOfComplaint,
         description: req.body.descriptionOfComplaint,
