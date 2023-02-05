@@ -42,12 +42,6 @@ const mysqlUser = 'root'
 const pass = 'rootPassword'
 const dbname = 'databaseName' //must be already created
 
-const con = mysql.createConnection({
-  host: myhost, 
-  user: mysqlUser, 
-  password: pass, 
-  database: dbname,
-});
 ```
 
 ### Install and connect mysql in node
