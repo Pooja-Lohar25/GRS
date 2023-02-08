@@ -47,7 +47,7 @@ const dbname = 'databaseName' //must be already created
 ### Install and connect mysql in node
   Type the following command in terminal
   ```
-  > npm install mysql
+  > npm install mysql2
   ```
   To connect and setup the database automatically, run database/dbsetup.js file in terminal <br>
   ```
