@@ -14,9 +14,15 @@ const {
 } = require('./models')
 
 
- login = async  (req)=>{
-    //TODO:session handling
 
+
+
+openlogin = (req,res)=>{
+    res.sendFile(path.resolve(__dirname,'../assets','index.html'))
+}
+
+
+ login = async  (req)=>{
     
     const stu = await students.findOne({
         where:{
@@ -29,7 +35,14 @@ const {
     }
     else{
         const result = await bcrypt.compare(req.body.loginPassword,stu.password)
-        return result
+        if(result == true)
+        {
+            req.session.user = {
+                name: stu.name,
+                username: stu.username,
+            }
+            return true
+        }
     }
     
      
@@ -61,7 +74,7 @@ raiseComplaint = async (req)=>{
     //TODO:take user details from session variables
         //insert data into student_complaints table
         //update compltdom table
-
+    
     const complaint = {
         issue: req.body.subjectOfComplaint,
         description: req.body.descriptionOfComplaint,
@@ -80,6 +93,7 @@ raiseComplaint = async (req)=>{
 }
 
 module.exports = {
+    openlogin,
     login,
     signup,
     raiseComplaint
