@@ -71,24 +71,50 @@ openlogin = (req,res)=>{
 }
 
 raiseComplaint = async (req)=>{
-    //TODO:take user details from session variables
-        //insert data into student_complaints table
-        //update compltdom table
     
-    const complaint = {
-        issue: req.body.subjectOfComplaint,
-        description: req.body.descriptionOfComplaint,
-        domId: req.body.domainOfComplaint,
-        status : 'unresolved',
-        dept_id: req.body.issuedToDept
+        //creating complaint entry
+        const complaint = {
+            issue: req.body.subjectOfComplaint,
+            description: req.body.descriptionOfComplaint,
+            domId: req.body.domainOfComplaint,
+            status : 'unresolved',
+            dept_id: req.body.issuedToDept
+        }
+        
+        //storing complaint and fetching complaint id
+        const comp = complaints.build(complaint)
+        const complaint_id = await comp.save().then(()=>{
+            return comp.complaint_id
+        }).catch((err)=>{
+            console.log(err)
+            return null
+        })
+
+        //fetching student detail from session and creating student complaint entry on complaint id received
+        if(complaint_id == null)
+            return false 
+        else{
+            const stu = await students.findOne({
+                where:{
+                    username:req.session.user.username
+                }
+            })
+
+            const studentComplaint = {
+                complaint_id: complaint_id,
+                stu_id: stu.enroll_no
+            }
+            const sc = studentComplaints.build(studentComplaint)
+            return sc.save().then(()=>{
+                return true
+            }
+            ).catch((err)=>{
+                console.log(err)
+                return false
+            })
+
     }
-    const comp = complaints.build(complaint)
-    return comp.save().then(()=>{
-        return true
-    }).catch((err)=>{
-        console.log(err)
-        return false
-    })
+    
     
 }
 

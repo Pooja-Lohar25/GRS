@@ -16,7 +16,7 @@ const insertDepartments = ()=>{
         const department = depts.build({
             dept_id:dept[i],
             dept_name:deptNames[i],
-            hod_id:hodIds[i]
+            dept_head:hodIds[i]
         })
         department.save().then(()=>{
             console.log('values inserted')
@@ -30,7 +30,7 @@ const insertDepartments = ()=>{
 
 
 const insertDomains = ()=>{
-    const domains = ['LIB','MT','TT','AC','PNT','MSCON','RAG','OTH']
+    const domains = ['LIB','MT','TTS','AC','PNT','MSCON','RAG','OTH']
     const domainNames = ['Library','Maintenance','Time Table Structure','Academics','Placement and Training','Misconduct','Ragging','Other']
 
     for(let i=0;i<domains.length;i++){

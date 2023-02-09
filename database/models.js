@@ -93,16 +93,10 @@ const admins = sequelize.define('admin',{
 })
 
 const students = sequelize.define('student',{
-    id:{
-        type:DataTypes.INTEGER,
-        autoIncrement:true,
-        primaryKey:true,
-        allowNull:false
-    },
     enroll_no:{
         type:DataTypes.STRING,
         allowNull:false,
-        unique:true
+        primaryKey:true
     },
     name:{
         type:DataTypes.STRING,
@@ -203,11 +197,11 @@ const studentComplaints = sequelize.define('studentComplaint',{
         }
     },
     stu_id:{
-        type:DataTypes.INTEGER,
+        type:DataTypes.STRING,
         allowNull:false,
         references:{
             model:students,
-            key:'id'
+            key:'enroll_no'
         }
     }
 })
