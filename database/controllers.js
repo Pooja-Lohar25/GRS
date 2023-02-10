@@ -12,6 +12,7 @@ const {
     complaints,
     studentComplaints
 } = require('./models')
+const { truncateSync } = require('fs')
 
 
 
@@ -93,27 +94,37 @@ raiseComplaint = async (req)=>{
         //fetching student detail from session and creating student complaint entry on complaint id received
         if(complaint_id == null)
             return false 
-        else{
-            const stu = await students.findOne({
+        const stu = await students.findOne({
+            where:{
+                username:req.session.user.username
+            }
+        })
+
+        const studentComplaint = {
+            complaint_id: complaint_id,
+            stu_id: stu.enroll_no
+        }
+
+        const sc = studentComplaints.build(studentComplaint)
+
+        return sc.save().then(async ()=>{
+            //update compltdom table to increment number of issues
+            const cd = await compltDom.findOne({
                 where:{
-                    username:req.session.user.username
+                    domId: req.body.domainOfComplaint
                 }
             })
+            cd.totIssues = cd.totIssues + 1
+            cd.totUnResolved = cd.totUnResolved + 1
+            cd.save()
+            return true
+        }
+        ).catch((err)=>{
+            console.log(err)
+            return false
+        })
 
-            const studentComplaint = {
-                complaint_id: complaint_id,
-                stu_id: stu.enroll_no
-            }
-            const sc = studentComplaints.build(studentComplaint)
-            return sc.save().then(()=>{
-                return true
-            }
-            ).catch((err)=>{
-                console.log(err)
-                return false
-            })
-
-    }
+        
     
     
 }
