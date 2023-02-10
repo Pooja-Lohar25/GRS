@@ -23,7 +23,7 @@ openlogin = (req,res)=>{
 }
 
 
- login = async  (req)=>{
+ login = async (req)=>{
     
     const stu = await students.findOne({
         where:{

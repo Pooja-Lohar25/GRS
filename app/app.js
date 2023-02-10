@@ -11,6 +11,11 @@ app.set('views',path.resolve(__dirname,'../assets','../assets'))
 app.set('view engine','ejs')
 
 
+
+app.use(express.json())
+app.use(express.urlencoded({extended:true})) //parsing form data to access it in routes
+app.use(express.static(path.resolve(__dirname,'../assets')))
+
 //creating session 
 app.use(session({
     secret: process.env.SECRET,
@@ -18,11 +23,6 @@ app.use(session({
     resave: true,
     saveUninitialized: false 
 }));
-
-app.use(express.json())
-app.use(express.urlencoded({extended:true})) //parsing form data to access it in routes
-app.use(express.static(path.resolve(__dirname,'../assets')))
-
 
 //routes
 app.get('/login',async (req,res)=>{
