@@ -8,7 +8,6 @@ const ejs = require('ejs')
 const {
     login,
     signup,
-    raiseComplaint,
     dashboard,
     newcomplaint
 } = require('./routes')

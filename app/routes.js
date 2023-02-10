@@ -19,7 +19,6 @@ login.post('/',async (req,res)=>{
         res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
     }
     else{
-        // res.status(401).sendFile(path.resolve(__dirname,'../assets','error.html'))
         res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
     }
 })
@@ -43,7 +42,9 @@ dashboard.get('/',auth,async (req,res)=>{
 newcomplaint.get('/',auth,async (req,res)=>{
     res.sendFile(path.resolve(__dirname,'../assets','newcomplaint.html'))
 })
+
 newcomplaint.post('/',auth,async (req,res)=>{
+    var result = true;
     result = await controllers.raiseComplaint(req)
     if(result == true)
     {
@@ -51,7 +52,7 @@ newcomplaint.post('/',auth,async (req,res)=>{
     }
     else{
         console.log(result)
-        res.render('error',{code :'500',errordesc: '' ,message:'Something Went Wrong'})
+        res.render('error',{code :'500',errordesc: '' ,message: result})
     }
 })
 
