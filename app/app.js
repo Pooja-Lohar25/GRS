@@ -21,7 +21,7 @@ app.use(session({
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true})) //parsing form data to access it in routes
-app.use('/',express.static(path.resolve(__dirname,'../assets')))
+app.use(express.static(path.resolve(__dirname,'../assets')))
 
 
 //routes

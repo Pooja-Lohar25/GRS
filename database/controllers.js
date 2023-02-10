@@ -71,9 +71,13 @@ openlogin = (req,res)=>{
 
 }
 
+
+
+
+
 raiseComplaint = async (req)=>{
     
-        //creating complaint entry
+        //creating new complaint entry
         const complaint = {
             issue: req.body.subjectOfComplaint,
             description: req.body.descriptionOfComplaint,
@@ -82,7 +86,7 @@ raiseComplaint = async (req)=>{
             dept_id: req.body.issuedToDept
         }
         
-        //storing complaint and fetching complaint id
+        //storing new complaint and fetching complaint id
         const comp = complaints.build(complaint)
         const complaint_id = await comp.save().then(()=>{
             return comp.complaint_id
@@ -91,7 +95,7 @@ raiseComplaint = async (req)=>{
             return null
         })
 
-        //fetching student detail from session and creating student complaint entry on complaint id received
+        //fetching student detail from session
         if(complaint_id == null)
             return false 
         const stu = await students.findOne({
@@ -100,33 +104,37 @@ raiseComplaint = async (req)=>{
             }
         })
 
+
+        //creating student complaint entry on complaint_id received
         const studentComplaint = {
             complaint_id: complaint_id,
             stu_id: stu.enroll_no
         }
-
         const sc = studentComplaints.build(studentComplaint)
-
+        
+        //saving student complaint entry
         return sc.save().then(async ()=>{
-            //update compltdom table to increment number of issues
+
             const cd = await compltDom.findOne({
                 where:{
                     domId: req.body.domainOfComplaint
                 }
             })
+            
+            //update compltdom table to increment number of issues
             cd.totIssues = cd.totIssues + 1
             cd.totUnResolved = cd.totUnResolved + 1
-            cd.save()
-            return true
-        }
-        ).catch((err)=>{
+            cd.save().then(()=>{
+                return true
+            }).catch((err)=>{
+                console.log(err); 
+                return false
+            })
+        }).catch((err)=>{
             console.log(err)
             return false
         })
 
-        
-    
-    
 }
 
 module.exports = {
