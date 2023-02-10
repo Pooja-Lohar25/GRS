@@ -4,17 +4,13 @@ const path = require('path')
 const session = require('express-session')
 const dotenv = require('dotenv')
 const ejs = require('ejs')
-
-const {
-    login,
-    signup,
-    raiseComplaint,
-    dashboard,
-    newcomplaint
-} = require('./routes')
+const controllers = require('../database/controllers')
+const {auth} = require('./auth')
 
 app.set('views',path.resolve(__dirname,'../assets','../assets'))
 app.set('view engine','ejs')
+
+
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true})) //parsing form data to access it in routes
@@ -28,21 +24,6 @@ app.use(session({
     saveUninitialized: false 
 }));
 
-//routes
-app.use('/login',login)
-app.use('/signup',signup)
-app.use('/dashboard',dashboard)
-app.use('/newcomplaint',newcomplaint)
-
-
-app.listen(4000,()=>{
-    console.log("server listening on port 4000")
-})
-
-
-
-
-/*
 //routes
 app.get('/login',async (req,res)=>{
     res.sendFile(path.resolve(__dirname,'../assets','index.html'))
@@ -85,7 +66,7 @@ app.post('/raiseComplaint',async (req,res)=>{
     result = await controllers.raiseComplaint(req)
     if(result == true)
     {
-        res.send(`<h1>Issue raised successfully</h1>`)
+        res.send(`<h1>issue raised successfully</h1>`)
     }
     else{
         console.log(result)
@@ -93,5 +74,7 @@ app.post('/raiseComplaint',async (req,res)=>{
     }
 })
 
+app.listen(4000,()=>{
+    console.log("server listening on port 4000")
+})
 
-*/
