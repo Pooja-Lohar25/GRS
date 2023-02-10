@@ -12,10 +12,6 @@ const {
     complaints,
     studentComplaints
 } = require('./models')
-const { truncateSync } = require('fs')
-
-
-
 
 
 openlogin = (req,res)=>{
@@ -113,7 +109,7 @@ raiseComplaint = async (req)=>{
         const sc = studentComplaints.build(studentComplaint)
         
         //saving student complaint entry
-        return sc.save().then(async ()=>{
+        return await sc.save().then(async ()=>{
 
             const cd = await compltDom.findOne({
                 where:{
@@ -124,7 +120,7 @@ raiseComplaint = async (req)=>{
             //update compltdom table to increment number of issues
             cd.totIssues = cd.totIssues + 1
             cd.totUnResolved = cd.totUnResolved + 1
-            cd.save().then(()=>{
+            await cd.save().then(()=>{
                 return true
             }).catch((err)=>{
                 console.log(err); 

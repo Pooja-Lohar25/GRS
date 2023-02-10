@@ -4,8 +4,13 @@ const path = require('path')
 const session = require('express-session')
 const dotenv = require('dotenv')
 const ejs = require('ejs')
-const controllers = require('../database/controllers')
-const {auth} = require('./auth')
+
+const {
+    login,
+    signup,
+    dashboard,
+    newcomplaint
+} = require('./routes')
 
 app.set('views',path.resolve(__dirname,'../assets','../assets'))
 app.set('view engine','ejs')
