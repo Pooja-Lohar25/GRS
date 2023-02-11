@@ -178,6 +178,9 @@ const complaints = sequelize.define('complaint',{
             model:depts,
             key:'dept_id'
         }
+    },
+    upvotes:{
+        type:DataTypes.INTEGER
     }
 })
 
@@ -204,9 +207,6 @@ const studentComplaints = sequelize.define('studentComplaint',{
             model:students,
             key:'enroll_no'
         }
-    },
-    upvotes:{
-        type:DataTypes.INTEGER
     }
 })
 
@@ -218,7 +218,8 @@ module.exports = {
     admins,
     students,
     compltDom,
-    complaints
+    complaints,
+    studentComplaints
 }
 
 
