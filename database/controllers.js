@@ -9,7 +9,8 @@ const {
     admins,
     students,
     compltDom,
-    complaints
+    complaints,
+    studentComplaints
 } = require('./models')
 
 
@@ -73,45 +74,64 @@ const {
 
 raiseComplaint = async (req)=>{
     
-        //creating new complaint entry
-        const complaint = {
-            issue: req.body.subjectOfComplaint,
-            description: req.body.descriptionOfComplaint,
-            domId: req.body.domainOfComplaint,
-            status : 'unresolved',
-            dept_id: req.body.issuedToDept,
-            stu_id:req.session.user.enroll_no
+       //creating new complaint entry
+       const complaint = {
+        issue: req.body.subjectOfComplaint,
+        description: req.body.descriptionOfComplaint,
+        domId: req.body.domainOfComplaint,
+        status : 'unresolved',
+        dept_id: req.body.issuedToDept
+    }
+    
+    //storing new complaint and fetching complaint id
+    const comp = complaints.build(complaint)
+    const complaint_id = await comp.save().then(()=>{
+        return comp.complaint_id
+    }).catch((err)=>{
+        console.log(err)
+        return null
+    })
+
+    //fetching student detail from session
+    if(complaint_id == null)
+        return false 
+    const stu = await students.findOne({
+        where:{
+            username:req.session.user.username
         }
-        
-        
-        return new Promise((resolve,reject)=>{
-            //storing new complaint
-            const comp = complaints.build(complaint)
-            
-            //saving complaint
-            comp.save().then(async ()=>{
-                const cd = await compltDom.findOne({
-                    where:{
-                        domId: req.body.domainOfComplaint
-                    }
-                })
-                
-                //update compltdom table to increment number of issues
-                cd.totIssues = cd.totIssues + 1
-                cd.totUnResolved = cd.totUnResolved + 1
-                await cd.save().then(()=>{
-                    resolve(true)
-                }).catch((err)=>{
-                    console.log(err); 
-                    resolve(false)
-                })
-            }).catch((err)=>{
-                console.log(err)
-                resolve(false)
+    })
+
+
+    //creating student complaint entry on complaint_id received
+    const studentComplaint = {
+        complaint_id: complaint_id,
+        stu_id: stu.enroll_no
+    }
+    const sc = studentComplaints.build(studentComplaint)
+    
+    //saving student complaint entry
+    return new Promise((resolve,reject)=>{
+        sc.save().then(async ()=>{
+            const cd = await compltDom.findOne({
+                where:{
+                    domId: req.body.domainOfComplaint
+                }
             })
             
-        }) 
-        
+            //update compltdom table to increment number of issues
+            cd.totIssues = cd.totIssues + 1
+            cd.totUnResolved = cd.totUnResolved + 1
+            await cd.save().then(()=>{
+                resolve(true)
+            }).catch((err)=>{
+                console.log(err); 
+                resolve(false)
+            })
+        }).catch((err)=>{
+            console.log(err)
+            resolve(false)
+        })
+    }) 
          
 
 }
