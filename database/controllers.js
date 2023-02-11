@@ -9,8 +9,7 @@ const {
     admins,
     students,
     compltDom,
-    complaints,
-    studentComplaints
+    complaints
 } = require('./models')
 
 
@@ -37,6 +36,7 @@ const {
             req.session.user = {
                 name: stu.name,
                 username: stu.username,
+                enroll_no:stu.enroll_no
             }
             return true
         }
@@ -79,38 +79,17 @@ raiseComplaint = async (req)=>{
             description: req.body.descriptionOfComplaint,
             domId: req.body.domainOfComplaint,
             status : 'unresolved',
-            dept_id: req.body.issuedToDept
+            dept_id: req.body.issuedToDept,
+            stu_id:req.session.user.enroll_no
         }
         
-        //storing new complaint and fetching complaint id
-        const comp = complaints.build(complaint)
-        const complaint_id = await comp.save().then(()=>{
-            return comp.complaint_id
-        }).catch((err)=>{
-            console.log(err)
-            return null
-        })
-
-        //fetching student detail from session
-        if(complaint_id == null)
-            return false 
-        const stu = await students.findOne({
-            where:{
-                username:req.session.user.username
-            }
-        })
-
-
-        //creating student complaint entry on complaint_id received
-        const studentComplaint = {
-            complaint_id: complaint_id,
-            stu_id: stu.enroll_no
-        }
-        const sc = studentComplaints.build(studentComplaint)
         
-        //saving student complaint entry
         return new Promise((resolve,reject)=>{
-            sc.save().then(async ()=>{
+            //storing new complaint
+            const comp = complaints.build(complaint)
+            
+            //saving complaint
+            comp.save().then(async ()=>{
                 const cd = await compltDom.findOne({
                     where:{
                         domId: req.body.domainOfComplaint
@@ -130,8 +109,9 @@ raiseComplaint = async (req)=>{
                 console.log(err)
                 resolve(false)
             })
+            
         }) 
-
+        
          
 
 }

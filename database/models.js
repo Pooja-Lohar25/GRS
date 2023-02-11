@@ -179,27 +179,6 @@ const complaints = sequelize.define('complaint',{
             key:'dept_id'
         }
     },
-    upvotes:{
-        type:DataTypes.INTEGER
-    }
-})
-
-
-const studentComplaints = sequelize.define('studentComplaint',{
-    id:{
-        type:DataTypes.INTEGER,
-        primaryKey:true,
-        autoIncrement:true,
-        allowNull:false
-    },
-    complaint_id:{
-        type:DataTypes.INTEGER,
-        allowNull:false,
-        references:{
-            model:complaints,
-            key:'complaint_id'
-        }
-    },
     stu_id:{
         type:DataTypes.STRING,
         allowNull:false,
@@ -207,8 +186,12 @@ const studentComplaints = sequelize.define('studentComplaint',{
             model:students,
             key:'enroll_no'
         }
+    },
+    upvotes:{
+        type:DataTypes.INTEGER
     }
 })
+
 
 
 module.exports = {
@@ -217,8 +200,7 @@ module.exports = {
     admins,
     students,
     compltDom,
-    complaints,
-    studentComplaints
+    complaints
 }
 
 

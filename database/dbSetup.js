@@ -9,8 +9,7 @@ const {
     admins,
     students,
     compltDom,
-    complaints,
-    studentComplaints
+    complaints
 } = require('../database/models')
 
 
@@ -20,6 +19,5 @@ admins.sync({alter:true}).then(()=>{console.log('admins synced')})
 students.sync({alter:true}).then(()=>{console.log('students synced')})
 compltDom.sync({alter:true}).then(()=>{console.log('compltDom synced')})
 complaints.sync({alter:true}).then(()=>{console.log('complaints synced')})
-studentComplaints.sync({alter:true}).then(()=>{console.log('studentComplaints synced')})
 
 sequelize.sync({alter:true}).then(()=>{console.log('all synced')})
