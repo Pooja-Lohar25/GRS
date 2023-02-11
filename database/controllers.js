@@ -12,6 +12,7 @@ const {
     complaints,
     studentComplaints
 } = require('./models')
+const { upvotes } = require('../app/routes')
 
 
 // openlogin = (req,res)=>{
@@ -135,6 +136,8 @@ raiseComplaint = async (req)=>{
          
 
 }
+
+
 
 module.exports = {
     login,

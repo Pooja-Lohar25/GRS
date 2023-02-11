@@ -20,7 +20,7 @@ login.post('/',async (req,res)=>{
     if(result == true)
     {
         // res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
-        res.render('dashboard')
+        res.render('dashboard',{message: ''})
     }
     else{
         // res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
@@ -44,7 +44,7 @@ signup.post('/',async (req,res)=>{
 
 dashboard.get('/',auth,async (req,res)=>{
     // res.sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
-    res.render('dashboard')
+    res.render('dashboard',{message: ''})
 })
 
 newcomplaint.get('/',auth,async (req,res)=>{
@@ -68,14 +68,14 @@ newcomplaint.post('/',auth,async (req,res)=>{
     }
 })
 
-upvotes.get('/',auth,async (req,res)=>{
-    await controllers.upvote(req).then((result)=>{
+upvotes.get('/:id',auth,async (req,res)=>{
+    await controllers.upvote(req,id).then((result)=>{
         if(result == true)
         {
             res.render('dashboard',{message: 'Upvote successful'})
         }
         else{
-            res.render('error',{code :'500',errordesc: '' ,message: result})
+            res.render('dashboard',{message : 'Could not upvote'})
         }
     })
 })
