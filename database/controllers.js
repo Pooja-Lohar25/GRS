@@ -14,9 +14,9 @@ const {
 } = require('./models')
 
 
-openlogin = (req,res)=>{
-    res.sendFile(path.resolve(__dirname,'../assets','index.html'))
-}
+// openlogin = (req,res)=>{
+//     res.sendFile(path.resolve(__dirname,'../assets','index.html'))
+// }
 
 
  login = async (req)=>{
@@ -137,7 +137,6 @@ raiseComplaint = async (req)=>{
 }
 
 module.exports = {
-    openlogin,
     login,
     signup,
     raiseComplaint

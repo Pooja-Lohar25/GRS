@@ -2,16 +2,17 @@ const express = require('express')
 const path = require('path')
 const controllers = require('../database/controllers')
 const {auth} = require('./auth')
-
 const login = express.Router()
 const signup = express.Router()
 const dashboard = express.Router()
 const newcomplaint = express.Router()
+login.use(express.static(path.resolve(__dirname,'../assets')))
 
-login.get('/',(req,res)=>{
+login.get('/student',(req,res)=>{
     // res.sendFile(path.resolve(__dirname,'../assets','index.html'))
-    res.render('index',{message: ''})
+    res.render('login',{message: ''})
 })
+
 
 login.post('/',async (req,res)=>{
     result = await controllers.login(req)
@@ -22,7 +23,7 @@ login.post('/',async (req,res)=>{
     }
     else{
         // res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
-        res.render('index',{message: 'Kindly provide valid credentials'})
+        res.render('login',{message: 'Kindly provide valid credentials'})
     }
 })
 
@@ -31,12 +32,12 @@ signup.post('/',async (req,res)=>{
     if(result == true)
     {
         // res.status(200).sendFile(path.resolve(__dirname,'../assets','index.html'))
-        res.render('index',{message: 'User created successfully'})
+        res.render('login',{message: 'User created successfully'})
     }
     else{
         console.log(result)
         // res.render('error',{code :'500',errordesc: '' ,message:'Something Went Wrong'})
-        res.render('index',{message: 'Something went wrong!! Please try again'})
+        res.render('login',{message: 'Something went wrong!! Please try again'})
     }
 })
 
