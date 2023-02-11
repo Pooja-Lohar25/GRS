@@ -178,6 +178,9 @@ const complaints = sequelize.define('complaint',{
             model:depts,
             key:'dept_id'
         }
+    },
+    upvotes:{
+        type:DataTypes.INTEGER
     }
 })
 
