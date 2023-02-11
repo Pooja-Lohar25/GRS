@@ -178,6 +178,24 @@ const complaints = sequelize.define('complaint',{
             model:depts,
             key:'dept_id'
         }
+    }
+})
+
+
+const studentComplaints = sequelize.define('studentComplaint',{
+    id:{
+        type:DataTypes.INTEGER,
+        primaryKey:true,
+        autoIncrement:true,
+        allowNull:false
+    },
+    complaint_id:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+        references:{
+            model:complaints,
+            key:'complaint_id'
+        }
     },
     stu_id:{
         type:DataTypes.STRING,

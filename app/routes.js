@@ -6,6 +6,7 @@ const login = express.Router()
 const signup = express.Router()
 const dashboard = express.Router()
 const newcomplaint = express.Router()
+const upvotes = express.Router()
 login.use(express.static(path.resolve(__dirname,'../assets')))
 
 login.get('/student',(req,res)=>{
@@ -67,11 +68,22 @@ newcomplaint.post('/',auth,async (req,res)=>{
     }
 })
 
-
+upvotes.get('/',auth,async (req,res)=>{
+    await controllers.upvote(req).then((result)=>{
+        if(result == true)
+        {
+            res.render('dashboard',{message: 'Upvote successful'})
+        }
+        else{
+            res.render('error',{code :'500',errordesc: '' ,message: result})
+        }
+    })
+})
 
 module.exports = {
     login,
     signup,
     dashboard,
-    newcomplaint
+    newcomplaint,
+    upvotes
 }
