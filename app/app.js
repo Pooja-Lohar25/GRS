@@ -1,29 +1,42 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-const crud = require('../database/crud')
+const session = require('express-session')
+const dotenv = require('dotenv')
+const ejs = require('ejs')
+
+const {
+    login,
+    signup,
+    dashboard,
+    newcomplaint
+} = require('./routes')
+
+app.set('views',path.resolve(__dirname,'../assets','../assets'))
+app.set('view engine','ejs')
+
+
+
 app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({extended:true})) //parsing form data to access it in routes
+app.use(express.static(path.resolve(__dirname,'../assets')))
 
-app.use(express.static(path.resolve(__dirname,'../assets')) )
-// app.get('/',(req,res)=>{
-//     res.sendFile(path.resolve(__dirname,'../assets','index.html'))
-//     console.log('done')
-// })
+//creating session 
+app.use(session({
+    secret: process.env.SECRET,
+    cookie: { maxAge: 1000 * 60 * 60 * 24}, //24 hours
+    resave: true,
+    saveUninitialized: false 
+}));
+
+//routes
+app.use('/login',login)
+app.use('/signup',signup)
+app.use('/dashboard',dashboard)
+app.use('/newcomplaint',newcomplaint)
 
 
- app.post('/log', async (req,res)=>{
-    crud.login(req,res)
- })
-
-app.post('/signup',async (req,res)=>{
-    result = await crud.signup(req)
-    console.log(result)
-    if(result) 
-    res.send('user is registered')
-    else 
-    res.send('sorry something went wrong')
-})
 app.listen(4000,()=>{
     console.log("server listening on port 4000")
 })
+
