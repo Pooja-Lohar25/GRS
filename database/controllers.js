@@ -109,27 +109,30 @@ raiseComplaint = async (req)=>{
         const sc = studentComplaints.build(studentComplaint)
         
         //saving student complaint entry
-        return await sc.save().then(async ()=>{
-
-            const cd = await compltDom.findOne({
-                where:{
-                    domId: req.body.domainOfComplaint
-                }
-            })
-            
-            //update compltdom table to increment number of issues
-            cd.totIssues = cd.totIssues + 1
-            cd.totUnResolved = cd.totUnResolved + 1
-            await cd.save().then(()=>{
-                return true
+        return new Promise((resolve,reject)=>{
+            sc.save().then(async ()=>{
+                const cd = await compltDom.findOne({
+                    where:{
+                        domId: req.body.domainOfComplaint
+                    }
+                })
+                
+                //update compltdom table to increment number of issues
+                cd.totIssues = cd.totIssues + 1
+                cd.totUnResolved = cd.totUnResolved + 1
+                await cd.save().then(()=>{
+                    resolve(true)
+                }).catch((err)=>{
+                    console.log(err); 
+                    resolve(false)
+                })
             }).catch((err)=>{
-                console.log(err); 
-                return false
+                console.log(err)
+                resolve(false)
             })
-        }).catch((err)=>{
-            console.log(err)
-            return false
-        })
+        }) 
+
+         
 
 }
 

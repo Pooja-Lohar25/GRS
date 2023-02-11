@@ -44,8 +44,9 @@ newcomplaint.get('/',auth,async (req,res)=>{
 })
 
 newcomplaint.post('/',auth,async (req,res)=>{
-    var result = true;
-    result = await controllers.raiseComplaint(req)
+    
+    result = await controllers.raiseComplaint(req).then((result)=>{return result}) //returns a promise
+    console.log(result)
     if(result == true)
     {
         res.send(`<h1>Issue raised successfully</h1>`)
