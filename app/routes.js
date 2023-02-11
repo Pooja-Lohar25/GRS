@@ -9,17 +9,20 @@ const dashboard = express.Router()
 const newcomplaint = express.Router()
 
 login.get('/',(req,res)=>{
-    res.sendFile(path.resolve(__dirname,'../assets','index.html'))
+    // res.sendFile(path.resolve(__dirname,'../assets','index.html'))
+    res.render('index',{message: ''})
 })
 
 login.post('/',async (req,res)=>{
     result = await controllers.login(req)
     if(result == true)
     {
-        res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
+        // res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
+        res.render('dashboard')
     }
     else{
-        res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
+        // res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
+        res.render('index',{message: 'Kindly provide valid credentials'})
     }
 })
 
@@ -27,20 +30,24 @@ signup.post('/',async (req,res)=>{
     result = await controllers.signup(req)
     if(result == true)
     {
-        res.status(200).sendFile(path.resolve(__dirname,'../assets','index.html'))
+        // res.status(200).sendFile(path.resolve(__dirname,'../assets','index.html'))
+        res.render('index',{message: 'User created successfully'})
     }
     else{
         console.log(result)
-        res.render('error',{code :'500',errordesc: '' ,message:'Something Went Wrong'})
+        // res.render('error',{code :'500',errordesc: '' ,message:'Something Went Wrong'})
+        res.render('index',{message: 'Something went wrong!! Please try again'})
     }
 })
 
 dashboard.get('/',auth,async (req,res)=>{
-    res.sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
+    // res.sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
+    res.render('dashboard')
 })
 
 newcomplaint.get('/',auth,async (req,res)=>{
-    res.sendFile(path.resolve(__dirname,'../assets','newcomplaint.html'))
+    // res.sendFile(path.resolve(__dirname,'../assets','newcomplaint.html'))
+    res.render('newcomplaint' ,{message: ''})
 })
 
 newcomplaint.post('/',auth,async (req,res)=>{
@@ -49,11 +56,13 @@ newcomplaint.post('/',auth,async (req,res)=>{
     console.log(result)
     if(result == true)
     {
-        res.send(`<h1>Issue raised successfully</h1>`)
+        // res.send(`<h1>Issue raised successfully</h1>`)
+        res.render('newcomplaint',{message: 'Issue raised successfully'})
     }
     else{
         console.log(result)
-        res.render('error',{code :'500',errordesc: '' ,message: result})
+        // res.render('error',{code :'500',errordesc: '' ,message: result})
+        res.render('newcomplaint',{message: 'Something went wrong!! Please try again'})
     }
 })
 
