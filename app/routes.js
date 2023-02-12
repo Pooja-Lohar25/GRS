@@ -94,7 +94,7 @@ upvotes.get('/:cid',auth,async (req,res)=>{
             res.render('dashboard',{message: 'Upvote successful'})
         }
         else{
-            res.render('dashboard',{message : 'Could not upvote'})
+            res.render('dashboard',{message : result})
         }
     })
 })

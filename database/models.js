@@ -180,7 +180,8 @@ const complaints = sequelize.define('complaint',{
         }
     },
     upvotes:{
-        type:DataTypes.INTEGER
+        type:DataTypes.INTEGER,
+        allowNull:false
     }
 })
 

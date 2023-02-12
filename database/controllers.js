@@ -80,7 +80,8 @@ raiseComplaint = async (req)=>{
         description: req.body.descriptionOfComplaint,
         domId: req.body.domainOfComplaint,
         status : 'unresolved',
-        dept_id: req.body.issuedToDept
+        dept_id: req.body.issuedToDept,
+        upvotes: 0
     }
     
     //storing new complaint and fetching complaint id
@@ -137,10 +138,58 @@ raiseComplaint = async (req)=>{
 }
 
 upvotes = async (req)=>{
-    if(req.params.cid == 1){
-        console.log('hello')
+return new Promise(async (resolve,reject)=>{
+    const sc = await new Promise(async (resolve,reject)=>{
+        //check if complaint is already upvoted by student
+        await studentComplaints.findOne({
+            where:{
+                complaint_id: Number(req.params.cid),
+                stu_id: req.session.user.enroll_no
+            }
+        }).then((sc)=>{
+            resolve(sc)
+            }).catch((err)=>{
+                console.log(err)
+                resolve(false)
+        })  
+        
+    })
+    if(sc == null)
+    {
+        //if not upvoted then update studentcomplaints table
+        const studentComplaint = {
+            complaint_id: req.params.cid,
+            stu_id: req.session.user.enroll_no
+        }
+        const sc = studentComplaints.build(studentComplaint)
+        await sc.save().then(async ()=>{
+            console.log('student complaint saved')
+            
+            //update complt table to increment upvotes
+            const comp = await complaints.findOne({
+                where:{
+                    complaint_id: req.params.cid
+                }
+            })
+            comp.upvotes = comp.upvotes + 1
+            await comp.save().then(()=>{
+                console.log('complaint upvoted')
+                resolve(true)
+            }).catch((err)=>{
+                console.log(err)
+                resolve(false)
+            })
+            }).catch((err)=>{
+                console.log(err)
+                resolve(false)
+            })
+
     }
-    return true
+    else{
+        console.log('already upvoted')
+        resolve('already upvoted')
+    }
+})
 }
 module.exports = {
     login,
