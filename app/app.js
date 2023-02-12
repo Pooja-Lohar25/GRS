@@ -5,17 +5,14 @@ const session = require("express-session");
 const dotenv = require("dotenv");
 const ejs = require("ejs");
 
-const { login, signup, dashboard, newcomplaint , upvotes} = require("./routes");
+//importing routes
+const { index,login, signup, dashboard, newcomplaint , upvotes} = require("./routes");
 
 app.set("views", path.resolve(__dirname, "../assets", "../assets"));
 app.set("view engine", "ejs");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); //parsing form data to access it in routes
-app.use(express.static(path.resolve(__dirname, "../assets")));
-app.get('/', (req, res) => {
-    res.render('index', { message: '' })
-});
 
 //creating session
 app.use(
@@ -26,8 +23,10 @@ app.use(
     saveUninitialized: false,
   })
 );
+  
 
 //routes
+app.use('/',index)
 app.use("/login", login);
 app.use("/signup", signup);
 app.use("/dashboard", dashboard);

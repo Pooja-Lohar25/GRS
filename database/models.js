@@ -208,6 +208,14 @@ const studentComplaints = sequelize.define('studentComplaint',{
             key:'enroll_no'
         }
     }
+},  
+{
+        indexes:[   
+            {
+                unique:true,
+                fields:['complaint_id','stu_id']
+            }
+        ]
 })
 
 

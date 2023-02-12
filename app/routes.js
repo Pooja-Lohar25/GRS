@@ -2,12 +2,31 @@ const express = require('express')
 const path = require('path')
 const controllers = require('../database/controllers')
 const {auth} = require('./auth')
+
+//creating routers
+const index = express.Router()
 const login = express.Router()
 const signup = express.Router()
 const dashboard = express.Router()
 const newcomplaint = express.Router()
 const upvotes = express.Router()
+
+
+//setting up routers with static files 
+index.use(express.static(path.resolve(__dirname,'../assets')))
 login.use(express.static(path.resolve(__dirname,'../assets')))
+signup.use(express.static(path.resolve(__dirname,'../assets')))
+dashboard.use(express.static(path.resolve(__dirname,'../assets')))
+newcomplaint.use(express.static(path.resolve(__dirname,'../assets')))
+upvotes.use(express.static(path.resolve(__dirname,'../assets')))
+
+
+
+//defining routes
+index.get('/',(req,res)=>{
+    // res.sendFile(path.resolve(__dirname,'../assets','index.html'))
+    res.render('index',{message: ''})
+})
 
 login.get('/student',(req,res)=>{
     // res.sendFile(path.resolve(__dirname,'../assets','index.html'))
@@ -68,8 +87,8 @@ newcomplaint.post('/',auth,async (req,res)=>{
     }
 })
 
-upvotes.get('/:id',auth,async (req,res)=>{
-    await controllers.upvote(req,id).then((result)=>{
+upvotes.get('/:cid',auth,async (req,res)=>{
+    await controllers.upvotes(req,req.params.id).then((result)=>{
         if(result == true)
         {
             res.render('dashboard',{message: 'Upvote successful'})
@@ -81,6 +100,7 @@ upvotes.get('/:id',auth,async (req,res)=>{
 })
 
 module.exports = {
+    index,
     login,
     signup,
     dashboard,
