@@ -10,6 +10,7 @@ const signup = express.Router()
 const dashboard = express.Router()
 const newcomplaint = express.Router()
 const upvotes = express.Router()
+const profile = express.Router()
 
 
 //setting up routers with static files 
@@ -19,7 +20,7 @@ signup.use(express.static(path.resolve(__dirname,'../assets')))
 dashboard.use(express.static(path.resolve(__dirname,'../assets')))
 newcomplaint.use(express.static(path.resolve(__dirname,'../assets')))
 upvotes.use(express.static(path.resolve(__dirname,'../assets')))
-
+profile.use(express.static(path.resolve(__dirname,'../assets')))
 
 
 //defining routes
@@ -99,11 +100,24 @@ upvotes.get('/:cid',auth,async (req,res)=>{
     })
 })
 
+profile.get('/',auth,async (req,res)=>{
+    res.render('studentProfile',{
+        role : 'student',
+        name: req.session.user.name , 
+        email: req.session.user.username , 
+        phone: req.session.user.phone , 
+        rollno: req.session.user.enroll_no , 
+        branch: req.session.user.branch , 
+        course : req.session.user.course ,
+        sem: req.session.user.semester})
+})
+
 module.exports = {
     index,
     login,
     signup,
     dashboard,
     newcomplaint,
-    upvotes
+    upvotes,
+    profile
 }

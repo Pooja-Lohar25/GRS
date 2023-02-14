@@ -37,6 +37,10 @@ const {
             req.session.user = {
                 name: stu.name,
                 username: stu.username,
+                semester : stu.semester,
+                branch: stu.branch,
+                course: stu.course,
+                phone : stu.phone,
                 enroll_no:stu.enroll_no
             }
             return true
