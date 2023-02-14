@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const saltrounds = 10
 const {con}  = require('./dbconnect')
 const path = require('path')
+const Op = require('sequelize').Op
 const {
     depts,
     emp,
@@ -13,10 +14,6 @@ const {
     studentComplaints
 } = require('./models')
 
-
-// openlogin = (req,res)=>{
-//     res.sendFile(path.resolve(__dirname,'../assets','index.html'))
-// }
 
 
  login = async (req)=>{
@@ -142,63 +139,98 @@ raiseComplaint = async (req)=>{
 }
 
 upvotes = async (req)=>{
-return new Promise(async (resolve,reject)=>{
-    const sc = await new Promise(async (resolve,reject)=>{
-        //check if complaint is already upvoted by student
-        await studentComplaints.findOne({
-            where:{
-                complaint_id: Number(req.params.cid),
+    return new Promise(async (resolve,reject)=>{
+        const sc = await new Promise(async (resolve,reject)=>{
+            //check if complaint is already upvoted by student
+            await studentComplaints.findOne({
+                where:{
+                    complaint_id: Number(req.params.cid),
+                    stu_id: req.session.user.enroll_no
+                }
+            }).then((sc)=>{
+                resolve(sc)
+                }).catch((err)=>{
+                    console.log(err)
+                    resolve(false)
+            })  
+            
+        })
+        if(sc == null)
+        {
+            //if not upvoted then update studentcomplaints table
+            const studentComplaint = {
+                complaint_id: req.params.cid,
                 stu_id: req.session.user.enroll_no
             }
-        }).then((sc)=>{
-            resolve(sc)
-            }).catch((err)=>{
-                console.log(err)
-                resolve(false)
-        })  
-        
-    })
-    if(sc == null)
-    {
-        //if not upvoted then update studentcomplaints table
-        const studentComplaint = {
-            complaint_id: req.params.cid,
-            stu_id: req.session.user.enroll_no
-        }
-        const sc = studentComplaints.build(studentComplaint)
-        await sc.save().then(async ()=>{
-            console.log('student complaint saved')
-            
-            //update complt table to increment upvotes
-            const comp = await complaints.findOne({
-                where:{
-                    complaint_id: req.params.cid
-                }
-            })
-            comp.upvotes = comp.upvotes + 1
-            await comp.save().then(()=>{
-                console.log('complaint upvoted')
-                resolve(true)
-            }).catch((err)=>{
-                console.log(err)
-                resolve(false)
-            })
-            }).catch((err)=>{
-                console.log(err)
-                resolve(false)
-            })
+            const sc = studentComplaints.build(studentComplaint)
+            await sc.save().then(async ()=>{
+                console.log('student complaint saved')
+                
+                //update complt table to increment upvotes
+                const comp = await complaints.findOne({
+                    where:{
+                        complaint_id: req.params.cid
+                    }
+                })
+                comp.upvotes = comp.upvotes + 1
+                await comp.save().then(()=>{
+                    console.log('complaint upvoted')
+                    resolve(true)
+                }).catch((err)=>{
+                    console.log(err)
+                    resolve(false)
+                })
+                }).catch((err)=>{
+                    console.log(err)
+                    resolve(false)
+                })
 
-    }
-    else{
-        console.log('already upvoted')
-        resolve('already upvoted')
-    }
-})
+        }
+        else{
+            console.log('already upvoted')
+            resolve('already upvoted')
+        }
+    })
 }
+
+search = async (req)=>{
+    console.log(req.query.search)
+        return await new Promise(async (resolve,reject)=>{
+            await complaints.findAll({
+                where:{
+                    [Op.or]:[
+                        {
+                            issue:{[Op.like]: '%'+req.query.search+'%'}
+                        },
+                        {
+                            description:{[Op.like]: '%'+req.query.search+'%'}
+                        },
+                        {
+                            status:{[Op.like]: '%'+req.query.search+'%'}
+                        },
+                        {
+                            dept_id:{[Op.like]: '%'+req.query.search+'%'}
+                        },
+                        {
+                            domId:{[Op.like]: '%'+req.query.search+'%'}
+                        }
+                    ]
+                    
+                }
+            }).then((comp)=>{
+                resolve(comp)
+            }).catch((err)=>{
+                console.log(err)
+                resolve(false)
+            })
+        })
+}
+
 module.exports = {
     login,
     signup,
     raiseComplaint,
-    upvotes
+    upvotes,
+    search
 }
 

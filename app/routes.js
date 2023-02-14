@@ -40,7 +40,7 @@ login.post('/',async (req,res)=>{
     if(result == true)
     {
         // res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
-        res.render('dashboard',{message: ''})
+        res.render('dashboard',{message: '',complaint:''})
     }
     else{
         // res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
@@ -64,7 +64,26 @@ signup.post('/',async (req,res)=>{
 
 dashboard.get('/',auth,async (req,res)=>{
     // res.sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
-    res.render('dashboard',{message: ''})
+    res.render('dashboard',{message: '',complaint:''})
+})
+
+dashboard.get('/search',auth,async (req,res)=>{
+    result = await controllers.search(req).then((result)=>{return result})
+    const complaints = {
+        issue : result[0].issue.toString(),
+        description : result[0].description.toString(),
+        status : result[0].status.toString(),
+        dept_id : result[0].dept_id.toString(),
+        domId : result[0].domId.toString(),
+        upvotes: result[0].upvotes.toString()
+    }
+    if(result == false)
+    {
+        res.render('dashboard',{message: 'No results found',complaint:''})
+    }
+    else{
+        res.render('dashboard',{message: '',complaint: complaints})
+    }
 })
 
 newcomplaint.get('/',auth,async (req,res)=>{
@@ -92,10 +111,10 @@ upvotes.get('/:cid',auth,async (req,res)=>{
     await controllers.upvotes(req,req.params.id).then((result)=>{
         if(result == true)
         {
-            res.render('dashboard',{message: 'Upvote successful'})
+            res.render('dashboard',{message: 'Upvote successful',complaint:''})
         }
         else{
-            res.render('dashboard',{message : result})
+            res.render('dashboard',{message : result,complaint:''})
         }
     })
 })
@@ -111,6 +130,8 @@ profile.get('/',auth,async (req,res)=>{
         course : req.session.user.course ,
         sem: req.session.user.semester})
 })
+
+
 
 module.exports = {
     index,

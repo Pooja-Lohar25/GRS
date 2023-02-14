@@ -4,6 +4,22 @@
         <%= message %>
       </p>
     </div>
+    <div class="search">
+      <form action="/dashboard/search" method="get">
+        <input type="text" name="search" placeholder="Search by issue/description" />
+        <input type="submit" value="Search" />
+      </form>
+
+      <div class="comps">
+        <p style = "font-weight: 800;">Complaints</p>
+        <p>Issue:<%= complaint.issue %> </p>
+        <p>description: <%= complaint.description %></p>
+        <p>status: <%= complaint.status %></p>
+        <p>Department: <%= complaint.dept_id %></p>
+        <p>domain: <%= complaint.domId %></p>
+        <p>upvotes: <%= complaint.upvotes %></p>
+      </div>
+    </div>
     <div class="complaint">
       <p style = "font-weight: 800;">Management issues</p>
       <a href='/upvotes/1'><p style = "color:black">upvote</p></a>
