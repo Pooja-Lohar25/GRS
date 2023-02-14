@@ -68,22 +68,30 @@ dashboard.get('/',auth,async (req,res)=>{
 })
 
 dashboard.get('/search',auth,async (req,res)=>{
-    result = await controllers.search(req).then((result)=>{return result})
-    const complaints = {
-        issue : result[0].issue.toString(),
-        description : result[0].description.toString(),
-        status : result[0].status.toString(),
-        dept_id : result[0].dept_id.toString(),
-        domId : result[0].domId.toString(),
-        upvotes: result[0].upvotes.toString()
-    }
-    if(result == false)
-    {
-        res.render('dashboard',{message: 'No results found',complaint:''})
-    }
-    else{
-        res.render('dashboard',{message: '',complaint: complaints})
-    }
+    await controllers.search(req).then((result)=>{
+        console.log(result)
+        if(result.length == 0)
+        {
+            res.render('dashboard',{message: 'No results found',complaint:''})
+        }
+        else{
+            const complaints = {
+                issue : result[0].issue.toString(),
+                description : result[0].description.toString(),
+                status : result[0].status.toString(),
+                dept_id : result[0].dept_id.toString(),
+                domId : result[0].domId.toString(),
+                upvotes: result[0].upvotes.toString(),
+                complaint_id: result[0].complaint_id.toString()
+            }
+            res.render('dashboard',{message: '',complaint: complaints})
+        }
+
+    }).catch((err)=>{
+        console.log(err)
+        res.render('dashboard',{message: 'Sorry Something went wrong while fetching data',complaint:''})
+        
+    })
 })
 
 newcomplaint.get('/',auth,async (req,res)=>{
