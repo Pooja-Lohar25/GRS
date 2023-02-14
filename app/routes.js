@@ -34,8 +34,17 @@ login.get('/student',(req,res)=>{
     res.render('login',{message: ''})
 })
 
+login.get('/faculty',(req,res)=>{
+    // res.sendFile(path.resolve(__dirname,'../assets','index.html'))
+    res.render('facultyLogin',{message: ''})
+})
 
-login.post('/',async (req,res)=>{
+login.get('/admin',(req,res)=>{
+    // res.sendFile(path.resolve(__dirname,'../assets','index.html'))
+    res.render('adminLogin',{message: ''})
+})
+
+login.post('/student',async (req,res)=>{
     result = await controllers.login(req)
     if(result == true)
     {
@@ -127,7 +136,7 @@ upvotes.get('/:cid',auth,async (req,res)=>{
     })
 })
 
-profile.get('/',auth,async (req,res)=>{
+profile.get('/student',auth,async (req,res)=>{
     res.render('studentProfile',{
         role : 'student',
         name: req.session.user.name , 
@@ -139,6 +148,17 @@ profile.get('/',auth,async (req,res)=>{
         sem: req.session.user.semester})
 })
 
+profile.get('/faculty',auth,async (req,res)=>{
+    res.render('facultyProf',{
+        role : 'Faculty',
+        name: req.session.user.name , 
+        email: req.session.user.username , 
+        phone: req.session.user.phone , 
+        rollno: req.session.user.enroll_no , 
+        branch: req.session.user.branch , 
+        course : req.session.user.course ,
+        sem: req.session.user.semester})
+})
 
 
 module.exports = {
