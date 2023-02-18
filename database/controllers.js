@@ -24,7 +24,16 @@ login = async (req,role)=>{
                 resolve(result)
             })
         }
-        
+        else if(role == "faculty"){
+            logFac(req).then(result =>{
+                resolve(result)
+            })
+        }
+        else if(role == "admin"){
+            logAdm(req).then(result =>{
+                resolve(result)
+            })
+        } 
     })
     
      
@@ -209,12 +218,33 @@ search = async (req)=>{
         })
 }
 
+adminReg = async (req)=>{
+    const admin = {
+        emp_id: req.body.emp_id,
+        name: req.body.name,
+        desig : req.body.desig,
+        username: req.body.username,
+        password: await bcrypt.hash(req.body.password,saltrounds),
+        
+    }
+    const ad = admins.build(admin)
+    return ad.save().then(()=>{
+        console.log('admin registered')
+        return true
+    }).catch((err)=>{
+        return err
+    }
+    )
+
+}
+
 module.exports = {
     login,
     signup,
     raiseComplaint,
     upvotes,
-    search
+    search,
+    adminReg
 }
 
 
@@ -243,6 +273,61 @@ async function logStu(req){
                 course: stu.course,
                 phone : stu.phone,
                 enroll_no:stu.enroll_no
+            }
+            return true
+        }
+    }
+}
+
+async function logFac(req){
+    const fac = await emp.findOne({
+        where:{
+            username:req.body.loginEmail
+        }
+    })
+    if(fac == null)
+    {
+        return false
+    }
+    else{
+        const result = await bcrypt.compare(req.body.loginPassword,fac.password)
+        if(result == true)
+        {
+            req.session.user = {
+                name: fac.name,
+                username: fac.username,
+                designation : fac.designation,
+                dept: fac.dept_id,
+                scores: fac.scores,
+                phone : fac.phone,
+                emp_id:fac.emp_id
+            }
+            return true
+        }
+    }
+}
+
+async function logAdm(req){
+    const adm = await admins.findOne({
+        where:{
+            username:req.body.loginEmail
+        }
+    })
+    if(adm == null)
+    {
+        return false
+    }
+    else{
+        const result = await bcrypt.compare(req.body.loginPassword,adm.password)
+        if(result == true)
+        {
+            req.session.user = {
+                name: adm.name,
+                username: adm.username,
+                designation : adm.desig,
+                dept: adm.dept_id,
+                phone : adm.phone,
+                emp_id:adm.emp_id
             }
             return true
         }

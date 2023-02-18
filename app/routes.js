@@ -5,6 +5,7 @@ const {auth} = require('./auth')
 
 //creating routers
 const index = express.Router()
+const admin  = express.Router()
 const login = express.Router()
 const signup = express.Router()
 const dashboard = express.Router()
@@ -15,6 +16,7 @@ const profile = express.Router()
 
 //setting up routers with static files 
 index.use(express.static(path.resolve(__dirname,'../assets')))
+admin.use(express.static(path.resolve(__dirname,'../assets')))
 login.use(express.static(path.resolve(__dirname,'../assets')))
 signup.use(express.static(path.resolve(__dirname,'../assets')))
 dashboard.use(express.static(path.resolve(__dirname,'../assets')))
@@ -27,6 +29,24 @@ profile.use(express.static(path.resolve(__dirname,'../assets')))
 index.get('/',(req,res)=>{
     // res.sendFile(path.resolve(__dirname,'../assets','index.html'))
     res.render('index',{message: ''})
+})
+
+admin.get('/',(req,res)=>{
+    res.render('adminSignup',{message: 'Enter your Details'})
+
+})
+admin.post('/',async (req,res)=>{
+    result = await controllers.adminReg(req,"student")
+    if(result == true)
+    {
+        // res.status(200).sendFile(path.resolve(__dirname,'../assets','index.html'))
+        res.render('adminSignup',{message: 'User created successfully'})
+    }
+    else{
+        console.log(result)
+        // res.render('error',{code :'500',errordesc: '' ,message:'Something Went Wrong'})
+        res.render('adminSignup',{message: 'Something went wrong!! Please try again'})
+    }
 })
 
 login.get('/student',(req,res)=>{
@@ -83,8 +103,36 @@ login.post('/admin',async (req,res)=>{
     }
 })
 
-signup.post('/',async (req,res)=>{
-    result = await controllers.signup(req)
+signup.post('/student',async (req,res)=>{
+    result = await controllers.signup(req,"student")
+    if(result == true)
+    {
+        // res.status(200).sendFile(path.resolve(__dirname,'../assets','index.html'))
+        res.render('login',{message: 'User created successfully'})
+    }
+    else{
+        console.log(result)
+        // res.render('error',{code :'500',errordesc: '' ,message:'Something Went Wrong'})
+        res.render('login',{message: 'Something went wrong!! Please try again'})
+    }
+})
+
+signup.post('/faculty',async (req,res)=>{
+    result = await controllers.signup(req,"faculty")
+    if(result == true)
+    {
+        // res.status(200).sendFile(path.resolve(__dirname,'../assets','index.html'))
+        res.render('login',{message: 'User created successfully'})
+    }
+    else{
+        console.log(result)
+        // res.render('error',{code :'500',errordesc: '' ,message:'Something Went Wrong'})
+        res.render('login',{message: 'Something went wrong!! Please try again'})
+    }
+})
+
+signup.post('/admin',async (req,res)=>{
+    result = await controllers.signup(req,"admin")
     if(result == true)
     {
         // res.status(200).sendFile(path.resolve(__dirname,'../assets','index.html'))
@@ -189,6 +237,7 @@ profile.get('/faculty',auth,async (req,res)=>{
 
 module.exports = {
     index,
+    admin,
     login,
     signup,
     dashboard,
