@@ -4,13 +4,106 @@
         <%= message %>
       </p>
     </div>
-    <div class="search">
+
+    <div class="row" style="padding: 0px 10px 0 50px;">
+
+      <div class="col-lg-10">
+        <input type="text" class="form-control" name="search" placeholder="Search by issue/description" />
+      </div>
+      <div class="col-lg-2">
+        <button type="Submit" value="search" class="btn-upvote">
+         Search
+        </button>
+      </div>
+
+    </div>
+
+    
+
+    <!-- <div class="search">
       <form action="/dashboard/search" method="get">
         <input type="text" name="search" placeholder="Search by issue/description" />
         <input type="submit" value="Search" />
       </form>
+      </div> -->
 
-      <div class="comps">
+      <section >
+        <div class="container py-5">
+          
+      
+          
+            <div class="col-lg-12">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Issue</p>
+                    </div>
+                    <div class="col-sm-7">
+                      <p class="text-muted mb-0"><b> <%= complaint.issue %> </b></p>
+                    </div>
+                    <div class="col-sm-2">
+                        <!-- <p class="mb-0">Issue</p> -->
+                        <button class="btn-upvote"> <a href="/upvotes/1">Upvote</a></button>
+                      </div>
+                     
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Description</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0"> <%= complaint.description %></p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Status</p>
+                    </div>
+                    <div class="col-sm-3">
+                      <p class="text-muted mb-0"><%= complaint.status %></p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="mb-0">Department</p>
+                      </div>
+                      <div class="col-sm-3">
+                        <p class="text-muted mb-0"> <%= complaint.dept_id %></p>
+                      </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Domain</p>
+                    </div>
+                    <div class="col-sm-3">
+                      <p class="text-muted mb-0"> <%= complaint.domId %></p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="mb-0">Upvotes</p>
+                      </div>
+                      <div class="col-sm-3">
+                        <p class="text-muted mb-0"><%= complaint.upvotes %></p>
+                      </div>
+                     
+                      
+                  </div>
+                 
+                 
+                  
+                </div>
+              </div>
+             
+            </div>
+          </div>
+        </div>
+      </section>
+
+     
+
+
+      <!-- <div class="comps">
         <p style = "font-weight: 800;">Complaints</p>
         <p>Issue:<%= complaint.issue %> </p>
         <p>description: <%= complaint.description %></p>
@@ -19,7 +112,7 @@
         <p>domain: <%= complaint.domId %></p>
         <p>upvotes: <%= complaint.upvotes %></p>
       <a href="/upvotes/1"><p style = "color:black">UPVOTE</p></a>
-      </div>
+      </div> -->
     </div>
   </body>
 </html>

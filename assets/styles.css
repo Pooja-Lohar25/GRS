@@ -37,6 +37,23 @@ body {
    
 }
 
+.btn-upvote{
+	min-width: 120px;
+	border: none;
+    background-color: #a7e245;
+    color: #fff;
+    box-shadow: inset 0 0 0 2px #a7e245;
+	font-size: 18px;
+    line-height: 40px;
+    border-radius: 25px;
+}
+
+.btn-upvote:hover{
+	background-color: #fff;
+    color: black;
+    border: solid 1px #a7e245;
+}
+
 .btn-submit-comp{
     display: block;
     min-width: 120px;
