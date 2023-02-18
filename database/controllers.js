@@ -39,25 +39,23 @@ login = async (req,role)=>{
      
 }
 
- signup = async (req)=>{
-    const student = {
-        enroll_no: req.body.enrollmentOfStudent,
-        name: req.body.nameOfStudent,
-        branch: req.body.branchOfStudent,
-        course: req.body.courseOfStudent,
-        semester: req.body.semesterOfStudent,
-        username: req.body.emailOfStudent,
-        password: await bcrypt.hash(req.body.password,saltrounds),
-        phone: req.body.contactOfStudent
-    }
-    const st = students.build(student)
-    return st.save().then(()=>{
-        console.log('student saved')
-        return true
-    }).catch((err)=>{
-        return err
-    }
-    )
+ signup = async (req,role)=>{
+
+    return new Promise(resolve => {
+        if(role == "student"){
+            signupStu(req).then(result =>{
+                resolve(result)
+            })
+        }
+        else if(role == "faculty"){
+            signupFac(req).then(result =>{
+                resolve(result)
+            })
+        }
+    })
+
+
+    
 
 }
 
@@ -332,4 +330,46 @@ async function logAdm(req){
             return true
         }
     }
+}
+
+async function signupStu(req){
+    const student = {
+        enroll_no: req.body.enrollmentOfStudent,
+        name: req.body.nameOfStudent,
+        branch: req.body.branchOfStudent,
+        course: req.body.courseOfStudent,
+        semester: req.body.semesterOfStudent,
+        username: req.body.emailOfStudent,
+        password: await bcrypt.hash(req.body.password,saltrounds),
+        phone: req.body.contactOfStudent
+    }
+    const st = students.build(student)
+    return st.save().then(()=>{
+        console.log('student saved')
+        return true
+    }).catch((err)=>{
+        return err
+    }
+    )
+}
+
+async function signupFac(req){
+    const faculty = {
+        emp_id: req.body.employeeIdofFaculty,
+        name: req.body.nameOfFaculty,
+        dept_id : req.body.branchOfFaculty,
+        designation : req.body.designationOfEmployee,
+        course: req.body.courseOfFaculty,
+        username: req.body.emailOfFaculty,
+        password: await bcrypt.hash(req.body.password,saltrounds),
+        
+    }
+    const fac = emp.build(faculty)
+    return fac.save().then(()=>{
+        console.log('faculty saved')
+        return true
+    }).catch((err)=>{
+        return err
+    }
+    )
 }

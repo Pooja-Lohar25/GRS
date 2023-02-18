@@ -86,7 +86,7 @@ login.post('/faculty',async (req,res)=>{
     }
     else{
         // res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
-        res.render('login',{message: 'Kindly provide valid credentials'})
+        res.render('facultyLogin',{message: 'Kindly provide valid credentials'})
     }
 })
 
@@ -122,12 +122,12 @@ signup.post('/faculty',async (req,res)=>{
     if(result == true)
     {
         // res.status(200).sendFile(path.resolve(__dirname,'../assets','index.html'))
-        res.render('login',{message: 'User created successfully'})
+        res.render('facultyLogin',{message: 'User created successfully'})
     }
     else{
         console.log(result)
         // res.render('error',{code :'500',errordesc: '' ,message:'Something Went Wrong'})
-        res.render('login',{message: 'Something went wrong!! Please try again'})
+        res.render('facultyLogin',{message: 'Something went wrong!! Please try again'})
     }
 })
 
