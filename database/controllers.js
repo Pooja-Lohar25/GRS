@@ -16,33 +16,16 @@ const {
 
 
 
-login = async (req)=>{
+login = async (req,role)=>{
     
-    const stu = await students.findOne({
-        where:{
-            username:req.body.loginEmail
+    return await new Promise((resolve)=>{
+        if(role == "student"){
+            logStu(req).then(result =>{
+                resolve(result)
+            })
         }
+        
     })
-    if(stu == null)
-    {
-        return false
-    }
-    else{
-        const result = await bcrypt.compare(req.body.loginPassword,stu.password)
-        if(result == true)
-        {
-            req.session.user = {
-                name: stu.name,
-                username: stu.username,
-                semester : stu.semester,
-                branch: stu.branch,
-                course: stu.course,
-                phone : stu.phone,
-                enroll_no:stu.enroll_no
-            }
-            return true
-        }
-    }
     
      
 }
@@ -234,3 +217,34 @@ module.exports = {
     search
 }
 
+
+
+
+
+async function logStu(req){
+    const stu = await students.findOne({
+        where:{
+            username:req.body.loginEmail
+        }
+    })
+    if(stu == null)
+    {
+        return false
+    }
+    else{
+        const result = await bcrypt.compare(req.body.loginPassword,stu.password)
+        if(result == true)
+        {
+            req.session.user = {
+                name: stu.name,
+                username: stu.username,
+                semester : stu.semester,
+                branch: stu.branch,
+                course: stu.course,
+                phone : stu.phone,
+                enroll_no:stu.enroll_no
+            }
+            return true
+        }
+    }
+}

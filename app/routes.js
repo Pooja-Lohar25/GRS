@@ -45,7 +45,33 @@ login.get('/admin',(req,res)=>{
 })
 
 login.post('/student',async (req,res)=>{
-    result = await controllers.login(req)
+    result = await controllers.login(req,"student")
+    if(result == true)
+    {
+        // res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
+        res.render('dashboard',{message: '',complaint:''})
+    }
+    else{
+        // res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
+        res.render('login',{message: 'Kindly provide valid credentials'})
+    }
+})
+
+login.post('/faculty',async (req,res)=>{
+    result = await controllers.login(req,"faculty")
+    if(result == true)
+    {
+        // res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
+        res.render('dashboard',{message: '',complaint:''})
+    }
+    else{
+        // res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
+        res.render('login',{message: 'Kindly provide valid credentials'})
+    }
+})
+
+login.post('/admin',async (req,res)=>{
+    result = await controllers.login(req,"admin")
     if(result == true)
     {
         // res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
