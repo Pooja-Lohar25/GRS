@@ -212,7 +212,7 @@ upvotes.get('/:cid',auth,async (req,res)=>{
 
 profile.get('/student',auth,async (req,res)=>{
     res.render('studentProfile',{
-        role : 'student',
+        role : "student",
         name: req.session.user.name , 
         email: req.session.user.username , 
         phone: req.session.user.phone , 
@@ -223,15 +223,13 @@ profile.get('/student',auth,async (req,res)=>{
 })
 
 profile.get('/faculty',auth,async (req,res)=>{
-    res.render('facultyProf',{
-        role : 'Faculty',
+    res.render('FacultyProf',{
         name: req.session.user.name , 
-        email: req.session.user.username , 
-        phone: req.session.user.phone , 
-        rollno: req.session.user.enroll_no , 
-        branch: req.session.user.branch , 
-        course : req.session.user.course ,
-        sem: req.session.user.semester})
+        username: req.session.user.username , 
+        phone: req.session.user.phone ,  
+        dept: req.session.user.dept ,
+        designation : req.session.user.designation
+        })
 })
 
 

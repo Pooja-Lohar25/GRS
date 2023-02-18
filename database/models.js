@@ -82,6 +82,14 @@ const admins = sequelize.define('admin',{
         type:DataTypes.STRING,
         allowNull:false
     },
+    dept_id : {
+        type: DataTypes.STRING,
+        references:{
+            model:depts,
+            key:'dept_id'
+
+        }
+    },
     username:{
         type:DataTypes.STRING,
         allowNull:false
