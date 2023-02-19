@@ -1,3 +1,4 @@
+
 const switchers = [...document.querySelectorAll('.switcher')]
 
 switchers.forEach(item => {
@@ -7,20 +8,13 @@ switchers.forEach(item => {
 	})
 })
 
-var flag = false;
-$("#br").prop("disabled",true);
 
-$(document).click(function(){
-	if($("#bTech").prop("checked"))
-		$("#br").prop("disabled",false);
-	else{
-		$("#br").prop("disabled",true);
-	}
 
-})
 
-var password = document.getElementById("student_password")
-  , confirm_password = document.getElementById("student_confirm_password");
+
+
+var password = document.getElementById("faculty_password")
+  , confirm_password = document.getElementById("faculty_confirm_password");
 
 function validatePassword(){
   if(password.value != confirm_password.value) {
@@ -32,8 +26,3 @@ function validatePassword(){
 
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
-
-
-
-
-
