@@ -13,6 +13,33 @@ const newcomplaint = express.Router()
 const upvotes = express.Router()
 const profile = express.Router()
 
+const allcomplaint = [
+    {
+        "issue" : "issue of complaint 1",
+        "description" : "this is description of comp",
+        "status" : "status of complaint",
+        "dept_id" : "id of comp",
+        "domId" : "Domain id of comp",
+        "upvotes" : "17"
+    },
+    {
+        "issue" : "issue of complaint 1",
+        "description" : "this is description of comp",
+        "status" : "status of complaint",
+        "dept_id" : "id of comp",
+        "domId" : "Domain id of comp",
+        "upvotes" : "17"
+    },
+    {
+        "issue" : "issue of complaint 1",
+        "description" : "this is description of comp",
+        "status" : "status of complaint",
+        "dept_id" : "id of comp",
+        "domId" : "Domain id of comp",
+        "upvotes" : "17"
+    }
+]
+
 
 //setting up routers with static files 
 index.use(express.static(path.resolve(__dirname,'../assets')))
@@ -69,7 +96,7 @@ login.post('/student',async (req,res)=>{
     if(result == true)
     {
         // res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
-        res.render('dashboard',{message: '',complaint:''})
+        res.render('dashboard',{message: '',allComplaints:allcomplaint})
     }
     else{
         // res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
@@ -147,7 +174,7 @@ signup.post('/admin',async (req,res)=>{
 
 dashboard.get('/',auth,async (req,res)=>{
     // res.sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
-    res.render('dashboard',{message: '',complaint:[]})
+    res.render('dashboard',{message: '',allComplaints:allcomplaint})
 })
 
 dashboard.get('/search',auth,async (req,res)=>{
@@ -155,7 +182,7 @@ dashboard.get('/search',auth,async (req,res)=>{
         console.log(result)
         if(result.length == 0)
         {
-            res.render('dashboard',{message: 'No results found',complaint:''})
+            res.render('dashboard',{message: 'No results found',allComplaints:allcomplaint})
         }
         else{
             for(var i=0;i<result.length;i++){
