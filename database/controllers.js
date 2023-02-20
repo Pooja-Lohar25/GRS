@@ -265,6 +265,7 @@ async function logStu(req){
         if(result == true)
         {
             req.session.user = {
+                role : 'student',
                 name: stu.name,
                 username: stu.username,
                 semester : stu.semester,
@@ -293,6 +294,7 @@ async function logFac(req){
         if(result == true)
         {
             req.session.user = {
+                role : 'faculty',
                 name: fac.name,
                 username: fac.username,
                 designation : fac.designation,
@@ -321,6 +323,7 @@ async function logAdm(req){
         if(result == true)
         {
             req.session.user = {
+                role : 'admin',
                 name: adm.name,
                 username: adm.username,
                 designation : adm.desig,

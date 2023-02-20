@@ -210,9 +210,10 @@ upvotes.get('/:cid',auth,async (req,res)=>{
     })
 })
 
-profile.get('/student',auth,async (req,res)=>{
+profile.get('/',auth,async (req,res)=>{
+    if(req.session.user.role == "student"){
     res.render('studentProfile',{
-        role : "student",
+        role : req.session.user.role,
         name: req.session.user.name , 
         email: req.session.user.username , 
         phone: req.session.user.phone , 
@@ -220,10 +221,21 @@ profile.get('/student',auth,async (req,res)=>{
         branch: req.session.user.branch , 
         course : req.session.user.course ,
         sem: req.session.user.semester})
+    }
+    else if(req.session.user.role == "faculty"){
+        res.render('FacultyProf',{
+            role : req.session.user.role,
+            name: req.session.user.name , 
+            username: req.session.user.username , 
+            phone: req.session.user.phone ,  
+            dept: req.session.user.dept ,
+            designation : req.session.user.designation
+            })
+    }
 })
 
 profile.get('/faculty',auth,async (req,res)=>{
-    res.render('FacultyProf',{
+    res.render('faculties',{
         name: req.session.user.name , 
         username: req.session.user.username , 
         phone: req.session.user.phone ,  
