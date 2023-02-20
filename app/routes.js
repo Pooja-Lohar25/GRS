@@ -13,32 +13,7 @@ const newcomplaint = express.Router()
 const upvotes = express.Router()
 const profile = express.Router()
 
-const allcomplaint = [
-    {
-        "issue" : "issue of complaint 1",
-        "description" : "this is description of comp",
-        "status" : "status of complaint",
-        "dept_id" : "id of comp",
-        "domId" : "Domain id of comp",
-        "upvotes" : "17"
-    },
-    {
-        "issue" : "issue of complaint 1",
-        "description" : "this is description of comp",
-        "status" : "status of complaint",
-        "dept_id" : "id of comp",
-        "domId" : "Domain id of comp",
-        "upvotes" : "17"
-    },
-    {
-        "issue" : "issue of complaint 1",
-        "description" : "this is description of comp",
-        "status" : "status of complaint",
-        "dept_id" : "id of comp",
-        "domId" : "Domain id of comp",
-        "upvotes" : "17"
-    }
-]
+const allcomplaint = []
 
 
 //setting up routers with static files 
@@ -173,7 +148,7 @@ signup.post('/admin',async (req,res)=>{
 })
 
 dashboard.get('/',auth,async (req,res)=>{
-    // res.sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
+    
     res.render('dashboard',{message: '',allComplaints:allcomplaint})
 })
 
@@ -186,24 +161,15 @@ dashboard.get('/search',auth,async (req,res)=>{
         }
         else{
             for(var i=0;i<result.length;i++){
-                result[i].issue = result[i].issue.toString()
-                result[i].description = result[i].description.toString()
-                result[i].status = result[i].status.toString()
-                result[i].dept_id = result[i].dept_id.toString()
-                result[i].domId = result[i].domId.toString()
-                result[i].upvotes = result[i].upvotes.toString()
-                result[i].complaint_id = result[i].complaint_id.toString()
+                allcomplaint[i].issue = result[i].issue.toString()
+                allcomplaint[i].description = result[i].description.toString()
+                allcomplaint[i].status = result[i].status.toString()
+                allcomplaint[i].dept_id = result[i].dept_id.toString()
+                allcomplaint[i].domId = result[i].domId.toString()
+                allcomplaint[i].upvotes = result[i].upvotes.toString()
+                allcomplaint[i].complaint_id = result[i].complaint_id.toString()
             }
-            // const complaints = {
-            //     issue : result[0].issue.toString(),
-            //     description : result[0].description.toString(),
-            //     status : result[0].status.toString(),
-            //     dept_id : result[0].dept_id.toString(),
-            //     domId : result[0].domId.toString(),
-            //     upvotes: result[0].upvotes.toString(),
-            //     complaint_id: result[0].complaint_id.toString()
-            // }
-            res.render('dashboard',{message: '',complaint: result})
+            res.render('dashboard',{message: '',allComplaints: allcomplaint})
         }
 
     }).catch((err)=>{
