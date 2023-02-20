@@ -18,6 +18,8 @@
       </div>
     </form>
 
+<% allComplaints.forEach(function(complaint){ %>
+
 
       <section >
         <div class="container py-5">
@@ -32,7 +34,7 @@
                       <p class="mb-0">Issue</p>
                     </div>
                     <div class="col-sm-7">
-                      <p class="text-muted mb-0"><b> <%= complaint[0].issue %> </b></p>
+                      <p class="text-muted mb-0"><b> <%= complaint.issue %> </b></p>
                     </div>
                     <div class="col-sm-2">
                         <!-- <p class="mb-0">Issue</p> -->
@@ -46,7 +48,7 @@
                       <p class="mb-0">Description</p>
                     </div>
                     <div class="col-sm-9">
-                      <p class="text-muted mb-0"> <%= complaint[0].description %></p>
+                      <p class="text-muted mb-0"> <%= complaint.description %></p>
                     </div>
                   </div>
                   <hr>
@@ -55,13 +57,13 @@
                       <p class="mb-0">Status</p>
                     </div>
                     <div class="col-sm-3">
-                      <p class="text-muted mb-0"><%= complaint[0].status %></p>
+                      <p class="text-muted mb-0"><%= complaint.status %></p>
                     </div>
                     <div class="col-sm-3">
                         <p class="mb-0">Department</p>
                       </div>
                       <div class="col-sm-3">
-                        <p class="text-muted mb-0"> <%= complaint[0].dept_id %></p>
+                        <p class="text-muted mb-0"> <%= complaint.dept_id %></p>
                       </div>
                   </div>
                   <hr>
@@ -70,13 +72,13 @@
                       <p class="mb-0">Domain</p>
                     </div>
                     <div class="col-sm-3">
-                      <p class="text-muted mb-0"> <%= complaint[0].domId %></p>
+                      <p class="text-muted mb-0"> <%= complaint.domId %></p>
                     </div>
                     <div class="col-sm-3">
                         <p class="mb-0">Upvotes</p>
                       </div>
                       <div class="col-sm-3">
-                        <p class="text-muted mb-0"><%= complaint[0].upvotes %></p>
+                        <p class="text-muted mb-0"><%= complaint.upvotes %></p>
                       </div>
                      
                       
@@ -93,18 +95,8 @@
       </section>
 
      
+  <%  }) %>
 
-
-      <!-- <div class="comps">
-        <p style = "font-weight: 800;">Complaints</p>
-        <p>Issue:<%= complaint.issue %> </p>
-        <p>description: <%= complaint.description %></p>
-        <p>status: <%= complaint.status %></p>
-        <p>Department: <%= complaint.dept_id %></p>
-        <p>domain: <%= complaint.domId %></p>
-        <p>upvotes: <%= complaint.upvotes %></p>
-      <a href="/upvotes/1"><p style = "color:black">UPVOTE</p></a>
-      </div> -->
     </div>
   </body>
 </html>
