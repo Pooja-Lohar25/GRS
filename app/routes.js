@@ -147,7 +147,7 @@ signup.post('/admin',async (req,res)=>{
 
 dashboard.get('/',auth,async (req,res)=>{
     // res.sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
-    res.render('dashboard',{message: '',complaint:''})
+    res.render('dashboard',{message: '',complaint:[]})
 })
 
 dashboard.get('/search',auth,async (req,res)=>{
@@ -158,16 +158,25 @@ dashboard.get('/search',auth,async (req,res)=>{
             res.render('dashboard',{message: 'No results found',complaint:''})
         }
         else{
-            const complaints = {
-                issue : result[0].issue.toString(),
-                description : result[0].description.toString(),
-                status : result[0].status.toString(),
-                dept_id : result[0].dept_id.toString(),
-                domId : result[0].domId.toString(),
-                upvotes: result[0].upvotes.toString(),
-                complaint_id: result[0].complaint_id.toString()
+            for(var i=0;i<result.length;i++){
+                result[i].issue = result[i].issue.toString()
+                result[i].description = result[i].description.toString()
+                result[i].status = result[i].status.toString()
+                result[i].dept_id = result[i].dept_id.toString()
+                result[i].domId = result[i].domId.toString()
+                result[i].upvotes = result[i].upvotes.toString()
+                result[i].complaint_id = result[i].complaint_id.toString()
             }
-            res.render('dashboard',{message: '',complaint: complaints})
+            // const complaints = {
+            //     issue : result[0].issue.toString(),
+            //     description : result[0].description.toString(),
+            //     status : result[0].status.toString(),
+            //     dept_id : result[0].dept_id.toString(),
+            //     domId : result[0].domId.toString(),
+            //     upvotes: result[0].upvotes.toString(),
+            //     complaint_id: result[0].complaint_id.toString()
+            // }
+            res.render('dashboard',{message: '',complaint: result})
         }
 
     }).catch((err)=>{
