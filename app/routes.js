@@ -160,6 +160,7 @@ signup.post('/admin',async (req,res)=>{
 })
 
 dashboard.get('/',auth,async (req,res)=>{
+    allcomplaint = await controllers.getAllComplaints()
     if(allcomplaint == false)
         {
             allcomplaint = []
