@@ -337,7 +337,6 @@ async function logAdm(req){
                 name: adm.name,
                 username: adm.username,
                 designation : adm.desig,
-                dept: adm.dept_id,
                 phone : adm.phone,
                 emp_id:adm.emp_id
             }

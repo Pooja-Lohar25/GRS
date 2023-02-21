@@ -29,6 +29,8 @@ profile.use(express.static(path.resolve(__dirname,'../assets')))
 
 //defining routes
 index.get('/',(req,res)=>{
+    //destroy session
+    req.session.destroy()
     res.render('index',{message: ''})
 })
 
@@ -154,7 +156,7 @@ login.post('/faculty',async (req,res)=>{
     result = await controllers.login(req,"faculty")
     if(result == true)
     {
-        res.render('dashboard',{message: '',complaint:''})
+        res.render('facultydashboard',{message: '',complaint:''})
     }
     else{
         res.render('facultyLogin',{message: 'Kindly provide valid credentials'})
@@ -204,8 +206,8 @@ login.post('/admin',async (req,res)=>{
     result = await controllers.login(req,"admin")
     if(result == true)
     {
-        
-        res.render('dashboard',{message: '',allComplaints:''})
+        res.send('admin dashboard')
+        // res.render('admindashboard',{message: '',allComplaints:''})
     }
     else{
         res.render('login',{message: 'Kindly provide valid credentials'})
