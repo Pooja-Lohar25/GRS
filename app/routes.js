@@ -29,41 +29,17 @@ profile.use(express.static(path.resolve(__dirname,'../assets')))
 
 //defining routes
 index.get('/',(req,res)=>{
-    // res.sendFile(path.resolve(__dirname,'../assets','index.html'))
     res.render('index',{message: ''})
 })
 
-admin.get('/',(req,res)=>{
-    res.render('adminSignup',{message: 'Enter your Details'})
 
-})
-admin.post('/',async (req,res)=>{
-    result = await controllers.adminReg(req,"student")
-    if(result == true)
-    {
-        // res.status(200).sendFile(path.resolve(__dirname,'../assets','index.html'))
-        res.render('adminSignup',{message: 'User created successfully'})
-    }
-    else{
-        console.log(result)
-        // res.render('error',{code :'500',errordesc: '' ,message:'Something Went Wrong'})
-        res.render('adminSignup',{message: 'Something went wrong!! Please try again'})
-    }
-})
+
+/**********************************/
+/**student routes */
+/**********************************/
 
 login.get('/student',(req,res)=>{
-    // res.sendFile(path.resolve(__dirname,'../assets','index.html'))
     res.render('login',{message: ''})
-})
-
-login.get('/faculty',(req,res)=>{
-    // res.sendFile(path.resolve(__dirname,'../assets','index.html'))
-    res.render('facultyLogin',{message: ''})
-})
-
-login.get('/admin',(req,res)=>{
-    // res.sendFile(path.resolve(__dirname,'../assets','index.html'))
-    res.render('adminLogin',{message: ''})
 })
 
 login.post('/student',async (req,res)=>{
@@ -86,33 +62,6 @@ login.post('/student',async (req,res)=>{
         }
     }
     else{
-        // res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
-        res.render('login',{message: 'Kindly provide valid credentials'})
-    }
-})
-
-login.post('/faculty',async (req,res)=>{
-    result = await controllers.login(req,"faculty")
-    if(result == true)
-    {
-        // res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
-        res.render('dashboard',{message: '',complaint:''})
-    }
-    else{
-        // res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
-        res.render('facultyLogin',{message: 'Kindly provide valid credentials'})
-    }
-})
-
-login.post('/admin',async (req,res)=>{
-    result = await controllers.login(req,"admin")
-    if(result == true)
-    {
-        
-        res.render('dashboard',{message: '',allComplaints:''})
-    }
-    else{
-        // res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
         res.render('login',{message: 'Kindly provide valid credentials'})
     }
 })
@@ -121,40 +70,10 @@ signup.post('/student',async (req,res)=>{
     result = await controllers.signup(req,"student")
     if(result == true)
     {
-        // res.status(200).sendFile(path.resolve(__dirname,'../assets','index.html'))
         res.render('login',{message: 'User created successfully'})
     }
     else{
         console.log(result)
-        // res.render('error',{code :'500',errordesc: '' ,message:'Something Went Wrong'})
-        res.render('login',{message: 'Something went wrong!! Please try again'})
-    }
-})
-
-signup.post('/faculty',async (req,res)=>{
-    result = await controllers.signup(req,"faculty")
-    if(result == true)
-    {
-        // res.status(200).sendFile(path.resolve(__dirname,'../assets','index.html'))
-        res.render('facultyLogin',{message: 'User created successfully'})
-    }
-    else{
-        console.log(result)
-        // res.render('error',{code :'500',errordesc: '' ,message:'Something Went Wrong'})
-        res.render('facultyLogin',{message: 'Something went wrong!! Please try again'})
-    }
-})
-
-signup.post('/admin',async (req,res)=>{
-    result = await controllers.signup(req,"admin")
-    if(result == true)
-    {
-        // res.status(200).sendFile(path.resolve(__dirname,'../assets','index.html'))
-        res.render('login',{message: 'User created successfully'})
-    }
-    else{
-        console.log(result)
-        // res.render('error',{code :'500',errordesc: '' ,message:'Something Went Wrong'})
         res.render('login',{message: 'Something went wrong!! Please try again'})
     }
 })
@@ -192,8 +111,8 @@ dashboard.get('/search',auth,async (req,res)=>{
 
 })
 
+
 newcomplaint.get('/',auth,async (req,res)=>{
-    // res.sendFile(path.resolve(__dirname,'../assets','newcomplaint.html'))
     res.render('newcomplaint' ,{message: ''})
 })
 
@@ -203,12 +122,10 @@ newcomplaint.post('/',auth,async (req,res)=>{
     console.log(result)
     if(result == true)
     {
-        // res.send(`<h1>Issue raised successfully</h1>`)
         res.render('newcomplaint',{message: 'Issue raised successfully'})
     }
     else{
         console.log(result)
-        // res.render('error',{code :'500',errordesc: '' ,message: result})
         res.render('newcomplaint',{message: 'Something went wrong!! Please try again'})
     }
 })
@@ -224,6 +141,94 @@ upvotes.get('/:cid',auth,async (req,res)=>{
         }
     })
 })
+
+
+/**********************************/
+/**faculty routes */
+/**********************************/
+login.get('/faculty',(req,res)=>{
+    res.render('facultyLogin',{message: ''})
+})
+
+login.post('/faculty',async (req,res)=>{
+    result = await controllers.login(req,"faculty")
+    if(result == true)
+    {
+        res.render('dashboard',{message: '',complaint:''})
+    }
+    else{
+        res.render('facultyLogin',{message: 'Kindly provide valid credentials'})
+    }
+})
+
+signup.post('/faculty',async (req,res)=>{
+    result = await controllers.signup(req,"faculty")
+    if(result == true)
+    {
+        res.render('facultyLogin',{message: 'User created successfully'})
+    }
+    else{
+        console.log(result)
+        res.render('facultyLogin',{message: 'Something went wrong!! Please try again'})
+    }
+})
+
+
+
+/******************************** */
+/**admin routes */
+/******************************** */
+
+admin.get('/',(req,res)=>{
+    res.render('adminSignup',{message: 'Enter your Details'})
+
+})
+admin.post('/',async (req,res)=>{
+    result = await controllers.adminReg(req,"student")
+    if(result == true)
+    {
+        res.render('adminSignup',{message: 'User created successfully'})
+    }
+    else{
+        console.log(result)
+        res.render('adminSignup',{message: 'Something went wrong!! Please try again'})
+    }
+})
+
+login.get('/admin',(req,res)=>{
+    res.render('adminLogin',{message: ''})
+})
+
+
+login.post('/admin',async (req,res)=>{
+    result = await controllers.login(req,"admin")
+    if(result == true)
+    {
+        
+        res.render('dashboard',{message: '',allComplaints:''})
+    }
+    else{
+        res.render('login',{message: 'Kindly provide valid credentials'})
+    }
+})
+
+signup.post('/admin',async (req,res)=>{
+    result = await controllers.signup(req,"admin")
+    if(result == true)
+    {
+        res.render('login',{message: 'User created successfully'})
+    }
+    else{
+        console.log(result)
+        res.render('login',{message: 'Something went wrong!! Please try again'})
+    }
+})
+
+
+
+/*************************** */
+/**common routes */
+/*************************** */
 
 profile.get('/',auth,async (req,res)=>{
     if(req.session.user.role == "student"){
@@ -258,6 +263,18 @@ profile.get('/faculty',auth,async (req,res)=>{
         designation : req.session.user.designation
         })
 })
+
+dashboard.get('/search/dept',auth,async (req,res)=>{
+    //TODO:search complaint by department
+    res.send('search by department')
+})
+
+
+
+
+
+
+
 
 
 module.exports = {
