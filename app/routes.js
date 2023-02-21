@@ -71,7 +71,7 @@ login.post('/student',async (req,res)=>{
     if(result == true)
     {
         // res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
-        res.render('dashboard',{message: '',allComplaints:allcomplaint})
+        res.render('dashboard',{message: '', allComplaints: allcomplaint})
     }
     else{
         // res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
@@ -97,7 +97,7 @@ login.post('/admin',async (req,res)=>{
     if(result == true)
     {
         // res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
-        res.render('dashboard',{message: '',complaint:''})
+        res.render('dashboard',{message: '',allComplaints:''})
     }
     else{
         // res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
@@ -148,35 +148,47 @@ signup.post('/admin',async (req,res)=>{
 })
 
 dashboard.get('/',auth,async (req,res)=>{
-    
-    res.render('dashboard',{message: '',allComplaints:allcomplaint})
-})
-
-dashboard.get('/search',auth,async (req,res)=>{
     await controllers.search(req).then((result)=>{
         console.log(result)
         if(result.length == 0)
         {
-            res.render('dashboard',{message: 'No results found',allComplaints:allcomplaint})
+            res.render('dashboard',{message: 'No results found', allComplaints: allcomplaint})
         }
         else{
+            
             for(var i=0;i<result.length;i++){
-                allcomplaint[i].issue = result[i].issue.toString()
-                allcomplaint[i].description = result[i].description.toString()
-                allcomplaint[i].status = result[i].status.toString()
-                allcomplaint[i].dept_id = result[i].dept_id.toString()
-                allcomplaint[i].domId = result[i].domId.toString()
-                allcomplaint[i].upvotes = result[i].upvotes.toString()
-                allcomplaint[i].complaint_id = result[i].complaint_id.toString()
+                var complaint =  {
+                        issue: '',
+                        description: '',
+                        status: '',
+                        dept_id: '',
+                        domId: '',
+                        upvotes: '',
+                        complaint_id: ''
+                    }
+                complaint.issue = result[i].issue.toString()
+                complaint.description = result[i].description.toString()
+                complaint.status = result[i].status.toString()
+                complaint.dept_id = result[i].dept_id.toString()
+                complaint.domId = result[i].domId.toString()
+                complaint.upvotes = result[i].upvotes.toString()
+                complaint.complaint_id = result[i].complaint_id.toString()
+                allcomplaint.push(complaint)
             }
+            console.log(allcomplaint)
             res.render('dashboard',{message: '',allComplaints: allcomplaint})
         }
-
+    
     }).catch((err)=>{
         console.log(err)
-        res.render('dashboard',{message: 'Sorry Something went wrong while fetching data',complaint:''})
+        res.render('dashboard',{message: 'Sorry Something went wrong while fetching data',allComplaints:allcomplaint})
         
     })
+})
+
+dashboard.get('/search',auth,async (req,res)=>{
+
+
 })
 
 newcomplaint.get('/',auth,async (req,res)=>{

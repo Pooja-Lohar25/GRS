@@ -182,30 +182,9 @@ upvotes = async (req)=>{
 }
 
 search = async (req)=>{
-    console.log(req.query.search)
         return await new Promise(async (resolve,reject)=>{
-            await complaints.findAll({
-                where:{
-                    [Op.or]:[
-                        {
-                            issue:{[Op.like]: '%'+req.query.search+'%'}
-                        },
-                        {
-                            description:{[Op.like]: '%'+req.query.search+'%'}
-                        },
-                        {
-                            status:{[Op.like]: '%'+req.query.search+'%'}
-                        },
-                        {
-                            dept_id:{[Op.like]: '%'+req.query.search+'%'}
-                        },
-                        {
-                            domId:{[Op.like]: '%'+req.query.search+'%'}
-                        }
-                    ]
-                    
-                }
-            }).then((comp)=>{
+            await complaints.findAll().then((comp)=>{
+                console.log(comp)
                 resolve(comp)
             }).catch((err)=>{
                 console.log(err)
