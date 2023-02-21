@@ -181,17 +181,48 @@ upvotes = async (req)=>{
     })
 }
 
-search = async (req)=>{
-        return await new Promise(async (resolve,reject)=>{
-            await complaints.findAll().then((comp)=>{
-                console.log(comp)
-                resolve(comp)
+
+getAllComplaints = async (req)=>{
+    return await new Promise(async (resolve,reject)=>{
+        await search(req).then((result)=>{
+            console.log(result)
+                if(result.length == 0)
+                {
+                    resolve([])
+                }
+                else{
+                    var allcomplaint = []
+                    for(var i=0;i<result.length;i++){
+                        var complaint =  {
+                                issue: '',
+                                description: '',
+                                status: '',
+                                dept_id: '',
+                                domId: '',
+                                upvotes: '',
+                                complaint_id: ''
+                            }
+                        complaint.issue = result[i].issue.toString()
+                        complaint.description = result[i].description.toString()
+                        complaint.status = result[i].status.toString()
+                        complaint.dept_id = result[i].dept_id.toString()
+                        complaint.domId = result[i].domId.toString()
+                        complaint.upvotes = result[i].upvotes.toString()
+                        complaint.complaint_id = result[i].complaint_id.toString()
+                        allcomplaint.push(complaint)
+                    }
+                    console.log(allcomplaint)
+                    resolve(allcomplaint)
+                }
+            
             }).catch((err)=>{
                 console.log(err)
                 resolve(false)
             })
-        })
+
+    })
 }
+
 
 adminReg = async (req)=>{
     const admin = {
@@ -218,7 +249,7 @@ module.exports = {
     signup,
     raiseComplaint,
     upvotes,
-    search,
+    getAllComplaints,
     adminReg
 }
 
@@ -355,4 +386,16 @@ async function signupFac(req){
         return err
     }
     )
+}
+
+async function search(req){
+        return await new Promise(async (resolve,reject)=>{
+            await complaints.findAll().then((comp)=>{
+                console.log(comp)
+                resolve(comp)
+            }).catch((err)=>{
+                console.log(err)
+                resolve(false)
+            })
+        })
 }

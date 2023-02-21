@@ -13,7 +13,7 @@ const newcomplaint = express.Router()
 const upvotes = express.Router()
 const profile = express.Router()
 
-const allcomplaint = []
+var allcomplaint = []
 
 
 //setting up routers with static files 
@@ -70,8 +70,20 @@ login.post('/student',async (req,res)=>{
     result = await controllers.login(req,"student")
     if(result == true)
     {
-        // res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
-        res.render('dashboard',{message: '', allComplaints: allcomplaint})
+        allcomplaint = await controllers.getAllComplaints()
+        if(allcomplaint == false)
+        {
+            allcomplaint = []
+            res.render('dashboard',{message: 'Something went wrong', allComplaints: allcomplaint})
+        }
+        else if(allcomplaint == [])
+        {
+            res.render('dashboard',{message: 'No complaints found', allComplaints: allcomplaint})
+        }
+        else
+        {
+            res.render('dashboard',{message: '', allComplaints: allcomplaint})
+        }
     }
     else{
         // res.render('error',{code :'401',errordesc: 'Unauthorised access' ,message:'Kindly provide valid credentials'})
@@ -96,7 +108,7 @@ login.post('/admin',async (req,res)=>{
     result = await controllers.login(req,"admin")
     if(result == true)
     {
-        // res.status(200).sendFile(path.resolve(__dirname,'../assets','dashboard.html'))
+        
         res.render('dashboard',{message: '',allComplaints:''})
     }
     else{
@@ -148,46 +160,23 @@ signup.post('/admin',async (req,res)=>{
 })
 
 dashboard.get('/',auth,async (req,res)=>{
-    await controllers.search(req).then((result)=>{
-        console.log(result)
-        if(result.length == 0)
+    if(allcomplaint == false)
         {
-            res.render('dashboard',{message: 'No results found', allComplaints: allcomplaint})
+            allcomplaint = []
+            res.render('dashboard',{message: 'Something went wrong', allComplaints: allcomplaint})
         }
-        else{
-            
-            for(var i=0;i<result.length;i++){
-                var complaint =  {
-                        issue: '',
-                        description: '',
-                        status: '',
-                        dept_id: '',
-                        domId: '',
-                        upvotes: '',
-                        complaint_id: ''
-                    }
-                complaint.issue = result[i].issue.toString()
-                complaint.description = result[i].description.toString()
-                complaint.status = result[i].status.toString()
-                complaint.dept_id = result[i].dept_id.toString()
-                complaint.domId = result[i].domId.toString()
-                complaint.upvotes = result[i].upvotes.toString()
-                complaint.complaint_id = result[i].complaint_id.toString()
-                allcomplaint.push(complaint)
-            }
-            console.log(allcomplaint)
-            res.render('dashboard',{message: '',allComplaints: allcomplaint})
+        else if(allcomplaint == [])
+        {
+            res.render('dashboard',{message: 'No complaints found', allComplaints: allcomplaint})
         }
-    
-    }).catch((err)=>{
-        console.log(err)
-        res.render('dashboard',{message: 'Sorry Something went wrong while fetching data',allComplaints:allcomplaint})
-        
-    })
+        else
+        {
+            res.render('dashboard',{message: '', allComplaints: allcomplaint})
+        }
 })
 
 dashboard.get('/search',auth,async (req,res)=>{
-
+    
 
 })
 
