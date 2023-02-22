@@ -200,7 +200,8 @@ getAllComplaints = async (req)=>{
                                 dept_id: '',
                                 domId: '',
                                 upvotes: '',
-                                complaint_id: ''
+                                complaint_id: '',
+                                remarks: ''
                             }
                         complaint.issue = result[i].issue.toString()
                         complaint.description = result[i].description.toString()
@@ -209,6 +210,7 @@ getAllComplaints = async (req)=>{
                         complaint.domId = result[i].domId.toString()
                         complaint.upvotes = result[i].upvotes.toString()
                         complaint.complaint_id = result[i].complaint_id.toString()
+                        complaint.remarks = result[i].remarks.toString()
                         allcomplaint.push(complaint)
                     }
                     console.log(allcomplaint)
