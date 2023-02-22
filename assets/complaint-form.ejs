@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update complaint status</title>
+</head>
+<body>
+    <label for=""><%= complaint.issue %></label>
+    <label for=""><%= complaint.description %></label>
+    <form action="/setstatus/<%= complaint.complaint_id %>" method="POST">
+        <select name="status" id="">
+            <option value="In Progress">In Progress</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Rejected">Rejected</option>
+        </select>
+        <br>
+        <textarea name="note" id="" cols="30" rows="10"></textarea>
+        <button type="submit"> Submit </button>
+    </form>
+</body>
+</html>

@@ -83,19 +83,26 @@ signup.post('/student',async (req,res)=>{
 
 dashboard.get('/',auth,async (req,res)=>{
     allcomplaint = await controllers.getAllComplaints()
-    if(allcomplaint == false)
-        {
-            allcomplaint = []
-            res.render('dashboard',{message: 'Something went wrong', allComplaints: allcomplaint})
-        }
-        else if(allcomplaint == [])
-        {
-            res.render('dashboard',{message: 'No complaints found', allComplaints: allcomplaint})
-        }
-        else
-        {
-            res.render('dashboard',{message: '' , allComplaints: allcomplaint})
-        }
+    if(req.session.user.role == "student"){
+
+        if(allcomplaint == false)
+            {
+                allcomplaint = []
+                res.render('dashboard',{message: 'Something went wrong', allComplaints: allcomplaint})
+            }
+            else if(allcomplaint == [])
+            {
+                res.render('dashboard',{message: 'No complaints found', allComplaints: allcomplaint})
+            }
+            else
+            {
+                res.render('dashboard',{message: '' , allComplaints: allcomplaint})
+            }
+    }
+    else if(req.session.user.role == "faculty") {
+        res.render('facultydashboard',{message: '',allComplaints:allcomplaint})
+        
+    }
 })
 
 dashboard.get('/search',auth,async (req,res)=>{
@@ -180,6 +187,19 @@ signup.post('/faculty',async (req,res)=>{
 })
 
 comp.get('/:cid',auth,async (req,res)=>{
+    await controllers.getComplaint(req,req.params.id).then((result)=>{
+        if(result == false)
+        {
+            res.render('facultydashboard',{message : 'Something went wrong' ,allComplaints:allcomplaint})
+            
+        }
+        else{
+            res.render('complaint-form',{message : '' ,complaint:result})
+        }
+    })
+})
+
+comp.post('/:cid',auth,async (req,res)=>{
     await controllers.setstatus(req,req.params.id).then((result)=>{
         if(result == true)
         {

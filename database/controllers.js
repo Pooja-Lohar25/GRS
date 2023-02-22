@@ -263,6 +263,44 @@ getFaculties = async (req)=>{
     })
 }
 
+getComplaint = async (req)=>{
+    return await new Promise(async (resolve,reject)=>{
+        await complaints.findOne({
+            where:{
+                complaint_id: req.params.cid
+            }
+        }).then((result)=>{
+            if(result == null)
+            {
+                resolve(false)
+            }
+            else{
+                var complaint =  {
+                    issue: '',
+                    description: '',
+                    status: '',
+                    dept_id: '',
+                    domId: '',
+                    upvotes: '',
+                    complaint_id: ''
+                }
+                complaint.issue = result.issue.toString()
+                complaint.description = result.description.toString()
+                complaint.status = result.status.toString()
+                complaint.dept_id = result.dept_id.toString()
+                complaint.domId = result.domId.toString()
+                complaint.upvotes = result.upvotes.toString()
+                complaint.complaint_id = result.complaint_id.toString()
+                resolve(complaint)
+            }
+        }).catch((err)=>{
+            console.log(err)
+            resolve(false)
+        })
+
+    })
+}
+
 setstatus = async (req)=>{
     return await new Promise(async (resolve,reject)=>{
         await complaints.findOne({
@@ -275,7 +313,7 @@ setstatus = async (req)=>{
                 resolve(false)
             }
             else{
-                result.status = 'in progress'
+                result.status = req.body.status
                 await result.save().then(()=>{
                     resolve(true)
                 }).catch((err)=>{
@@ -319,7 +357,8 @@ module.exports = {
     getAllComplaints,
     adminReg,
     getFaculties,
-    setstatus
+    setstatus,
+    getComplaint
 }
 
 
