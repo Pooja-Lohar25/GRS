@@ -282,7 +282,8 @@ async function logStu(req){
                 branch: stu.branch,
                 course: stu.course,
                 phone : stu.phone,
-                enroll_no:stu.enroll_no
+                enroll_no:stu.enroll_no,
+                message : ''
             }
             return true
         }

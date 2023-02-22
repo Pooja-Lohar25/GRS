@@ -93,7 +93,7 @@ dashboard.get('/',auth,async (req,res)=>{
         }
         else
         {
-            res.render('dashboard',{message: '', allComplaints: allcomplaint})
+            res.render('dashboard',{message: '' , allComplaints: allcomplaint})
         }
 })
 
@@ -107,7 +107,8 @@ dashboard.get('/search',auth,async (req,res)=>{
         if(srchresult == []){
             res.render('dashboard',{message: 'No complaints found', allComplaints: srchresult})
         }
-        res.render('dashboard',{message: '', allComplaints: srchresult})
+        else
+            res.render('dashboard',{message: '', allComplaints: srchresult})
     }
     else res.render('dashboard',{message: 'No complaints', allComplaints: allcomplaint})
 
@@ -134,12 +135,14 @@ newcomplaint.post('/',auth,async (req,res)=>{
 
 upvotes.get('/:cid',auth,async (req,res)=>{
     await controllers.upvotes(req,req.params.id).then((result)=>{
+        //update upvotes in allcomplaint array
         if(result == true)
         {
-            res.render('dashboard',{message: 'Upvote successful',complaint:''})
+            res.render('dashboard',{message : 'Upvote added successfully' ,allComplaints:allcomplaint})
+            
         }
         else{
-            res.render('dashboard',{message : result,complaint:''})
+            res.render('dashboard',{message : result ,allComplaints:allcomplaint})
         }
     })
 })
