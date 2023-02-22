@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const ejs = require("ejs");
 
 //importing routes
-const { index,admin,login, signup, dashboard, newcomplaint , upvotes,profile} = require("./routes");
+const { index,admin,login, signup, dashboard, newcomplaint , upvotes,profile, comp} = require("./routes");
 
 app.set("views", path.resolve(__dirname, "../assets", "../assets"));
 app.set("view engine", "ejs");
@@ -35,6 +35,7 @@ app.use("/dashboard", dashboard);
 app.use("/newcomplaint", newcomplaint);
 app.use("/upvotes",upvotes)
 app.use('/profile',profile)
+app.use('/setstatus',comp)
 
 app.listen(4000, () => {
   console.log("server listening on port 4000");

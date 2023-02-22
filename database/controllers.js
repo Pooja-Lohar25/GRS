@@ -263,6 +263,34 @@ getFaculties = async (req)=>{
     })
 }
 
+setstatus = async (req)=>{
+    return await new Promise(async (resolve,reject)=>{
+        await complaints.findOne({
+            where:{
+                complaint_id: req.params.cid
+            }
+        }).then(async (result)=>{
+            if(result == null)
+            {
+                resolve(false)
+            }
+            else{
+                result.status = 'in progress'
+                await result.save().then(()=>{
+                    resolve(true)
+                }).catch((err)=>{
+                    console.log(err)
+                    resolve(false)
+                })
+            }
+        }).catch((err)=>{
+            console.log(err)
+            resolve(false)
+        })
+
+    })
+}
+
 adminReg = async (req)=>{
     const admin = {
         emp_id: req.body.emp_id,
@@ -291,6 +319,7 @@ module.exports = {
     getAllComplaints,
     adminReg,
     getFaculties,
+    setstatus
 }
 
 
@@ -298,7 +327,6 @@ module.exports = {
 /******************************************************************/
 /*local utility functions*/
 /******************************************************************/
-
 
 async function logStu(req){
     const stu = await students.findOne({

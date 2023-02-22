@@ -12,6 +12,7 @@ const dashboard = express.Router()
 const newcomplaint = express.Router()
 const upvotes = express.Router()
 const profile = express.Router()
+const comp = express.Router()
 
 var allcomplaint = []
 
@@ -25,6 +26,7 @@ dashboard.use(express.static(path.resolve(__dirname,'../assets')))
 newcomplaint.use(express.static(path.resolve(__dirname,'../assets')))
 upvotes.use(express.static(path.resolve(__dirname,'../assets')))
 profile.use(express.static(path.resolve(__dirname,'../assets')))
+comp.use(express.static(path.resolve(__dirname,'../assets')))
 
 
 //defining routes
@@ -134,7 +136,6 @@ newcomplaint.post('/',auth,async (req,res)=>{
 
 upvotes.get('/:cid',auth,async (req,res)=>{
     await controllers.upvotes(req,req.params.id).then((result)=>{
-        //update upvotes in allcomplaint array
         if(result == true)
         {
             res.render('dashboard',{message : 'Upvote added successfully' ,allComplaints:allcomplaint})
@@ -158,7 +159,8 @@ login.post('/faculty',async (req,res)=>{
     result = await controllers.login(req,"faculty")
     if(result == true)
     {
-        res.render('facultydashboard',{message: '',complaint:''})
+        allcomplaint = await controllers.getAllComplaints()
+        res.render('facultydashboard',{message: '',allComplaints:allcomplaint})
     }
     else{
         res.render('facultyLogin',{message: 'Kindly provide valid credentials'})
@@ -177,6 +179,18 @@ signup.post('/faculty',async (req,res)=>{
     }
 })
 
+comp.get('/:cid',auth,async (req,res)=>{
+    await controllers.setstatus(req,req.params.id).then((result)=>{
+        if(result == true)
+        {
+            res.render('facultydashboard',{message : 'Status Updated' ,allComplaints:allcomplaint})
+            
+        }
+        else{
+            res.render('facultydashboard',{message : result ,allComplaints:allcomplaint})
+        }
+    })
+})
 
 
 /******************************** */
@@ -284,5 +298,6 @@ module.exports = {
     dashboard,
     newcomplaint,
     upvotes,
-    profile
+    profile,
+    comp
 }
