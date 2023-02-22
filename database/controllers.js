@@ -314,6 +314,8 @@ setstatus = async (req)=>{
             }
             else{
                 result.status = req.body.status
+                if(req.body.status == 'Rejected')
+                    result.remarks = req.body.remarks
                 await result.save().then(()=>{
                     resolve(true)
                 }).catch((err)=>{

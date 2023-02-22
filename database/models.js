@@ -179,7 +179,7 @@ const complaints = sequelize.define('complaint',{
         type:DataTypes.STRING,
         allowNull:false
     },
-    note : {
+    remarks : {
         type:DataTypes.STRING,
         defaultValue : ''
     },
