@@ -1,9 +1,7 @@
 <%- include("partials/header") -%> 
-    <div>
-      <p>
-        <%= message %>
-      </p>
-    </div>
+<div class="alert alert-primary" role="alert">
+  <%= message %>
+</div>
 
     <form action="/dashboard/search" method="get">
       <div class="row" style="padding: 0px 10px 0 50px;">

@@ -30,6 +30,7 @@ body {
 	color: black;
   }
 
+
 .btn-login:hover{
     background-color: #fff;
     color: black;
@@ -47,6 +48,7 @@ body {
     line-height: 40px;
     border-radius: 25px;
 }
+
 
 .btn-upvote:hover{
 	background-color: #fff;
