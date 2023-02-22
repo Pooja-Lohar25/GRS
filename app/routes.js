@@ -259,13 +259,8 @@ profile.get('/',auth,async (req,res)=>{
 })
 
 profile.get('/faculty',auth,async (req,res)=>{
-    res.render('faculties',{
-        name: req.session.user.name , 
-        username: req.session.user.username , 
-        phone: req.session.user.phone ,  
-        dept: req.session.user.dept ,
-        designation : req.session.user.designation
-        })
+    var faculties = await controllers.getFaculties()
+    res.render('faculties',{ faculties: faculties })
 })
 
 dashboard.get('/search/dept',auth,async (req,res)=>{

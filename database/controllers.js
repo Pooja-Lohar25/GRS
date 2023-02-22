@@ -223,6 +223,45 @@ getAllComplaints = async (req)=>{
     })
 }
 
+getFaculties = async (req)=>{
+    return await new Promise(async (resolve,reject)=>{
+        await emp.findAll().then((result)=>{
+            if(result.length == 0)
+            {
+                resolve([])
+            }
+            else{
+                var allfaculties = []
+                for(var i=0;i<result.length;i++){
+                    var faculty =  {
+                            role: 'faculty',
+                            emp_id: '',
+                            name: '',
+                            designation: '',
+                            dept_id: '',
+                            scores: '',
+                            username: '',
+                            phone: ''
+                        }
+                    faculty.emp_id = result[i].emp_id.toString()
+                    faculty.name = result[i].name.toString()
+                    faculty.dept_id = result[i].dept_id.toString()
+                    faculty.designation = result[i].designation.toString()
+                    faculty.scores = result[i].scores.toString()
+                    faculty.username = result[i].username.toString()
+                    faculty.phone = result[i].phone.toString()
+                    allfaculties.push(faculty)
+                }
+                console.log(allfaculties)
+                resolve(allfaculties)
+            }
+        }).catch((err)=>{
+            console.log(err)
+            resolve(false)
+        })
+
+    })
+}
 
 adminReg = async (req)=>{
     const admin = {
@@ -250,7 +289,8 @@ module.exports = {
     raiseComplaint,
     upvotes,
     getAllComplaints,
-    adminReg
+    adminReg,
+    getFaculties,
 }
 
 
@@ -376,6 +416,8 @@ async function signupFac(req){
         course: req.body.courseOfFaculty,
         username: req.body.emailOfFaculty,
         password: await bcrypt.hash(req.body.password,saltrounds),
+        scores:0,
+        phone: req.body.contactOfFaculty
         
     }
     const fac = emp.build(faculty)
