@@ -7,7 +7,7 @@
     <title>Update complaint status</title>
 </head>
 <body>
-    <label for=""><%= complaint.issue %></label>
+    <label for=""><%= complaint.issue %></label> <br> <br>
     <label for=""><%= complaint.description %></label>
     <form action="/setstatus/<%= complaint.complaint_id %>" method="POST">
         <select name="status" id="">

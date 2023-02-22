@@ -179,6 +179,10 @@ const complaints = sequelize.define('complaint',{
         type:DataTypes.STRING,
         allowNull:false
     },
+    note : {
+        type:DataTypes.STRING,
+        defaultValue : ''
+    },
     dept_id:{
         type:DataTypes.STRING,
         allowNull:false,
@@ -192,6 +196,7 @@ const complaints = sequelize.define('complaint',{
         allowNull:false
     }
 })
+
 
 
 const studentComplaints = sequelize.define('studentComplaint',{
