@@ -27,6 +27,7 @@ app.use(
 
 //routes
 app.use('/',index)
+app.use('logout',index)
 app.use('/admin',admin)
 app.use("/login", login);
 app.use("/signup", signup);
