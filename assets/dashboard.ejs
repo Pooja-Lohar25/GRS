@@ -3,7 +3,7 @@
   <%= message %>
 </div>
 
-    <form action="/dashboard/search" method="get">
+    <form action="/student/dashboard/search" method="get">
       <div class="row" style="padding: 0px 10px 0 50px;">
         <div class="col-lg-10">
           <input type="text" class="form-control" name="search" placeholder="Search by issue/description/department" />
@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-sm-2">
                         <!-- <p class="mb-0">Issue</p> -->
-                        <button class="btn-upvote"> <a href="/upvotes/<%= complaint.complaint_id %>">Upvote</a></button>
+                        <button class="btn-upvote"> <a href="/student/upvotes/<%= complaint.complaint_id %>">Upvote</a></button>
                       </div>
                      
                   </div>
