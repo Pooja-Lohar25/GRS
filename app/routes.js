@@ -108,17 +108,19 @@ dashboard.get('/',auth,async (req,res)=>{
 dashboard.get('/search',auth,async (req,res)=>{
     const srchquery = req.query.search
     var srchresult = []
+    if(req.session.user.role=="student") file = 'dashboard'
+    else if(req.session.user.role=="faculty") file = 'facultydashboard'
     if(allcomplaint){
         srchresult = allcomplaint.filter((complaint)=>{
-            return complaint.issue.toLowerCase().includes(srchquery.toLowerCase()) || complaint.status.toLowerCase().includes(srchquery.toLowerCase()) || complaint.description.toLowerCase().includes(srchquery.toLowerCase())
+            return complaint.issue.toLowerCase().includes(srchquery.toLowerCase()) || complaint.status.toLowerCase().includes(srchquery.toLowerCase()) || complaint.dept_id.toLowerCase().includes(srchquery.toLowerCase()) || complaint.description.toLowerCase().includes(srchquery.toLowerCase())
         })
         if(srchresult == []){
-            res.render('dashboard',{message: 'No complaints found', allComplaints: srchresult})
+            res.render(file,{message: 'No complaints found', allComplaints: srchresult})
         }
         else
-            res.render('dashboard',{message: '', allComplaints: srchresult})
+            res.render(file,{message: '', allComplaints: srchresult})
     }
-    else res.render('dashboard',{message: 'No complaints', allComplaints: allcomplaint})
+    else res.render(file,{message: 'No complaints', allComplaints: allcomplaint})
 
 })
 
