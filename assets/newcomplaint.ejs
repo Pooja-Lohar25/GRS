@@ -4,9 +4,11 @@
 
     
     <form class="form" action = "/newcomplaint" method = "post" style="margin-top: 20px;">
-      <div class="alert alert-primary" role="alert">
-        <%= message %>
-      </div>
+      <%if(message.length > 0){ %>
+        <div class="alert alert-primary center" style="width: 350px; margin-bottom: 10px;" role="alert">
+          <%= message %>
+        </div>
+      <% } %>
         <div><p>Register your compaint to be adressed</p></div>
         <div class="input-block" style="margin-right:20px;">
           <select name="domainOfComplaint" list="domain" class="form-control" placeholder="Domain of Complaint" required />
