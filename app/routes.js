@@ -108,8 +108,10 @@ dashboard.get('/',auth,async (req,res)=>{
 dashboard.get('/search',auth,async (req,res)=>{
     const srchquery = req.query.search
     var srchresult = []
+    
     if(req.session.user.role=="student") file = 'dashboard'
     else if(req.session.user.role=="faculty") file = 'facultydashboard'
+
     if(allcomplaint){
         srchresult = allcomplaint.filter((complaint)=>{
             return complaint.issue.toLowerCase().includes(srchquery.toLowerCase()) || complaint.status.toLowerCase().includes(srchquery.toLowerCase()) || complaint.dept_id.toLowerCase().includes(srchquery.toLowerCase()) || complaint.description.toLowerCase().includes(srchquery.toLowerCase())
