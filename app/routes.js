@@ -4,7 +4,7 @@ const controllers = require('../database/controllers')
 const {auth} = require('./auth')
 
 const student = express.Router()
-
+const faculty = express.Router()
 
 //creating routers
 const index = express.Router()
@@ -166,11 +166,11 @@ student.get('/upvotes/:cid',auth,async (req,res)=>{
 /**********************************/
 /**faculty routes */
 /**********************************/
-login.get('/faculty',(req,res)=>{
+faculty.get('/login',(req,res)=>{
     res.render('facultyLogin',{message: ''})
 })
 
-login.post('/faculty',async (req,res)=>{
+faculty.post('/login',async (req,res)=>{
     result = await controllers.login(req,"faculty")
     if(result == true)
     {
@@ -182,7 +182,7 @@ login.post('/faculty',async (req,res)=>{
     }
 })
 
-signup.post('/faculty',async (req,res)=>{
+faculty.post('/signup',async (req,res)=>{
     result = await controllers.signup(req,"faculty")
     if(result == true)
     {
@@ -194,7 +194,7 @@ signup.post('/faculty',async (req,res)=>{
     }
 })
 
-comp.get('/:cid',auth,async (req,res)=>{
+faculty.get('/:cid',auth,async (req,res)=>{
     await controllers.getComplaint(req,req.params.id).then((result)=>{
         if(result == false)
         {
@@ -207,7 +207,7 @@ comp.get('/:cid',auth,async (req,res)=>{
     })
 })
 
-comp.post('/:cid',auth,async (req,res)=>{
+ faculty.post('/:cid',auth,async (req,res)=>{
     await controllers.setstatus(req,req.params.id).then((result)=>{
         if(result == true)
         {
@@ -320,6 +320,7 @@ dashboard.get('/search/dept',auth,async (req,res)=>{
 
 module.exports = {
     student,
+    faculty,
     index,
     admin,
     login,
