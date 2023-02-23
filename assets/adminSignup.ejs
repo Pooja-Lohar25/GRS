@@ -9,9 +9,11 @@
     <title>GRS - Admin Registration</title>
 </head>
 <body>
-    <div class="alert alert-primary" role="alert">
-        <%= message %>
-      </div>
+    <%if(message.length > 0){ %>
+        <div class="alert alert-primary center" style="width: 350px; margin-bottom: 10px;" role="alert">
+          <%= message %>
+        </div>
+      <% } %>
     <form action="/admin" method = "post" class="form" style="margin: 20px 20px 20px 0px;">
       
         <legend >Please, enter your email and password for login.</legend>

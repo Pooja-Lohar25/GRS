@@ -1,7 +1,12 @@
 <%- include("partials/header") -%> 
-<div class="alert alert-primary" role="alert">
-  <%= message %>
-</div>
+
+
+<%if(message.length > 0){ %>
+  <div class="alert alert-primary center" style="width: 350px; margin-bottom: 10px;" role="alert">
+    <%= message %>
+  </div>
+<% } %>
+
 
     <form action="/student/dashboard/search" method="get">
       <div class="row" style="padding: 0px 10px 0 50px;">
