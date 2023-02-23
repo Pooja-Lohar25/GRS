@@ -4,7 +4,7 @@ const controllers = require('../database/controllers')
 const {auth} = require('./auth')
 
 const student = express.Router()
-
+const faculty = express.Router()
 
 //creating routers
 const index = express.Router()
@@ -32,6 +32,7 @@ profile.use(express.static(path.resolve(__dirname,'../assets')))
 comp.use(express.static(path.resolve(__dirname,'../assets')))
 student.use(express.static(path.resolve(__dirname,'../assets')))
 student.use(express.static(path.resolve(__dirname,'../assets')))
+faculty.use(express.static(path.resolve(__dirname,'../assets')))
 
 //defining routes
 index.get('/',(req,res)=>{
@@ -166,11 +167,11 @@ student.get('/upvotes/:cid',auth,async (req,res)=>{
 /**********************************/
 /**faculty routes */
 /**********************************/
-login.get('/faculty',(req,res)=>{
+faculty.get('/login',(req,res)=>{
     res.render('facultyLogin',{message: ''})
 })
 
-login.post('/faculty',async (req,res)=>{
+faculty.post('/login',async (req,res)=>{
     result = await controllers.login(req,"faculty")
     if(result == true)
     {
@@ -182,7 +183,7 @@ login.post('/faculty',async (req,res)=>{
     }
 })
 
-signup.post('/faculty',async (req,res)=>{
+faculty.post('/signup',async (req,res)=>{
     result = await controllers.signup(req,"faculty")
     if(result == true)
     {
@@ -192,6 +193,11 @@ signup.post('/faculty',async (req,res)=>{
         console.log(result)
         res.render('facultyLogin',{message: 'Something went wrong!! Please try again'})
     }
+})
+
+faculty.get('/allprofiles',auth,async (req,res)=>{
+    var faculties = await controllers.getFaculties()
+    res.render('faculties',{ faculties: faculties})
 })
 
 comp.get('/:cid',auth,async (req,res)=>{
@@ -320,6 +326,7 @@ dashboard.get('/search/dept',auth,async (req,res)=>{
 
 module.exports = {
     student,
+    faculty,
     index,
     admin,
     login,
