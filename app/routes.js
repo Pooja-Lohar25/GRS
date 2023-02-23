@@ -197,7 +197,7 @@ faculty.post('/signup',async (req,res)=>{
 
 faculty.get('/allprofiles',auth,async (req,res)=>{
     var faculties = await controllers.getFaculties()
-    res.render('faculties',{ faculties: faculties})
+    res.render('faculties',{ faculties: faculties,role: req.session.user.role})
 })
 
 comp.get('/:cid',auth,async (req,res)=>{
@@ -308,13 +308,10 @@ student.get('/profile',auth,async (req,res)=>{
 
 student.get('/profile/faculty',auth,async (req,res)=>{
     var faculties = await controllers.getFaculties()
-    res.render('faculties',{ faculties: faculties })
+    res.render('faculties',{ faculties: faculties, role: req.session.user.role})
 })
 
-dashboard.get('/search/dept',auth,async (req,res)=>{
-    //TODO:search complaint by department
-    res.send('search by department')
-})
+
 
 
 
