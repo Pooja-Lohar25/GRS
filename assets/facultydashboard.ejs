@@ -1,14 +1,16 @@
-<%- include("partials/header") -%> 
+
+<%- include("partials/facHeader") -%> 
 <%if(message.length > 0){ %>
   <div class="alert alert-primary center" style="width: 350px; margin-bottom: 10px;" role="alert">
     <%= message %>
   </div>
 <% } %>
 
+
     <form action="/dashboard/search" method="get">
       <div class="row" style="padding: 0px 10px 0 50px;">
         <div class="col-lg-10">
-          <input type="text" class="form-control" name="search" placeholder="Search by issue/description/department" />
+          <input type="text" class="form-control" name="search" placeholder="Search by issue/description/department(Example: CSE)" />
         </div>
         <div class="col-lg-2">
           <button type="Submit" value="search" class="btn-upvote">
