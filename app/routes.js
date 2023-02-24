@@ -32,6 +32,7 @@ profile.use(express.static(path.resolve(__dirname,'../assets')))
 comp.use(express.static(path.resolve(__dirname,'../assets')))
 student.use(express.static(path.resolve(__dirname,'../assets')))
 student.use(express.static(path.resolve(__dirname,'../assets')))
+faculty.use(express.static(path.resolve(__dirname,'../assets')))
 
 //defining routes
 index.get('/',(req,res)=>{
@@ -302,13 +303,10 @@ student.get('/profile',auth,async (req,res)=>{
 
 student.get('/profile/faculty',auth,async (req,res)=>{
     var faculties = await controllers.getFaculties()
-    res.render('faculties',{ faculties: faculties })
+    res.render('faculties',{ faculties: faculties, role: req.session.user.role})
 })
 
-dashboard.get('/search/dept',auth,async (req,res)=>{
-    //TODO:search complaint by department
-    res.send('search by department')
-})
+
 
 
 
