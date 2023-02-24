@@ -318,12 +318,29 @@ setstatus = async (req)=>{
                 result.status = req.body.status
                 if(req.body.status == 'Rejected')
                     result.remarks = req.body.remarks
+                
+                if(req.body.status == 'Resolved'){
+                    const fac = await emp.findOne({
+                        where:{
+                            emp_id: req.session.user.emp_id
+                        }
+                    })
+                    fac.scores = fac.scores + 1
+                    req.session.user.scores = fac.scores
+                    await fac.save().then(()=>{
+                        console.log('faculty scores updated')
+                    }).catch((err)=>{
+                        console.log(err)
+                        resolve(false)
+                    })
+                }
                 await result.save().then(()=>{
                     resolve(true)
                 }).catch((err)=>{
                     console.log(err)
                     resolve(false)
                 })
+
             }
         }).catch((err)=>{
             console.log(err)

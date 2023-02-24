@@ -212,7 +212,8 @@ faculty.get('/myprofile',auth,async (req,res)=>{
         username: req.session.user.username , 
         phone: req.session.user.phone ,  
         dept: req.session.user.dept ,
-        designation : req.session.user.designation
+        designation : req.session.user.designation,
+        scores: req.session.user.scores
         })
     
 })
