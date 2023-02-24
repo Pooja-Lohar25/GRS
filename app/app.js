@@ -6,11 +6,7 @@ const dotenv = require("dotenv");
 const ejs = require("ejs");
 
 //importing routes
-<<<<<<< HEAD
-const { student,faculty,index,admin,login, signup, dashboard, newcomplaint , upvotes,profile, comp} = require("./routes");
-=======
 const { faculty,student,index,admin,login, signup, dashboard, newcomplaint , upvotes,profile, comp} = require("./routes");
->>>>>>> 3e9b7e661e199f6e6b599c06f3cee424d0701f67
 
 app.set("views", path.resolve(__dirname, "../assets", "../assets"));
 app.set("view engine", "ejs");
