@@ -21,18 +21,20 @@
 <body>
 
     <div class="newcomp-form center" >
-<<<<<<< HEAD:assets/complaint-form.html
-            <h5>Comlaint Issue</h5>
-=======
+
+      
       <a href = "/faculty/dashboard" class="btn btn-primary" style="margin-bottom: 20px;">Back</a>
->>>>>>> d93041558a858bbea71c6d956307f25ddd023282:assets/complaint-form.ejs
-            <div class="alert alert-primary" role="alert">
+            
+      <div style="margin: 0 25px">
+      <div class="form-control input-block" >
                 <%= complaint.issue %>
               </div>
-              <h5>Complaint Description</h5>          
-              <div class="alert alert-primary" style="margin-bottom: 0px;" role="alert">
+              <h5 >Complaint Description</h5>          
+              <div class="form-control" >
                 <%= complaint.description %>
               </div>
+
+            </div> 
     <form class="form" style="margin-top: 0px;" action="/setstatus/<%= complaint.complaint_id %>" method="POST">
         <div class="input-block" style="margin-right:20px;">
           <label style="color: black;" for="">Select status of Complaint</label>
