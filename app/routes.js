@@ -289,19 +289,19 @@ admin.post('/login',async (req,res)=>{
         // res.render('admindashboard',{message: '',allComplaints:''})
     }
     else{
-        res.render('login',{message: 'Kindly provide valid credentials'})
+        res.render('adminLogin',{message: 'Kindly provide valid credentials'})
     }
 })
 
 admin.post('/signup',async (req,res)=>{
-    result = await controllers.signup(req,"admin")
+    result = await controllers.adminReg(req,"admin")
     if(result == true)
     {
-        res.render('login',{message: 'User created successfully'})
+        res.render('adminLogin',{message: 'User created successfully'})
     }
     else{
         console.log(result)
-        res.render('login',{message: 'Something went wrong!! Please try again'})
+        res.render('adminLogin',{message: 'Something went wrong!! Please try again'})
     }
 })
 

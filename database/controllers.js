@@ -518,6 +518,7 @@ async function signupFac(req){
     )
 }
 
+
 async function search(req){
         return await new Promise(async (resolve,reject)=>{
             await complaints.findAll().then((comp)=>{

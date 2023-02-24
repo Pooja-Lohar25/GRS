@@ -25,12 +25,12 @@ app.use(
 );
   
 //routes
+app.use('/',index)
 app.use('/student',student)
 app.use('/faculty',faculty)
 app.use('/setstatus',faculty)
-app.use('/',index)
-app.use('logout',index)
 app.use('/admin',admin)
+app.use('logout',index)
 
 app.listen(4000, () => {
   console.log("server listening on port 4000");
