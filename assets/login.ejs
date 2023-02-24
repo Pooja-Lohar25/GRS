@@ -1,16 +1,18 @@
 <%- include("partials/header") -%> 
 
       <section class="forms-section">
-        <div class="alert alert-primary" role="alert">
-          <%= message %>
-        </div>
+        <%if(message.length > 0){ %>
+          <div class="alert alert-primary center" style="width: 350px; margin-bottom: 10px;" role="alert">
+            <%= message %>
+          </div>
+        <% } %>
         <div class="forms" >
           <div class="form-wrapper is-active">
             <button type="button" class="switcher switcher-login">
               Login
               <span class="underline"></span>
             </button>
-            <form action = '/login/student' method = 'post' class="form form-login" style="background-color: black;" >
+            <form action = '/student/login' method = 'post' class="form form-login" style="background-color: black;" >
               <fieldset>
                 <legend>Please, enter your email and password for login.</legend>
                 <div class="input-block">
@@ -30,7 +32,7 @@
               Sign Up
               <span class="underline"></span>
             </button>
-            <form action = '/signup/student' method = 'post' class="form form-signup" style="background-color: black;">
+            <form action = '/student/signup' method = 'post' class="form form-signup" style="background-color: black;">
               <fieldset>
                 <legend>Please, enter your email, password and password confirmation for sign up.</legend>
                 <div class="input-block">
