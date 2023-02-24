@@ -163,6 +163,24 @@ student.get('/upvotes/:cid',auth,async (req,res)=>{
     })
 })
 
+student.get('/profile',auth,async (req,res)=>{
+    res.render('studentProfile',{
+        role : req.session.user.role,
+        name: req.session.user.name , 
+        email: req.session.user.username , 
+        phone: req.session.user.phone , 
+        rollno: req.session.user.enroll_no , 
+        branch: req.session.user.branch , 
+        course : req.session.user.course ,
+        sem: req.session.user.semester})
+    
+})
+
+student.get('/profile/faculty',auth,async (req,res)=>{
+    var faculties = await controllers.getFaculties()
+    res.render('faculties',{ faculties: faculties, role: req.session.user.role})
+})
+
 
 /**********************************/
 /**faculty routes */
@@ -200,7 +218,18 @@ faculty.get('/allprofiles',auth,async (req,res)=>{
     res.render('faculties',{ faculties: faculties,role: req.session.user.role})
 })
 
-comp.get('/:cid',auth,async (req,res)=>{
+faculty.get('/myprofile',auth,async (req,res)=>{
+    res.render('FacultyProf',{
+        role : req.session.user.role,
+        name: req.session.user.name , 
+        username: req.session.user.username , 
+        phone: req.session.user.phone ,  
+        dept: req.session.user.dept ,
+        designation : req.session.user.designation
+        })
+    
+})
+faculty.get('/:cid',auth,async (req,res)=>{
     await controllers.getComplaint(req,req.params.id).then((result)=>{
         if(result == false)
         {
@@ -213,7 +242,7 @@ comp.get('/:cid',auth,async (req,res)=>{
     })
 })
 
-comp.post('/:cid',auth,async (req,res)=>{
+faculty.post('/:cid',auth,async (req,res)=>{
     await controllers.setstatus(req,req.params.id).then((result)=>{
         if(result == true)
         {
@@ -224,6 +253,15 @@ comp.post('/:cid',auth,async (req,res)=>{
             res.render('facultydashboard',{message : result ,allComplaints:allcomplaint})
         }
     })
+})
+
+faculty.get('/feedback',auth,async (req,res)=>{
+    res.send("feedback form")
+})
+
+faculty.get('/dashboard',auth,async (req,res)=>{
+    allcomplaint = await controllers.getAllComplaints()
+    res.render('facultydashboard',{message: '',allComplaints:allcomplaint})
 })
 
 
@@ -282,34 +320,7 @@ signup.post('/admin',async (req,res)=>{
 /**common routes */
 /*************************** */
 
-student.get('/profile',auth,async (req,res)=>{
-    if(req.session.user.role == "student"){
-    res.render('studentProfile',{
-        role : req.session.user.role,
-        name: req.session.user.name , 
-        email: req.session.user.username , 
-        phone: req.session.user.phone , 
-        rollno: req.session.user.enroll_no , 
-        branch: req.session.user.branch , 
-        course : req.session.user.course ,
-        sem: req.session.user.semester})
-    }
-    else if(req.session.user.role == "faculty"){
-        res.render('FacultyProf',{
-            role : req.session.user.role,
-            name: req.session.user.name , 
-            username: req.session.user.username , 
-            phone: req.session.user.phone ,  
-            dept: req.session.user.dept ,
-            designation : req.session.user.designation
-            })
-    }
-})
 
-student.get('/profile/faculty',auth,async (req,res)=>{
-    var faculties = await controllers.getFaculties()
-    res.render('faculties',{ faculties: faculties, role: req.session.user.role})
-})
 
 
 

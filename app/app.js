@@ -26,6 +26,7 @@ app.use(
   
 app.use('/student',student)
 app.use('/faculty',faculty)
+app.use('/setstatus',faculty)
 
 //routes
 app.use('/',index)
@@ -37,7 +38,6 @@ app.use("/dashboard", dashboard);
 app.use("/newcomplaint", newcomplaint);
 app.use("/upvotes",upvotes)
 app.use('/profile',profile)
-app.use('/setstatus',comp)
 
 app.listen(4000, () => {
   console.log("server listening on port 4000");
