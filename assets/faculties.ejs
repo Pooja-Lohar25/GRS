@@ -1,4 +1,11 @@
-<%- include("partials/header") -%>
+<%if(role === "student"){%>
+  <%- include("partials/header") -%>
+<%}else{%>
+  <%- include("partials/facHeader") -%>
+<%}%>
+
+
+
 
 <section style="padding-top: 10px">
   <div class="container py-5">
