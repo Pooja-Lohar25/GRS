@@ -15,23 +15,31 @@
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"
   ></script>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/styles.css">
     <title>Update complaint status</title>
 </head>
 <body>
 
     <div class="newcomp-form center" >
-      <a href = "/faculty/dashboard" class="btn btn-primary" style="margin-bottom: 20px;">Back</a>
-            <div class="alert alert-primary" role="alert">
-                <%= complaint.issue %>
-              </div>
 
-              <div class="alert alert-primary" style="margin-bottom: 0px;" role="alert">
-                <%= complaint.description %>
-              </div>
+      
+      <a href = "/faculty/dashboard" class="btn btn-primary" style="margin-bottom: 20px;">Back</a>
+            
+      <div style="margin: 0 25px">
+        <h5>Issue</h5>  
+        <div class="form-control input-block" >
+              <%= complaint.issue %>
+        </div>
+        <h5>Description</h5>          
+        <div class="form-control" >
+            <%= complaint.description %>
+        </div>
+      </div> 
     <form class="form" style="margin-top: 0px;" action="/setstatus/<%= complaint.complaint_id %>" method="POST">
         <div class="input-block" style="margin-right:20px;">
-            <select class="form-control" name="status" id="">
+          <label style="color: black;" for="">Select status of Complaint</label>
+            <select class="form-control" placeholder="Status of Complaint" onchange="showHide(this.value)" name="status" id="statusOfComp">
+              <option value="--select--">--select--</option>
                 <option value="In Progress">In Progress</option>
                 <option value="Resolved">Resolved</option>
                 <option value="Rejected">Rejected</option>
@@ -39,11 +47,15 @@
         </div>
         
         <div class="input-block" style="margin-right:20px;">
-            <textarea class="form-control" style="resize: none;" name="remarks" id="" cols="40" rows="5"></textarea>
+          
+            <textarea class="form-control" placeholder="Please write a valid reason to reject a complaint." style="resize: none; display: none;" name="remarks" id="fb_text" cols="40" rows="5"></textarea>
         </div>
         
         <button class="btn-upvote" style="opacity: 100%;" type="submit"> Submit </button>
     </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+      <script src="faculty.js"></script>
 </body>
 </html>

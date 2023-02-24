@@ -9,6 +9,22 @@ switchers.forEach(item => {
 })
 
 
+function showHide(elm) {
+
+
+  if (elm == "Rejected") {
+  //display textbox
+    document.getElementById('fb_text').style.display = "block";
+  } else {
+  //hide textbox
+    document.getElementById('fb_text').style.display = "none";
+  }
+
+}
+const statusOfComp = $("#statusOfComp");
+
+
+
 
 
 
