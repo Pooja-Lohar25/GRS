@@ -3,19 +3,11 @@ const path = require('path')
 const controllers = require('../database/controllers')
 const {auth} = require('./auth')
 
-const student = express.Router()
-const faculty = express.Router()
-
 //creating routers
 const index = express.Router()
 const admin  = express.Router()
-const login = express.Router()
-const signup = express.Router()
-const dashboard = express.Router()
-const newcomplaint = express.Router()
-const upvotes = express.Router()
-const profile = express.Router()
-const comp = express.Router()
+const student = express.Router()
+const faculty = express.Router()
 
 var allcomplaint = []
 
@@ -23,14 +15,6 @@ var allcomplaint = []
 //setting up routers with static files 
 index.use(express.static(path.resolve(__dirname,'../assets')))
 admin.use(express.static(path.resolve(__dirname,'../assets')))
-login.use(express.static(path.resolve(__dirname,'../assets')))
-signup.use(express.static(path.resolve(__dirname,'../assets')))
-dashboard.use(express.static(path.resolve(__dirname,'../assets')))
-newcomplaint.use(express.static(path.resolve(__dirname,'../assets')))
-upvotes.use(express.static(path.resolve(__dirname,'../assets')))
-profile.use(express.static(path.resolve(__dirname,'../assets')))
-comp.use(express.static(path.resolve(__dirname,'../assets')))
-student.use(express.static(path.resolve(__dirname,'../assets')))
 student.use(express.static(path.resolve(__dirname,'../assets')))
 faculty.use(express.static(path.resolve(__dirname,'../assets')))
 
@@ -45,7 +29,7 @@ index.get('/',(req,res)=>{
 /**********************************/
 /**student routes */
 /**********************************/
-
+{
 student.get('/login',(req,res)=>{
     res.render('login',{message: ''})
 })
@@ -181,10 +165,13 @@ student.get('/profile/faculty',auth,async (req,res)=>{
     res.render('faculties',{ faculties: faculties, role: req.session.user.role})
 })
 
+}
+
 
 /**********************************/
 /**faculty routes */
 /**********************************/
+{
 faculty.get('/login',(req,res)=>{
     res.render('facultyLogin',{message: ''})
 })
@@ -229,6 +216,17 @@ faculty.get('/myprofile',auth,async (req,res)=>{
         })
     
 })
+
+faculty.get('/feedback',auth,async (req,res)=>{
+    console.log("feedback form")
+    res.send("feedback form")
+})
+
+faculty.get('/dashboard',auth,async (req,res)=>{
+    allcomplaint = await controllers.getAllComplaints()
+    res.render('facultydashboard',{message: '',allComplaints:allcomplaint})
+})
+
 faculty.get('/:cid',auth,async (req,res)=>{
     await controllers.getComplaint(req,req.params.id).then((result)=>{
         if(result == false)
@@ -254,21 +252,13 @@ faculty.post('/:cid',auth,async (req,res)=>{
         }
     })
 })
-
-faculty.get('/feedback',auth,async (req,res)=>{
-    res.send("feedback form")
-})
-
-faculty.get('/dashboard',auth,async (req,res)=>{
-    allcomplaint = await controllers.getAllComplaints()
-    res.render('facultydashboard',{message: '',allComplaints:allcomplaint})
-})
+}
 
 
 /******************************** */
 /**admin routes */
 /******************************** */
-
+{
 admin.get('/',(req,res)=>{
     res.render('adminSignup',{message: 'Enter your Details'})
 
@@ -285,12 +275,12 @@ admin.post('/',async (req,res)=>{
     }
 })
 
-login.get('/admin',(req,res)=>{
+admin.get('/login',(req,res)=>{
     res.render('adminLogin',{message: ''})
 })
 
 
-login.post('/admin',async (req,res)=>{
+admin.post('/login',async (req,res)=>{
     result = await controllers.login(req,"admin")
     if(result == true)
     {
@@ -302,7 +292,7 @@ login.post('/admin',async (req,res)=>{
     }
 })
 
-signup.post('/admin',async (req,res)=>{
+admin.post('/signup',async (req,res)=>{
     result = await controllers.signup(req,"admin")
     if(result == true)
     {
@@ -314,21 +304,7 @@ signup.post('/admin',async (req,res)=>{
     }
 })
 
-
-
-/*************************** */
-/**common routes */
-/*************************** */
-
-
-
-
-
-
-
-
-
-
+}
 
 
 
@@ -336,12 +312,5 @@ module.exports = {
     student,
     faculty,
     index,
-    admin,
-    login,
-    signup,
-    dashboard,
-    newcomplaint,
-    upvotes,
-    profile,
-    comp
+    admin
 }

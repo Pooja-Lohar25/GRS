@@ -21,9 +21,6 @@
 <body>
 
     <div class="newcomp-form center" >
-   
-        
-
             <div class="alert alert-primary" role="alert">
                 <%= complaint.issue %>
               </div>
@@ -31,11 +28,6 @@
               <div class="alert alert-primary" style="margin-bottom: 0px;" role="alert">
                 <%= complaint.description %>
               </div>
-            
-    
-        
-    
-    
     <form class="form" style="margin-top: 0px;" action="/setstatus/<%= complaint.complaint_id %>" method="POST">
         <div class="input-block" style="margin-right:20px;">
             <select class="form-control" name="status" id="">
