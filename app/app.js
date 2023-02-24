@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const ejs = require("ejs");
 
 //importing routes
-const { faculty,student,index,admin,login, signup, dashboard, newcomplaint , upvotes,profile, comp} = require("./routes");
+const { index,faculty,student,admin} = require("./routes");
 
 app.set("views", path.resolve(__dirname, "../assets", "../assets"));
 app.set("view engine", "ejs");
@@ -24,20 +24,13 @@ app.use(
   })
 );
   
-app.use('/student',student)
-app.use('/faculty',faculty)
-
 //routes
 app.use('/',index)
-app.use('logout',index)
+app.use('/student',student)
+app.use('/faculty',faculty)
+app.use('/setstatus',faculty)
 app.use('/admin',admin)
-app.use("/login", login);
-app.use("/signup", signup);
-app.use("/dashboard", dashboard);
-app.use("/newcomplaint", newcomplaint);
-app.use("/upvotes",upvotes)
-app.use('/profile',profile)
-app.use('/setstatus',comp)
+app.use('logout',index)
 
 app.listen(4000, () => {
   console.log("server listening on port 4000");
