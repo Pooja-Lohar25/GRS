@@ -3,19 +3,11 @@ const path = require('path')
 const controllers = require('../database/controllers')
 const {auth} = require('./auth')
 
-const student = express.Router()
-const faculty = express.Router()
-
 //creating routers
 const index = express.Router()
 const admin  = express.Router()
-const login = express.Router()
-const signup = express.Router()
-const dashboard = express.Router()
-const newcomplaint = express.Router()
-const upvotes = express.Router()
-const profile = express.Router()
-const comp = express.Router()
+const student = express.Router()
+const faculty = express.Router()
 
 var allcomplaint = []
 
@@ -23,14 +15,6 @@ var allcomplaint = []
 //setting up routers with static files 
 index.use(express.static(path.resolve(__dirname,'../assets')))
 admin.use(express.static(path.resolve(__dirname,'../assets')))
-login.use(express.static(path.resolve(__dirname,'../assets')))
-signup.use(express.static(path.resolve(__dirname,'../assets')))
-dashboard.use(express.static(path.resolve(__dirname,'../assets')))
-newcomplaint.use(express.static(path.resolve(__dirname,'../assets')))
-upvotes.use(express.static(path.resolve(__dirname,'../assets')))
-profile.use(express.static(path.resolve(__dirname,'../assets')))
-comp.use(express.static(path.resolve(__dirname,'../assets')))
-student.use(express.static(path.resolve(__dirname,'../assets')))
 student.use(express.static(path.resolve(__dirname,'../assets')))
 faculty.use(express.static(path.resolve(__dirname,'../assets')))
 
@@ -45,7 +29,7 @@ index.get('/',(req,res)=>{
 /**********************************/
 /**student routes */
 /**********************************/
-
+{
 student.get('/login',(req,res)=>{
     res.render('login',{message: ''})
 })
@@ -163,10 +147,31 @@ student.get('/upvotes/:cid',auth,async (req,res)=>{
     })
 })
 
+student.get('/profile',auth,async (req,res)=>{
+    res.render('studentProfile',{
+        role : req.session.user.role,
+        name: req.session.user.name , 
+        email: req.session.user.username , 
+        phone: req.session.user.phone , 
+        rollno: req.session.user.enroll_no , 
+        branch: req.session.user.branch , 
+        course : req.session.user.course ,
+        sem: req.session.user.semester})
+    
+})
+
+student.get('/profile/faculty',auth,async (req,res)=>{
+    var faculties = await controllers.getFaculties()
+    res.render('faculties',{ faculties: faculties, role: req.session.user.role})
+})
+
+}
+
 
 /**********************************/
 /**faculty routes */
 /**********************************/
+{
 faculty.get('/login',(req,res)=>{
     res.render('facultyLogin',{message: ''})
 })
@@ -195,6 +200,34 @@ faculty.post('/signup',async (req,res)=>{
     }
 })
 
+faculty.get('/allprofiles',auth,async (req,res)=>{
+    var faculties = await controllers.getFaculties()
+    res.render('faculties',{ faculties: faculties,role: req.session.user.role})
+})
+
+faculty.get('/myprofile',auth,async (req,res)=>{
+    res.render('FacultyProf',{
+        role : req.session.user.role,
+        name: req.session.user.name , 
+        username: req.session.user.username , 
+        phone: req.session.user.phone ,  
+        dept: req.session.user.dept ,
+        designation : req.session.user.designation,
+        scores: req.session.user.scores
+        })
+    
+})
+
+faculty.get('/feedback',auth,async (req,res)=>{
+    console.log("feedback form")
+    res.send("feedback form")
+})
+
+faculty.get('/dashboard',auth,async (req,res)=>{
+    allcomplaint = await controllers.getAllComplaints()
+    res.render('facultydashboard',{message: '',allComplaints:allcomplaint})
+})
+
 faculty.get('/:cid',auth,async (req,res)=>{
     await controllers.getComplaint(req,req.params.id).then((result)=>{
         if(result == false)
@@ -208,7 +241,7 @@ faculty.get('/:cid',auth,async (req,res)=>{
     })
 })
 
- faculty.post('/:cid',auth,async (req,res)=>{
+faculty.post('/:cid',auth,async (req,res)=>{
     await controllers.setstatus(req,req.params.id).then((result)=>{
         if(result == true)
         {
@@ -220,12 +253,13 @@ faculty.get('/:cid',auth,async (req,res)=>{
         }
     })
 })
+}
 
 
 /******************************** */
 /**admin routes */
 /******************************** */
-
+{
 admin.get('/',(req,res)=>{
     res.render('adminSignup',{message: 'Enter your Details'})
 
@@ -242,12 +276,12 @@ admin.post('/',async (req,res)=>{
     }
 })
 
-login.get('/admin',(req,res)=>{
+admin.get('/login',(req,res)=>{
     res.render('adminLogin',{message: ''})
 })
 
 
-login.post('/admin',async (req,res)=>{
+admin.post('/login',async (req,res)=>{
     result = await controllers.login(req,"admin")
     if(result == true)
     {
@@ -255,64 +289,23 @@ login.post('/admin',async (req,res)=>{
         // res.render('admindashboard',{message: '',allComplaints:''})
     }
     else{
-        res.render('login',{message: 'Kindly provide valid credentials'})
+        res.render('adminLogin',{message: 'Kindly provide valid credentials'})
     }
 })
 
-signup.post('/admin',async (req,res)=>{
-    result = await controllers.signup(req,"admin")
+admin.post('/signup',async (req,res)=>{
+    result = await controllers.adminReg(req,"admin")
     if(result == true)
     {
-        res.render('login',{message: 'User created successfully'})
+        res.render('adminLogin',{message: 'User created successfully'})
     }
     else{
         console.log(result)
-        res.render('login',{message: 'Something went wrong!! Please try again'})
+        res.render('adminLogin',{message: 'Something went wrong!! Please try again'})
     }
 })
 
-
-
-/*************************** */
-/**common routes */
-/*************************** */
-
-student.get('/profile',auth,async (req,res)=>{
-    if(req.session.user.role == "student"){
-    res.render('studentProfile',{
-        role : req.session.user.role,
-        name: req.session.user.name , 
-        email: req.session.user.username , 
-        phone: req.session.user.phone , 
-        rollno: req.session.user.enroll_no , 
-        branch: req.session.user.branch , 
-        course : req.session.user.course ,
-        sem: req.session.user.semester})
-    }
-    else if(req.session.user.role == "faculty"){
-        res.render('FacultyProf',{
-            role : req.session.user.role,
-            name: req.session.user.name , 
-            username: req.session.user.username , 
-            phone: req.session.user.phone ,  
-            dept: req.session.user.dept ,
-            designation : req.session.user.designation
-            })
-    }
-})
-
-student.get('/profile/faculty',auth,async (req,res)=>{
-    var faculties = await controllers.getFaculties()
-    res.render('faculties',{ faculties: faculties, role: req.session.user.role})
-})
-
-
-
-
-
-
-
-
+}
 
 
 
@@ -320,12 +313,5 @@ module.exports = {
     student,
     faculty,
     index,
-    admin,
-    login,
-    signup,
-    dashboard,
-    newcomplaint,
-    upvotes,
-    profile,
-    comp
+    admin
 }
