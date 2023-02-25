@@ -248,7 +248,10 @@ index.get('/',(req,res)=>{
             res.render('adminLogin',{message: 'Something went wrong!! Please try again'})
         }
     })
-
+    admin.get('/assign-fac',auth,async (req,res)=>{
+        // res.render('assign-faculty',{message: ''})
+        res.send("assign faculty page")
+    })
 }
 
 /**********************************/
