@@ -33,6 +33,7 @@ Functional Requirements
 - Login/Resgitration
 - View Performance of Faculties
 - Assign issue domain to faculty
+- deactivate student account
 
 
 ## Database requirements
