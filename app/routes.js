@@ -204,19 +204,19 @@ index.get('/',(req,res)=>{
 /**admin routes */
 /******************************** */
 {
-    admin.get('/',(req,res)=>{
+    admin.get('/signup',(req,res)=>{
         res.render('adminSignup',{message: 'Enter your Details'})
 
     })
-    admin.post('/',async (req,res)=>{
-        result = await controllers.adminReg(req,"student")
+    admin.post('/signup',async (req,res)=>{
+        result = await controllers.adminReg(req,"admin")
         if(result == true)
         {
-            res.render('adminSignup',{message: 'User created successfully'})
+            res.render('adminLogin',{message: 'User created successfully'})
         }
         else{
             console.log(result)
-            res.render('adminSignup',{message: 'Something went wrong!! Please try again'})
+            res.render('adminLogin',{message: 'Something went wrong!! Please try again'})
         }
     })
 
@@ -237,17 +237,6 @@ index.get('/',(req,res)=>{
         }
     })
 
-    admin.post('/signup',async (req,res)=>{
-        result = await controllers.adminReg(req,"admin")
-        if(result == true)
-        {
-            res.render('adminLogin',{message: 'User created successfully'})
-        }
-        else{
-            console.log(result)
-            res.render('adminLogin',{message: 'Something went wrong!! Please try again'})
-        }
-    })
     admin.get('/assign-fac',auth,async (req,res)=>{
         // res.render('assign-faculty',{message: ''})
         res.send("assign faculty page")
