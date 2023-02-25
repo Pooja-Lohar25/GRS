@@ -8,6 +8,7 @@ const index = express.Router()
 const admin  = express.Router()
 const student = express.Router()
 const faculty = express.Router()
+const search = express.Router()
 
 var allcomplaint = []
 
@@ -17,6 +18,7 @@ index.use(express.static(path.resolve(__dirname,'../assets')))
 admin.use(express.static(path.resolve(__dirname,'../assets')))
 student.use(express.static(path.resolve(__dirname,'../assets')))
 faculty.use(express.static(path.resolve(__dirname,'../assets')))
+search.use(express.static(path.resolve(__dirname,'../assets')))
 
 //defining routes
 index.get('/',(req,res)=>{
@@ -94,12 +96,13 @@ student.get('/dashboard',auth,async (req,res)=>{
     }
 })
 
-student.get('/dashboard/search',auth,async (req,res)=>{
+search.get('/search',auth,async (req,res)=>{
     const srchquery = req.query.search
     var srchresult = []
     
     if(req.session.user.role=="student") file = 'dashboard'
     else if(req.session.user.role=="faculty") file = 'facultydashboard'
+    else if(req.session.user.role=="admin") file = 'admindashboard'
 
     if(allcomplaint){
         srchresult = allcomplaint.filter((complaint)=>{
@@ -285,8 +288,8 @@ admin.post('/login',async (req,res)=>{
     result = await controllers.login(req,"admin")
     if(result == true)
     {
-        res.send('admin dashboard')
-        // res.render('admindashboard',{message: '',allComplaints:''})
+        allcomplaint = await controllers.getAllComplaints()
+        res.render('admindashboard',{message: '',allComplaints:allcomplaint})
     }
     else{
         res.render('adminLogin',{message: 'Kindly provide valid credentials'})
@@ -311,6 +314,7 @@ admin.post('/signup',async (req,res)=>{
 
 module.exports = {
     student,
+    search,
     faculty,
     index,
     admin
