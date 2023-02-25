@@ -1,7 +1,9 @@
 <%if(role === "student"){%>
   <%- include("partials/header") -%>
-<%}else{%>
+<%}else if(role === "faculty"){%>
   <%- include("partials/facHeader") -%>
+<%}else if(role === "admin"){%>
+  <%- include("partials/adminHeader") -%>
 <%}%>
 
 

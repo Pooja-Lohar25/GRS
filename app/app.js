@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const ejs = require("ejs");
 
 //importing routes
-const { search,index,faculty,student,admin} = require("./routes");
+const { util,index,faculty,student,admin} = require("./routes");
 
 app.set("views", path.resolve(__dirname, "../assets", "../assets"));
 app.set("view engine", "ejs");
@@ -30,7 +30,9 @@ app.use('/student',student)
 app.use('/faculty',faculty)
 app.use('/setstatus',faculty)
 app.use('/admin',admin)
-app.use('/complaint',search)
+app.use('/dashboard',util)
+app.use('/complaint',util)
+app.use('/faculties',util)
 app.use('logout',index)
 
 app.listen(4000, () => {
