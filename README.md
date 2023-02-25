@@ -1,7 +1,7 @@
 # GRS
 Grievance Redressal System
 
-The system is designed and developed to address the issue of grienvance registration for college students in their respective colleges or universities.<br>
+The system is designed and developed to address the issue of grievance registration for college students in their respective colleges or universities.<br>
 Systems's sole purpose is to make students' complaints heard by the authorities of the colleges so that they can be addressed as soon as possible.<br>
 
 <b> UNIQUE FEATURE: </b> Faculties would be granted scores on the basis of number of issue they solved that were assigned to them.
@@ -26,7 +26,7 @@ Functional Requirements
 
 ### Admins
 All HODs and higher authorities(Principal,Vice Principal etc) of the university and college.<br>
-Selection of Admin depends on the institute.
+Selection of Admin depends on the institute. <br>
 Functional Requirements
 - Login/Resgitration
 - View Performance of Faculties
