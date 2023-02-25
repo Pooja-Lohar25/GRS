@@ -26,7 +26,9 @@ Functional Requirements
 
 ### Admins
 All HODs and higher authorities(Principal,Vice Principal etc) of the university and college.<br>
-Selection of Admin depends on the institute. <br>
+Selection of Admin depends on the institute. 
+<br>
+
 Functional Requirements
 - Login/Resgitration
 - View Performance of Faculties
