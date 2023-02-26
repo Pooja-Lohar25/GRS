@@ -30,8 +30,8 @@ const insertDepartments = ()=>{
 
 
 const insertDomains = ()=>{
-    const domains = ['LIB','MT','TTS','AC','TNP','MSCON','RAG','OTH']
-    const domainNames = ['Library','Maintenance','Time Table Structure','Academics','Training and Placement','Misconduct','Ragging','Other']
+    const domains = ['LIB','MT','AC','TNP','MSCON','RAG','OTH']
+    const domainNames = ['Library','Maintenance','Academics','Training and Placement','Misconduct','Ragging','Other']
 
     for(let i=0;i<domains.length;i++){
         const domain = compltDom.build({

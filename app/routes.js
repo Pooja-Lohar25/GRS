@@ -237,9 +237,14 @@ index.get('/',(req,res)=>{
         }
     })
 
-    admin.get('/assign-fac',auth,async (req,res)=>{
-        // res.render('assign-faculty',{message: ''})
-        res.send("assign faculty page")
+    admin.get('/assign-fac',async (req,res)=>{
+        res.render('assign-faculty',{message: ''})
+        // res.send("assign faculty page")
+    })
+
+    admin.get('/deactivate-stu',auth,async (req,res)=>{
+        // res.render('deactivate-student',{message: ''})
+        res.send("deactivate student page")
     })
 }
 
