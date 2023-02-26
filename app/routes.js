@@ -73,11 +73,11 @@ index.get('/',(req,res)=>{
     })
 
 
-    student.get('/newcomplaint',auth,async (req,res)=>{
+    student.get('/newcomplaint',authStu,async (req,res)=>{
         res.render('newcomplaint' ,{message: ''})
     })
 
-    student.post('/newcomplaint',auth,async (req,res)=>{
+    student.post('/newcomplaint',authStu,async (req,res)=>{
         
         result = await controllers.raiseComplaint(req).then((result)=>{return result}) //returns a promise
         console.log(result)
@@ -91,7 +91,7 @@ index.get('/',(req,res)=>{
         }
     })
 
-    student.get('/upvotes/:cid',auth,async (req,res)=>{
+    student.get('/upvotes/:cid',authStu,async (req,res)=>{
         await controllers.upvotes(req,req.params.id).then((result)=>{
             if(result == true)
             {
@@ -104,7 +104,7 @@ index.get('/',(req,res)=>{
         })
     })
 
-    student.get('/profile',auth,async (req,res)=>{
+    student.get('/profile',authStu,async (req,res)=>{
         res.render('studentProfile',{
             role : req.session.user.role,
             name: req.session.user.name , 
@@ -153,7 +153,7 @@ index.get('/',(req,res)=>{
     })
 
 
-    faculty.get('/myprofile',auth,async (req,res)=>{
+    faculty.get('/myprofile',authFac,async (req,res)=>{
         res.render('FacultyProf',{
             role : req.session.user.role,
             name: req.session.user.name , 
@@ -166,13 +166,13 @@ index.get('/',(req,res)=>{
         
     })
 
-    faculty.get('/feedback',auth,async (req,res)=>{
+    faculty.get('/feedback',authFac,async (req,res)=>{
         console.log("feedback form")
         res.send("feedback form")
     })
 
 
-    faculty.get('/:cid',auth,async (req,res)=>{
+    faculty.get('/:cid',authFac,async (req,res)=>{
         await controllers.getComplaint(req,req.params.id).then((result)=>{
             if(result == false)
             {
@@ -185,7 +185,7 @@ index.get('/',(req,res)=>{
         })
     })
 
-    faculty.post('/:cid',auth,async (req,res)=>{
+    faculty.post('/:cid',authFac,async (req,res)=>{
         await controllers.setstatus(req,req.params.id).then((result)=>{
             if(result == true)
             {
@@ -237,12 +237,12 @@ index.get('/',(req,res)=>{
         }
     })
 
-    admin.get('/assign-fac',async (req,res)=>{
+    admin.get('/assign-fac',authAdmin,async (req,res)=>{
         res.render('assign-faculty',{message: ''})
         // res.send("assign faculty page")
     })
 
-    admin.get('/deactivate-stu',auth,async (req,res)=>{
+    admin.get('/deactivate-stu',authAdmin,async (req,res)=>{
         // res.render('deactivate-student',{message: ''})
         res.send("deactivate student page")
     })
