@@ -43,15 +43,12 @@ function validatePassword(){
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
 
-
-function toggle() {
-  const targetDiv = document.getElementsByName("targetDiv");
-  const btn = document.getElementById("toggle");
+const targetDiv = document.getElementById("target");
+const btn = document.getElementById("toggle");
+btn.onclick = function () {
   if (targetDiv.style.display !== "none") {
     targetDiv.style.display = "none";
-    btn.innerHTML= "View details"
   } else {
     targetDiv.style.display = "block";
-    btn.innerHTML= "Hide details"
   }
 };
