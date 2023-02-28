@@ -151,7 +151,6 @@ const compltDom = sequelize.define('compltDom',{
     },
     faculty_coordinator_id:{
         type:DataTypes.INTEGER,
-        allowNull:false,
         references:{
             model:emp,
             key:'emp_id'

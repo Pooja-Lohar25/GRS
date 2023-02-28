@@ -42,3 +42,27 @@ function validatePassword(){
 
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
+
+function toggle(i) {
+  const ele = document.getElementsByName(i);
+  const btn = ele[0]
+  const targetDiv = ele[1]
+  if (targetDiv.style.display !== "none") {
+    targetDiv.style.display = "none";
+    btn.innerHTML = "View Details"
+  } else {
+    targetDiv.style.display = "block";
+    btn.innerHTML = "Hide Details"
+  }
+  console.log("button",btn)
+};
+
+function ViewHide(){
+  const btn = document.getElementsByClassName('toggle')
+  const target = document.getElementsByClassName('target')
+  //set name attribute according to their index in allComplaints
+  for(var i=0;i<btn.length;i++){
+    btn[i].setAttribute('name',i)
+    target[i].setAttribute('name',i)
+  }
+}
