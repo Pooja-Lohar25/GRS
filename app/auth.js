@@ -8,7 +8,7 @@ auth = async (req,res,next)=>{
     }
 }
 authStu = async (req,res,next)=>{
-    if(req.session.user.role == 'student')
+    if(req.session.user!==null && req.session.user.role == 'student')
     {
         next()
     }
@@ -17,7 +17,7 @@ authStu = async (req,res,next)=>{
     }
 }
 authFac = async (req,res,next)=>{
-    if(req.session.user.role == 'faculty')
+    if(req.session.user!==null && req.session.user.role == 'faculty')
     {
         next()
     }
@@ -26,7 +26,7 @@ authFac = async (req,res,next)=>{
     }
 }
 authAdmin = async (req,res,next)=>{
-    if(req.session.user.role == 'admin')
+    if(req.session.user!==null && req.session.user.role == 'admin')
     {
         next()
     }
