@@ -41,14 +41,14 @@ index.get('/',(req,res)=>{
         if(result == true)
         {
             allcomplaint = await controllers.getAllComplaints()
-            if(allcomplaint == false)
+            if(allcomplaint.length == 0)
             {
                 allcomplaint = []
-                res.render('dashboard',{message: 'Something went wrong', allComplaints: allcomplaint})
-            }
-            else if(allcomplaint == [])
-            {
                 res.render('dashboard',{message: 'No complaints found', allComplaints: allcomplaint})
+            }
+            else if(allcomplaint == false)
+            {
+                res.render('dashboard',{message: 'Something went wrong', allComplaints: allcomplaint})
             }
             else
             {
