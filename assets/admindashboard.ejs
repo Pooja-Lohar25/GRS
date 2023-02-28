@@ -19,9 +19,10 @@
   </div>
 </form>
 
-<section>
+<section id = "comps" >
   <div class="row" style="padding: 10px 50px;">
-    <% allComplaints.forEach(function(complaint){ %>
+    
+    <% for(i=0;i < allComplaints.length;i++){ %>
 
     <div class="col-lg-12">
       <div class="card mb-4">
@@ -32,16 +33,15 @@
             </div>
             <div class="col-sm-7">
               <p class="text-muted mb-0"><b>
-                  <%= complaint.issue %>
+                  <%= allComplaints[i].issue %>
                 </b></p>
             </div>
             <div class="col-sm-2">
-              <!-- <p class="mb-0">Issue</p> -->
-              <button class="btn-upvote" id="toggle" onclick = toggle()><a href='#'>View Details</a></button>
+              <button class="btn-upvote toggle" name = "<% i %>" id="toggle" onclick=toggle(this.name)><a href='#'>View Details</a></button>
             </div>
 
           </div>
-        <div id="targetDiv" style="display: none;">
+        <div id="targetDiv" class = "target" style="display: none;">
           <hr>
           <div class="row">
             <div class="col-sm-3">
@@ -49,7 +49,7 @@
             </div>
             <div class="col-sm-9">
               <p class="text-muted mb-0">
-                <%= complaint.description %>
+                <%= allComplaints[i].description %>
               </p>
             </div>
           </div>
@@ -60,7 +60,7 @@
             </div>
             <div class="col-sm-3">
               <p class="text-muted mb-0">
-                <%= complaint.status %>
+                <%= allComplaints[i].status %>
               </p>
             </div>
             <div class="col-sm-3">
@@ -68,7 +68,7 @@
             </div>
             <div class="col-sm-3">
               <p class="text-muted mb-0">
-                <%= complaint.dept_id %>
+                <%= allComplaints[i].dept_id %>
               </p>
             </div>
           </div>
@@ -79,7 +79,7 @@
             </div>
             <div class="col-sm-3">
               <p class="text-muted mb-0">
-                <%= complaint.domId %>
+                <%= allComplaints[i].domId %>
               </p>
             </div>
             <div class="col-sm-3">
@@ -87,7 +87,7 @@
             </div>
             <div class="col-sm-3">
               <p class="text-muted mb-0">
-                <%= complaint.upvotes %>
+                <%= allComplaints[i].upvotes %>
               </p>
             </div>
           </div>
@@ -98,7 +98,7 @@
             </div>
             <div class="col-sm-3">
               <p class="text-muted mb-0">
-                <%= complaint.remarks %>
+                <%= allComplaints[i].remarks %>
               </p>
             </div>
           </div>
@@ -110,7 +110,7 @@
 
 
 
-    <% }) %>
+    <% } %>
   </div>
 
 </section>
@@ -118,6 +118,9 @@
 
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script src="faculty.js"></script>
+<script>
+  ViewHide();
+</script>
 </body>
 
 </html>
