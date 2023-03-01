@@ -242,6 +242,9 @@ index.get('/',(req,res)=>{
         // res.send("assign faculty page")
     })
 
+    admin.get('/allprofiles/students',authAdmin,async(req,res)=>{
+        res.send("students profiles page")
+    })
     admin.get('/deactivate-stu',authAdmin,async (req,res)=>{
         // res.render('deactivate-student',{message: ''})
         res.send("deactivate student page")
@@ -281,7 +284,7 @@ index.get('/',(req,res)=>{
         else res.render(file,{message: 'No complaints', allComplaints: allcomplaint})
     
     })
-    util.get('/allprofiles',auth,async (req,res)=>{
+    util.get('/faculties',auth,async (req,res)=>{
         var faculties = await controllers.getFaculties()
         res.render('faculties',{ faculties: faculties,role: req.session.user.role})
     })

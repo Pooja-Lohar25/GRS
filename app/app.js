@@ -32,7 +32,7 @@ app.use('/setstatus',faculty)
 app.use('/admin',admin)
 app.use('/dashboard',util)
 app.use('/complaint',util)
-app.use('/faculties',util)
+app.use('/allprofiles',util)
 app.use('logout',index)
 
 app.listen(4000, () => {
