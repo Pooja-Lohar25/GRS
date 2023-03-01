@@ -36,7 +36,7 @@ index.get('/',(req,res)=>{
         res.render('login',{message: ''})
     })
 
-    student.post('/login',async (req,res)=>{
+    student.post('/',async (req,res)=>{
         result = await controllers.login(req,"student")
         if(result == true)
         {
@@ -128,7 +128,7 @@ index.get('/',(req,res)=>{
         res.render('facultyLogin',{message: ''})
     })
 
-    faculty.post('/login',async (req,res)=>{
+    faculty.post('/',async (req,res)=>{
         result = await controllers.login(req,"faculty")
         if(result == true)
         {
@@ -225,7 +225,7 @@ index.get('/',(req,res)=>{
     })
 
 
-    admin.post('/login',async (req,res)=>{
+    admin.post('/',async (req,res)=>{
         result = await controllers.login(req,"admin")
         if(result == true)
         {
