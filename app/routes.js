@@ -238,8 +238,13 @@ index.get('/',(req,res)=>{
     })
 
     admin.get('/assign-fac',authAdmin,async (req,res)=>{
-        res.render('assign-faculty',{message: ''})
-        // res.send("assign faculty page")
+        var fac_names = []
+        await controllers.getFaculties().then((faculties)=>{
+            faculties.forEach(faculty => {
+                fac_names.push(faculty.name)
+            });            
+        })
+        res.render('assign-faculty',{message: '',faculties:fac_names})
     })
 
     admin.get('/allprofiles/students',authAdmin,async(req,res)=>{
