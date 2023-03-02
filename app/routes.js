@@ -250,9 +250,14 @@ index.get('/',(req,res)=>{
     admin.get('/allprofiles/students',authAdmin,async(req,res)=>{
         res.send("students profiles page")
     })
-    admin.get('/deactivate-stu',authAdmin,async (req,res)=>{
-        // res.render('deactivate-student',{message: ''})
-        res.send("deactivate student page")
+
+    admin.get('/deactivate-stu/:stuid',authAdmin,async (req,res)=>{
+        await controllers.deactivateStu(req).then((result)=>{
+            res.send(`userid: ${req.params.stuid} , deactivated : ${result}`)
+        }).catch((err)=>{
+            console.log(err)
+            res.send('something went wrong')
+        })
     })
 }
 

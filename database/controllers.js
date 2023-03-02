@@ -370,6 +370,35 @@ adminReg = async (req)=>{
 
 }
 
+deactivateStu = async (req,res)=>{
+    return await new Promise(async (resolve,reject)=>{
+        await students.findOne({
+            where:{
+                enroll_no: req.params.stuid
+            }
+        }).then(async (result)=>{
+            if(result == null)
+            {
+                resolve(false)
+            }
+            else{
+                result.status = 'Deactivated'
+                result.deactivated_by = req.session.user.name
+                await result.save().then(()=>{
+                    resolve(true)
+                }).catch((err)=>{
+                    console.log(err)
+                    resolve(false)
+                })
+
+            }
+        }).catch((err)=>{
+            console.log(err)
+            resolve(false)
+        })
+    })
+}
+
 module.exports = {
     login,
     signup,
@@ -379,7 +408,8 @@ module.exports = {
     adminReg,
     getFaculties,
     setstatus,
-    getComplaint
+    getComplaint,
+    deactivateStu
 }
 
 

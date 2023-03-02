@@ -130,6 +130,14 @@ const students = sequelize.define('student',{
     },
     phone:{
         type:DataTypes.STRING,
+    },
+    status:{
+        type:DataTypes.STRING,
+        defaultValue:'Active'
+    },
+    deactivated_by:{
+        type:DataTypes.STRING,
+        allowNull:true
     }
 })
 
@@ -251,6 +259,3 @@ module.exports = {
     complaints,
     studentComplaints
 }
-
-
-
