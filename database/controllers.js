@@ -333,6 +333,20 @@ setstatus = async (req)=>{
                         console.log(err)
                         resolve(false)
                     })
+                    //fetching complaint domId table record
+                    const complt = await compltDom.findOne({
+                        where:{
+                            domId: result.domId
+                        }
+                    })
+                    //reduce number of unresolved issues
+                    complt.totUnResolved = complt.totUnResolved - 1
+                    await complt.save().then(()=>{
+                        console.log('One issue has been resolved from domain ' + complt.domainName)
+                    }).catch((err)=>{
+                        console.log(err)
+                        resolve(false)
+                    })
                 }
                 await result.save().then(()=>{
                     resolve(true)
