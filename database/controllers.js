@@ -521,7 +521,7 @@ async function logAdm(req){
 
 async function signupStu(req){
     const mail = req.body.emailOfStudent
-    if(isEmail(mail) == false) return 'Email is not valid'
+    if(!validator.isEmail(mail) == false) return 'Email is not valid'
     const student = {
         enroll_no: req.body.enrollmentOfStudent,
         name: req.body.nameOfStudent,

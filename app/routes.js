@@ -68,7 +68,9 @@ index.get('/',(req,res)=>{
         }
         else{
             console.log(result)
-            res.render('login',{message: 'Something went wrong!! Please try again'})
+            // res.render('login',{message: 'Something went wrong!! Please try again'})
+            res.render('login',{message: result})
+
         }
     })
 
