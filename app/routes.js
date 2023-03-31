@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const controllers = require('../database/controllers')
 const {auth} = require('./auth')
+const { rejects } = require('assert')
 
 //creating routers
 const index = express.Router()
@@ -61,17 +62,22 @@ index.get('/',(req,res)=>{
     })
 
     student.post('/signup',async (req,res)=>{
-        result = await controllers.signup(req,"student")
-        if(result == true)
-        {
-            res.render('login',{message: 'User created successfully'})
-        }
-        else{
-            console.log(result)
-            // res.render('login',{message: 'Something went wrong!! Please try again'})
-            res.render('login',{message: result})
-
-        }
+        await controllers.signup(req,"student").then(result => {
+            if(result == true)
+            {
+                res.render('login',{message: 'User created successfully'})
+            }
+            else{
+                console.log(result)
+                res.render('login',{message: result})
+                
+            }
+            
+        }).catch(err =>{
+            console.log(err)
+            res.render('login',{message: 'Something went wrong!! Please try again'})
+            
+        })
     })
 
 

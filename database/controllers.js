@@ -4,7 +4,7 @@ const saltrounds = 10
 const {con}  = require('./dbconnect')
 const path = require('path')
 const Op = require('sequelize').Op
-const validator = require('validator')
+const emailValidator = require('deep-email-validator');
 const {
     depts,
     emp,
@@ -45,16 +45,26 @@ login = async (req,role)=>{
 
  signup = async (req,role)=>{
 
-    return new Promise(resolve => {
-        if(role == "student"){
-            signupStu(req).then(result =>{
-                resolve(result)
-            })
-        }
-        else if(role == "faculty"){
-            signupFac(req).then(result =>{
-                resolve(result)
-            })
+    return new Promise(async (resolve,reject) => {
+        const mail = req.body.email
+        result = await emailValidator.validate(mail)
+        if(!result.valid) resolve('Email is not valid')
+        else{
+            if(role == "student"){
+                signupStu(req).then(result =>{
+                    resolve(result)
+                }).catch(err =>{
+                    reject(err)
+                })
+            }
+            else if(role == "faculty"){
+                signupFac(req).then(result =>{
+                    resolve(result)
+                }).catch(err =>{
+                    reject(err)
+                })
+            }
+
         }
     })
 
@@ -520,27 +530,28 @@ async function logAdm(req){
 }
 
 async function signupStu(req){
-    const mail = req.body.emailOfStudent
-    if(!validator.isEmail(mail) == false) return 'Email is not valid'
-    const student = {
-        enroll_no: req.body.enrollmentOfStudent,
-        name: req.body.nameOfStudent,
-        branch: req.body.branchOfStudent,
-        course: req.body.courseOfStudent,
-        semester: req.body.semesterOfStudent,
-        username: mail,
-        password: await bcrypt.hash(req.body.password,saltrounds),
-        phone: req.body.contactOfStudent
-    }
+    return new Promise(async (resolve,reject)=>{
 
-    const st = students.build(student)
-    return st.save().then(()=>{
-        console.log('student saved')
-        return true
-    }).catch((err)=>{
-        return err
-    }
-    )
+            const student = {
+                enroll_no: req.body.enrollmentOfStudent,
+                name: req.body.nameOfStudent,
+                branch: req.body.branchOfStudent,
+                course: req.body.courseOfStudent,
+                semester: req.body.semesterOfStudent,
+                username: req.body.email,
+                password: await bcrypt.hash(req.body.password,saltrounds),
+                phone: req.body.contactOfStudent
+            }   
+            
+            const st = students.build(student)
+            return await st.save().then(()=>{
+                console.log('student saved')
+                resolve(true)
+            }).catch((err)=>{
+                reject(err)
+            })
+
+        })
 }
 
 async function signupFac(req){
