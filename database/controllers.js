@@ -4,6 +4,7 @@ const saltrounds = 10
 const {con}  = require('./dbconnect')
 const path = require('path')
 const Op = require('sequelize').Op
+const validator = require('validator')
 const {
     depts,
     emp,
@@ -519,16 +520,19 @@ async function logAdm(req){
 }
 
 async function signupStu(req){
+    const mail = req.body.emailOfStudent
+    if(isEmail(mail) == false) return 'Email is not valid'
     const student = {
         enroll_no: req.body.enrollmentOfStudent,
         name: req.body.nameOfStudent,
         branch: req.body.branchOfStudent,
         course: req.body.courseOfStudent,
         semester: req.body.semesterOfStudent,
-        username: req.body.emailOfStudent,
+        username: mail,
         password: await bcrypt.hash(req.body.password,saltrounds),
         phone: req.body.contactOfStudent
     }
+
     const st = students.build(student)
     return st.save().then(()=>{
         console.log('student saved')
