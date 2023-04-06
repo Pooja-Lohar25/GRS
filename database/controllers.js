@@ -48,7 +48,8 @@ login = async (req,role)=>{
     return new Promise(async (resolve,reject) => {
         const mail = req.body.email
         result = await emailValidator.validate(mail)
-        if(!result.valid) resolve('Email is not valid')
+        console.log(result)
+        if(!result.valid) resolve('Email is not valid due to: ' + result.reason)
         else{
             if(role == "student"){
                 signupStu(req).then(result =>{
@@ -561,7 +562,7 @@ async function signupFac(req){
         dept_id : req.body.branchOfFaculty,
         designation : req.body.designationOfEmployee,
         course: req.body.courseOfFaculty,
-        username: req.body.emailOfFaculty,
+        username: req.body.email,
         password: await bcrypt.hash(req.body.password,saltrounds),
         scores:0,
         phone: req.body.contactOfFaculty
@@ -572,6 +573,7 @@ async function signupFac(req){
         console.log('faculty saved')
         return true
     }).catch((err)=>{
+        console.log("some error")
         return err
     }
     )
