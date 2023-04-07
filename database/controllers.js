@@ -5,6 +5,7 @@ const {con}  = require('./dbconnect')
 const path = require('path')
 const Op = require('sequelize').Op
 const emailValidator = require('deep-email-validator');
+const nodemailer = require('nodemailer')
 const {
     depts,
     emp,
@@ -46,9 +47,12 @@ login = async (req,role)=>{
  signup = async (req,role)=>{
 
     return new Promise(async (resolve,reject) => {
+        
         const mail = req.body.email
+        
         result = await emailValidator.validate(mail)
-        console.log(result)
+
+        // console.log(result)
         if(!result.valid) resolve('Email is not valid due to: ' + result.reason)
         else{
             if(role == "student"){

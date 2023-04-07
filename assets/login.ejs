@@ -36,11 +36,11 @@
               <fieldset>
                 <legend>Please, enter your email, password and password confirmation for sign up.</legend>
                 <div class="input-block">
-                    <input type="text" class="form-control" name="nameOfStudent" placeholder="Name" autocomplete="off" required>
+                    <input type="text" class="form-control" name="nameOfStudent" placeholder="Name" autocomplete="off" required pattern="^[a-zA-Z\s]+$">
                 </div>
                 <div class="input-block">
                     <input type="text" class="form-control" name="enrollmentOfStudent" placeholder="Enrollment No." 
-                     required autocomplete="off">
+                     required autocomplete="off" pattern="^(0187|0537)(cs|me|ec|ex)\d{6}$" oninput='this.value = this.value.toUpperCase()'>
                 </div>
 
                 <input type="radio" id = "bTech" name="courseOfStudent"value="B.Tech">
@@ -98,7 +98,7 @@
                 </div>
 
               </fieldset>
-              <button type="submit" class="btn-login">Submit</button>
+              <button type="submit" class="btn-login disabled">Submit</button>
             </form>
           </div>
         </div>

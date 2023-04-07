@@ -36,11 +36,11 @@
               <fieldset>
                 <legend>Please, enter your email, password and password confirmation for sign up.</legend>
                 <div class="input-block">
-                    <input type="text" class="form-control" name="nameOfFaculty" placeholder="Name" autocomplete="off" required>
+                    <input type="text" class="form-control" name="nameOfFaculty" placeholder="Name" autocomplete="off" required pattern="^[a-zA-Z\s]+$">
                 </div>
                 <div class="input-block">
-                    <input type="text" class="form-control" name="employeeIdofFaculty" placeholder="Employee Id." 
-                     required autocomplete="off">
+                    <input type="text" class="form-control" name="employeeIdofFaculty" placeholder="Numeric Employee Id." 
+                     required autocomplete="off" pattern="^[1-9]+$">
                 </div>
 
                 <input type="radio" id = "bTech" name="courseOfFaculty"value="B.Tech">
