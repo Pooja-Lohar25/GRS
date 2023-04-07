@@ -268,7 +268,7 @@ getFaculties = async (req)=>{
             }
         }).catch((err)=>{
             console.log(err)
-            resolve(false)
+            reject(false)
         })
 
     })

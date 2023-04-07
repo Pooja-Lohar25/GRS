@@ -53,7 +53,12 @@ index.get('/',(req,res)=>{
             }
             else
             {
-                res.render('dashboard',{message: '', allComplaints: allcomplaint})
+                // res.render('dashboard',{message: '', allComplaints: allcomplaint})
+                branch = req.session.user.branch
+                branchcomp = allcomplaint.filter((complaint)=>{
+                    return complaint.dept_id.toLowerCase().includes(branch.toLowerCase())
+                })
+                res.render('dashboard',{message: '',allComplaints:branchcomp})
             }
         }
         else{
@@ -141,7 +146,12 @@ index.get('/',(req,res)=>{
         if(result == true)
         {
             allcomplaint = await controllers.getAllComplaints()
-            res.render('facultydashboard',{message: '',allComplaints:allcomplaint})
+            // res.render('facultydashboard',{message: '',allComplaints:allcomplaint})
+            branch = req.session.user.dept
+            branchcomp = allcomplaint.filter((complaint)=>{
+                return complaint.dept_id.toLowerCase().includes(branch.toLowerCase())
+            })
+            res.render('facultydashboard',{message: '',allComplaints:branchcomp})
         }
         else{
             res.render('facultyLogin',{message: 'Kindly provide valid credentials'})
@@ -251,6 +261,8 @@ index.get('/',(req,res)=>{
             faculties.forEach(faculty => {
                 fac_names.push(faculty.name)
             });            
+        }).catch((err)=>{
+            res.render('assign-faculty',{message: 'something went wrong',faculties:fac_names})    
         })
         res.render('assign-faculty',{message: '',faculties:fac_names})
     })
@@ -274,11 +286,25 @@ index.get('/',(req,res)=>{
 /**********************************/
 {
     util.get('/',auth,async (req,res)=>{
+        var branchcomp = []
         allcomplaint = await controllers.getAllComplaints()
-        if(req.session.user.role=="student") file = 'dashboard'
-        else if(req.session.user.role=="faculty") file = 'facultydashboard'
-        else if(req.session.user.role=="admin") file = 'admindashboard'
-        res.render(file,{message: '',allComplaints:allcomplaint})
+        if(req.session.user.role=="student"){
+            file = 'dashboard'
+            branch = req.session.user.branch
+        } 
+        else if(req.session.user.role=="faculty"){ 
+            file = 'facultydashboard'
+            branch = req.session.user.dept
+        }
+        else if(req.session.user.role=="admin"){ 
+            file = 'admindashboard'
+            res.render(file,{message: '',allComplaints:allcomplaint})    
+        }
+        branchcomp = allcomplaint.filter((complaint)=>{
+            return complaint.dept_id.toLowerCase().includes(branch.toLowerCase())
+        })
+        res.render(file,{message: '',allComplaints:branchcomp})
+        
     })
 
     util.get('/search',auth,async (req,res)=>{
