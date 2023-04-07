@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const controllers = require('../database/controllers')
-const {auth} = require('./auth')
+const {auth, sendOtp} = require('./auth')
 const { rejects } = require('assert')
 
 //creating routers
@@ -73,7 +73,7 @@ index.get('/',(req,res)=>{
                 
             }
             
-        }).catch(err =>{
+        }).catch(err => {
             console.log(err)
             res.render('login',{message: 'Something went wrong!! Please try again'})
             

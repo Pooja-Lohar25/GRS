@@ -15,6 +15,7 @@ const {
     complaints,
     studentComplaints
 } = require('./models')
+const { sendOtp } = require('../app/auth')
 
 
 /************************************************************************* */
@@ -47,14 +48,7 @@ login = async (req,role)=>{
  signup = async (req,role)=>{
 
     return new Promise(async (resolve,reject) => {
-        
-        const mail = req.body.email
-        
-        result = await emailValidator.validate(mail)
 
-        // console.log(result)
-        if(!result.valid) resolve('Email is not valid due to: ' + result.reason)
-        else{
             if(role == "student"){
                 signupStu(req).then(result =>{
                     resolve(result)
@@ -69,8 +63,7 @@ login = async (req,role)=>{
                     reject(err)
                 })
             }
-
-        }
+        
     })
 
 }
