@@ -57,9 +57,7 @@ const emp = sequelize.define('emp',{
         type:DataTypes.STRING,
         allowNull:false
     },
-    phone:{
-        type:DataTypes.STRING,
-    }
+  
 })
 
 const admins = sequelize.define('admin',{
@@ -127,9 +125,6 @@ const students = sequelize.define('student',{
     password:{
         type:DataTypes.STRING,
         allowNull:false
-    },
-    phone:{
-        type:DataTypes.STRING,
     },
     status:{
         type:DataTypes.STRING,

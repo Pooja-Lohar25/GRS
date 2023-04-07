@@ -329,8 +329,12 @@ index.get('/',(req,res)=>{
     
     })
     util.get('/faculties',auth,async (req,res)=>{
-        var faculties = await controllers.getFaculties()
-        res.render('faculties',{ faculties: faculties,role: req.session.user.role})
+        await controllers.getFaculties().then((Faculties)=>{
+
+            res.render('faculties',{ faculties: Faculties,role: req.session.user.role})
+        }).catch(err=>{
+            res.render('faculties',{ faculties:[],role: req.session.user.role})
+        })
     })
 }
 

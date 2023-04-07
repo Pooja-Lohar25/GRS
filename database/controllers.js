@@ -237,6 +237,7 @@ getAllComplaints = async (req)=>{
 getFaculties = async (req)=>{
     return await new Promise(async (resolve,reject)=>{
         await emp.findAll().then((result)=>{
+            console.log(result)
             if(result.length == 0)
             {
                 resolve([])
@@ -260,7 +261,6 @@ getFaculties = async (req)=>{
                     faculty.designation = result[i].designation.toString()
                     faculty.scores = result[i].scores.toString()
                     faculty.username = result[i].username.toString()
-                    faculty.phone = result[i].phone.toString()
                     allfaculties.push(faculty)
                 }
                 console.log(allfaculties)
@@ -268,7 +268,7 @@ getFaculties = async (req)=>{
             }
         }).catch((err)=>{
             console.log(err)
-            reject(false)
+            reject(err)
         })
 
     })
