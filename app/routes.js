@@ -105,14 +105,21 @@ index.get('/',(req,res)=>{
     })
 
     student.get('/upvotes/:cid',authStu,async (req,res)=>{
-        await controllers.upvotes(req,req.params.id).then((result)=>{
+        
+        await controllers.upvotes(req,req.params.id).then(async (result)=>{
+            allcomplaint = await controllers.getAllComplaints()
+                branch = req.session.user.dept
+                branchcomp = allcomplaint.filter((complaint)=>{
+                return complaint.dept_id.toLowerCase().includes(branch.toLowerCase())
+                })
             if(result == true)
             {
-                res.render('dashboard',{message : 'Upvote added successfully' ,allComplaints:allcomplaint})
+                
+                res.render('dashboard',{message : 'Upvote added successfully' ,allComplaints:branchcomp})
                 
             }
             else{
-                res.render('dashboard',{message : result ,allComplaints:allcomplaint})
+                res.render('dashboard',{message : result ,allComplaints:branchcomp})
             }
         })
     })
@@ -136,6 +143,7 @@ index.get('/',(req,res)=>{
 /**********************************/
 /**faculty routes */
 /**********************************/
+var branchcomp = []
 {
     faculty.get('/login',(req,res)=>{
         res.render('facultyLogin',{message: ''})
@@ -191,10 +199,11 @@ index.get('/',(req,res)=>{
 
 
     faculty.get('/:cid',authFac,async (req,res)=>{
-        await controllers.getComplaint(req,req.params.id).then((result)=>{
+        await controllers.getComplaint(req,req.params.id).then(async (result)=>{
             if(result == false)
             {
-                res.render('facultydashboard',{message : 'Something went wrong' ,allComplaints:allcomplaint})
+                
+                res.render('facultydashboard',{message : 'Something went wrong' ,allComplaints:branchcomp})
                 
             }
             else{
@@ -204,14 +213,21 @@ index.get('/',(req,res)=>{
     })
 
     faculty.post('/:cid',authFac,async (req,res)=>{
-        await controllers.setstatus(req,req.params.id).then((result)=>{
+        await controllers.setstatus(req,req.params.id).then(async (result)=>{
+            allcomplaint = await controllers.getAllComplaints()
+                branch = req.session.user.dept
+                branchcomp = allcomplaint.filter((complaint)=>{
+                return complaint.dept_id.toLowerCase().includes(branch.toLowerCase())
+                })
             if(result == true)
             {
-                res.render('facultydashboard',{message : 'Status Updated' ,allComplaints:allcomplaint})
+                
+                res.render('facultydashboard',{message : 'Status Updated' ,allComplaints:branchcomp})
                 
             }
             else{
-                res.render('facultydashboard',{message : result ,allComplaints:allcomplaint})
+
+                res.render('facultydashboard',{message : result ,allComplaints:branchcomp})
             }
         })
     })
@@ -264,6 +280,7 @@ index.get('/',(req,res)=>{
         }).catch((err)=>{
             res.render('assign-faculty',{message: 'something went wrong',faculties:fac_names})    
         })
+        
         res.render('assign-faculty',{message: '',faculties:fac_names})
     })
 

@@ -21,7 +21,7 @@
             <input type="text" name = "emp_id" placeholder="Employee Id"> 
         </div>
         <div class="input-block">
-            <input type="text" name = "name" placeholder="Name">
+            <input type="text" name = "name" placeholder="Name" pattern="^[a-zA-Z\s]+$">
         </div>
         <div class="input-block">
             <input type="text" name = "desig" placeholder="Designation">
@@ -39,7 +39,7 @@
             </select>
         </div>
         <div class="input-block">
-            <input type="email" name = "username" placeholder="username (email)">
+            <input type="email" name = "username" placeholder="username (email)" pattern="^[a-zA-Z0-9_.+-]+@(gmail|yahoo)\.com$|^[a-zA-Z0-9_.+-]+@sistec\.ac\.in$">
         </div>
         <div class="input-block">
             <input type="password" name = "password" placeholder="password">
@@ -51,5 +51,4 @@
       <button type="submit" class="btn-submit-comp" style="opacity: 100; margin-left: 70px;">Register</button>
     </form>
 
-</body>
-</html>
+<%- include("partials/footer") -%>

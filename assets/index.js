@@ -35,6 +35,21 @@ function validatePassword() {
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
 
+
+var adpassword = document.getElementById("password"),
+  adconfirm_password = document.getElementById("confpassword");
+
+function advalidatePassword() {
+  if (adpassword.value != adconfirm_password.value) {
+    adconfirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    adconfirm_password.setCustomValidity("");
+  }
+}
+
+adpassword.onchange = advalidatePassword;
+adconfirm_password.onkeyup = advalidatePassword;
+
 // var mailotp
 
 // function verifyotp(){
