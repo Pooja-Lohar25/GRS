@@ -108,7 +108,7 @@ index.get('/',(req,res)=>{
         
         await controllers.upvotes(req,req.params.id).then(async (result)=>{
             allcomplaint = await controllers.getAllComplaints()
-                branch = req.session.user.dept
+                branch = req.session.user.branch
                 branchcomp = allcomplaint.filter((complaint)=>{
                 return complaint.dept_id.toLowerCase().includes(branch.toLowerCase())
                 })
@@ -308,19 +308,24 @@ var branchcomp = []
         if(req.session.user.role=="student"){
             file = 'dashboard'
             branch = req.session.user.branch
+            branchcomp = allcomplaint.filter((complaint)=>{
+                return complaint.dept_id.toLowerCase().includes(branch.toLowerCase())
+            })
+            res.render(file,{message: '',allComplaints:branchcomp})
         } 
         else if(req.session.user.role=="faculty"){ 
             file = 'facultydashboard'
             branch = req.session.user.dept
+            branchcomp = allcomplaint.filter((complaint)=>{
+                return complaint.dept_id.toLowerCase().includes(branch.toLowerCase())
+            })
+            res.render(file,{message: '',allComplaints:branchcomp})
         }
         else if(req.session.user.role=="admin"){ 
             file = 'admindashboard'
             res.render(file,{message: '',allComplaints:allcomplaint})    
         }
-        branchcomp = allcomplaint.filter((complaint)=>{
-            return complaint.dept_id.toLowerCase().includes(branch.toLowerCase())
-        })
-        res.render(file,{message: '',allComplaints:branchcomp})
+        
         
     })
 

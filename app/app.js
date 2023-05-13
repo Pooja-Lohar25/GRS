@@ -21,6 +21,9 @@ app.use(
     cookie: { maxAge: 1000 * 60 * 60 * 24 }, //24 hours
     resave: true,
     saveUninitialized: false,
+    sameSite: true,
+    httpOnly: true,
+    secure: true
   })
 );
   
