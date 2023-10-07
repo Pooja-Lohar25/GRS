@@ -57,7 +57,10 @@ const dbname = 'databaseName' //must be already created
   ```
   > node database/dbsetup
   ```
-  
+  To initialize tables with values, run database/tbsetup.js file in terminal <br>
+  ```
+  > node database/tbsetup
+  ```
   
 ## Start the server
   ```
