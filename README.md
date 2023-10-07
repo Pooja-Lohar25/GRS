@@ -47,6 +47,11 @@ const pass = 'rootPassword'
 const dbname = 'databaseName' //must be already created
 
 ```
+### Install all the dependencies
+  Type the following in terminal 
+  ```
+  > npm install
+  ```
 
 ### Install and connect mysql in node
   Type the following command in terminal
