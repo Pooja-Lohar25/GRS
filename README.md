@@ -38,15 +38,15 @@ Functional Requirements
 
 ## Database requirements
 Note : <u>Pre install MySQL and create a database</u> <br>
-<b>  setup a .env file as per given [envData.txt](https://github.com/Pooja-Lohar25/GRS/blob/main/envData.txt) or Edit below variables database/dbconnect.js with your database credentials </b>
+<b>  setup a .env file </b> <br/>
+  ```
+  HOST = ''
+  USER = ''
+  PASSWORD = ''
+  DATABASE = ''
+  SECRET = ''
+  ```
 
-```node
-const myhost = 'localhost'
-const mysqlUser = 'root'
-const pass = 'rootPassword'
-const dbname = 'databaseName' //must be already created
-
-```
 ### Install all the dependencies
   Type the following in terminal 
   ```
