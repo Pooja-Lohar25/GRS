@@ -1,7 +1,0 @@
-create a new env file at your local system with following variables
-
-HOST = localhost
-USER = <your root username (default :root)>
-PASSWORD = <your root password (default : empty)>
-DATABASE = grsdb 
-SECRET = 'MY SECRET KEY'  
