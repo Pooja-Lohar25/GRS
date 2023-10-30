@@ -48,9 +48,15 @@ const insertDomains = ()=>{
 
     }
 }
+const insertData = ()=>{
 
-insertDepartments()
-insertDomains()
+    insertDepartments()
+    insertDomains()
+}
+
+module.exports = {
+    insertData
+}
 
 
 

@@ -14,7 +14,8 @@
   },
   "homepage": "https://github.com/Pooja-Lohar25/GRS#readme",
   "scripts": {
-    "dev": "nodemon ./app/app.js"
+    "dev": "nodemon ./app/app.js",
+    "start": "nodemon ./app/app.js"
   },
   "dependencies": {
     "@mysql/xdevapi": "^8.0.32",

@@ -1,9 +1,18 @@
+const dbSetup = require('../database/dbSetup') 
+const tbSetup  = require('../database/tbSetup')
+
 const express = require("express");
 const app = express();
 const path = require("path");
 const session = require("express-session");
 const dotenv = require("dotenv");
 const ejs = require("ejs");
+
+//database setups
+dbSetup.createTables()
+tbSetup.insertData()
+
+
 
 //importing routes
 const { util,index,faculty,student,admin} = require("./routes");
