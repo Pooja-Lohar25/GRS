@@ -38,6 +38,8 @@ app.use('/complaint',util)
 app.use('/allprofiles',util)
 app.use('logout',index)
 
-app.listen(4000, () => {
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
   console.log("server listening on port 4000");
 });
